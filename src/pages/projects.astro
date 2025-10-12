@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Card from '../components/Card.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+const entries = await getCollection('projects', (e: CollectionEntry<'projects'>) => e.data.published !== false);
+entries.sort((a: CollectionEntry<'projects'>, b: CollectionEntry<'projects'>) => (b.data.date as Date).getTime() - (a.data.date as Date).getTime());
+
+// Simple placeholders for future projects — edit as you like
+const comingSoon: Array<{ title: string; summary?: string }> = [
+  { title: '6th Axis Wrist', summary: 'Add roll to the EB-15 end effector for full orientation control.' },
+  { title: 'Vision Module', summary: 'Camera alignment and fiducial tracking for pick-and-place demos.' },
+  { title: 'Robotic Hand', summary: 'Lightweight gripper/hand experiments with soft pads.' },
+];
+
+function fmt(d: Date) {
+  try { return d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }); } catch { return '' }
+}
+---
+<BaseLayout title="Projects" description="Technical projects" wrap={false} wide={true}>
+  <div class="content-window">
+  <header class="main-window-header">
+      <h1 class="hero-title">Projects</h1>
+      <p class="hero-sub">Robotics, electronics, and build logs</p>
+    </header>
+    <div class="cards-window">
+      <section class="main-window-section">
+        <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
+          {entries.map((e: CollectionEntry<'projects'>) => (
+            <li>
+              <Card href={`/projects/${e.slug}/`} title={e.data.title} image={(e.data as any).image} summary={e.data.summary} badge="projects" metaRight={fmt(e.data.date as Date)} />
+            </li>
+          ))}
+        </ul>
+      </section>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .hero-title {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: .5px;
+    margin-bottom: 0.5rem;
+    padding: 0;
+    font-family: inherit;
+    color: #d6eeff;
+    text-shadow: 0 0 8px rgba(0,255,255,.35), 0 2px 10px rgba(0,0,0,.45);
+  }
+  .hero-sub {
+    font-size: 1.25rem;
+    color: #d6eeff;
+    margin-bottom: 0;
+    font-family: inherit;
+    text-shadow: 0 0 8px rgba(0,255,255,.35);
+  }
+</style>

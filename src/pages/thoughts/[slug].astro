@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('thoughts', (e: CollectionEntry<'thoughts'>) => e.data.published !== false);
+  return entries.map((entry: CollectionEntry<'thoughts'>) => ({ params: { slug: entry.slug }, props: { entry } }));
+}
+
+const { entry } = Astro.props as { entry: CollectionEntry<'thoughts'> };
+const { Content } = await entry.render();
+---
+<BaseLayout title={entry.data.title} description={entry.data.summary ?? 'Thought'}>
+  <article class="prose prose-neutral dark:prose-invert max-w-none">
+    <h1 class="!mt-0">{entry.data.title}</h1>
+    <Content />
+  </article>
+</BaseLayout>

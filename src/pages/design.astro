@@ -1,0 +1,154 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+import Card from '../components/Card.astro';
+import fs from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import path from 'node:path';
+
+// Use the dedicated 'design' collection
+const tagged = await getCollection('design', (e: CollectionEntry<'design'>) => e.data.published !== false);
+tagged.sort((a: CollectionEntry<'design'>, b: CollectionEntry<'design'>) => (b.data.date as Date).getTime() - (a.data.date as Date).getTime());
+
+// Resolve a robust image per entry: use frontmatter if file exists and is non-empty, else pick first upload image
+const items = tagged.map((e: CollectionEntry<'design'>) => {
+  const uploadsDirUrl = new URL(`../../public/uploads/design/${e.slug}/`, import.meta.url);
+  const uploadsDir = fileURLToPath(uploadsDirUrl);
+  let gallery: string[] = [];
+  try {
+    const list = fs.readdirSync(uploadsDir, { withFileTypes: true });
+    gallery = list
+      .filter(f => f.isFile() && /\.(png|jpe?g|webp|avif|gif)$/i.test(f.name))
+      .map(f => ({
+        web: `/uploads/design/${e.slug}/${f.name}`,
+        abs: fileURLToPath(new URL(`../../public/uploads/design/${e.slug}/${f.name}`, import.meta.url)),
+      }))
+      .filter(f => {
+        try { const st = fs.statSync(f.abs); return st.isFile() && st.size > 0; } catch { return false; }
+      })
+      .map(f => f.web)
+      .sort();
+  } catch {}
+
+  function fileOk(p?: string): boolean {
+    if (!p) return false;
+    try {
+      const base = fileURLToPath(new URL(`../../public/`, import.meta.url));
+      const rel = (p.startsWith('/') ? p.slice(1) : p).replace(/\\/g, '/');
+      const fp = path.join(base, rel);
+      const st = fs.statSync(fp);
+      return st.isFile() && st.size > 0;
+    } catch { return false; }
+  }
+
+  // Prefer explicit frontmatter image if it exists; otherwise fall back to first gallery image
+  let resolvedImage = fileOk((e.data as any).image) ? (e.data as any).image : (gallery[0] ?? undefined);
+  // Force Thresh Lantern to use the exact photo requested
+  if (e.slug === 'thresh-lantern-display') {
+    const forced = '/uploads/design/thresh-lantern-display/1000007630 (1).jpg';
+    if (fileOk(forced)) resolvedImage = forced;
+  }
+  return { entry: e, image: resolvedImage };
+});
+
+// Helper for external section: check if a public file exists safely (supports spaces)
+function publicFileOk(p?: string): boolean {
+  if (!p) return false;
+  try {
+    const base = fileURLToPath(new URL(`../../public/`, import.meta.url));
+    const rel = (p.startsWith('/') ? p.slice(1) : p).replace(/\\/g, '/');
+    const fp = path.join(base, rel);
+    const st = fs.statSync(fp);
+    return st.isFile() && st.size > 0;
+  } catch { return false; }
+}
+
+// Resolve images for Cults3D cards with graceful fallbacks to local design images
+const cultsImages = {
+  profile: publicFileOk('/uploads/cults/profile-thumb.jpg')
+    ? '/uploads/cults/profile-thumb.jpg'
+    : '/uploads/design/thresh-lantern-display/1000007630 (1).jpg',
+  signet: publicFileOk('/uploads/cults/red-rising-signet.jpg')
+    ? '/uploads/cults/red-rising-signet.jpg'
+    : '/uploads/design/viego-blade-of-the-ruined-king/1000007631 (1).jpg',
+  bookmark: publicFileOk('/uploads/cults/red-rising-bookmark.jpg')
+    ? '/uploads/cults/red-rising-bookmark.jpg'
+    : '/uploads/design/viego-blade-of-the-ruined-king/1000007631 (1).jpg',
+  puzzle: publicFileOk('/uploads/cults/puzzle-box.jpg')
+    ? '/uploads/cults/puzzle-box.jpg'
+    : '/uploads/design/thresh-lantern-display/1000007630 (1).jpg',
+};
+---
+<BaseLayout title="3D Design" description="3D design, CAD, modeling, and printable parts">
+  <div class="hero-blade">
+    <h1 class="hero-title !mt-0">3D Design</h1>
+    <p class="hero-sub">CAD, modeling, printable parts, and visualization</p>
+  </div>
+  {items.length === 0 ? (
+    <p>No 3D design uploads yet.</p>
+  ) : (
+  <div class="cards-window mt-3">
+      <ul class="grid gap-6 md:grid-cols-2">
+        {items.map(({ entry: e, image }) => (
+          <li>
+            <Card href={`/design/${e.slug}/`} title={e.data.title} image={image} summary={e.data.summary} badge="design" metaRight={(e.data.date as Date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })} imageContain={true} />
+          </li>
+        ))}
+      </ul>
+    </div>
+  )}
+
+  {/* Cults3D profile spotlight */}
+  <div class="hero-blade mt-3">
+    <h2 class="hero-title !mt-0">More on Cults3D</h2>
+    <p class="hero-sub">Browse and download my printable designs on Cults3D</p>
+  </div>
+  <div class="link-window mt-3">
+    <ul class="grid gap-6 md:grid-cols-4 mt-3">
+      <li>
+        <Card
+          href="https://cults3d.com/en/users/csabanoster/3d-models"
+          title="My Cults3D Profile"
+          image="/uploads/art/cyberpunk1.png"
+          summary="See all models and updates"
+          badge="cults3d"
+          external={true}
+          imageContain={true}
+        />
+      </li>
+      <li>
+        <Card
+          href="https://cults3d.com/en/3d-model/jewelry/red-rising-signet-ring"
+          title="Red Rising Signet Ring"
+          image="https://fbi.cults3d.com/uploaders/42537805/illustration-file/b181039c-7d12-4e29-ae89-fa4ba1c420cf/ring_signet1.png"
+          summary="On Cults3D"
+          badge="cults3d"
+          external={true}
+          imageContain={true}
+        />
+      </li>
+      <li>
+        <Card
+          href="https://cults3d.com/en/3d-model/various/red-rising-bookmark"
+          title="Red Rising Bookmark"
+          image="https://fbi.cults3d.com/uploaders/42537805/illustration-file/8310892c-e2e0-4559-b907-696c28c1b58a/Red_Rising_bookmark.png"
+          summary="On Cults3D"
+          badge="cults3d"
+          external={true}
+          imageContain={true}
+        />
+      </li>
+      <li>
+        <Card
+          href="https://cults3d.com/en/3d-model/home/puzzle-box-csabanoster-3"
+          title="Puzzle Box"
+          image="https://fbi.cults3d.com/uploaders/42537805/illustration-file/27720124-d845-499a-9390-b67430c2bc52/Puzzle_box.png"
+          summary="On Cults3D"
+          badge="cults3d"
+          external={true}
+          imageContain={true}
+        />
+      </li>
+    </ul>
+  </div>
+</BaseLayout>

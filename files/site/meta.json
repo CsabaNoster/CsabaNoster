@@ -1,0 +1,17 @@
+{
+  "title": "Watch 2.0 \u2013 Dieselpunk ESP32 OLED Watch",
+  "description": "Complete build log for Watch 2.0: an ESP32-based dieselpunk OLED wristwatch with custom faces, touch buttons, and Wi\u2011Fi control panel. Includes images, BOM, wiring, firmware, and CAD.",
+  "url": "https://example.com/watch2",
+  "author": "Csaba",
+  "keywords": [
+    "ESP32",
+    "OLED",
+    "SSD1351",
+    "watch",
+    "DIY",
+    "embedded",
+    "Arduino",
+    "dieselpunk"
+  ],
+  "social_image": "assets/hero.jpg"
+}

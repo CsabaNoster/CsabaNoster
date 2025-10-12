@@ -1,0 +1,55 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+import Card from '../components/Card.astro';
+import Grid from '../components/Grid.astro';
+
+// Aggregate from all collections and filter by robotics-related tags
+const [projects, art, reviews, thoughts] = await Promise.all([
+  getCollection('projects', (e: CollectionEntry<'projects'>) => e.data.published !== false),
+  getCollection('art', (e: CollectionEntry<'art'>) => e.data.published !== false),
+  getCollection('reviews', (e: CollectionEntry<'reviews'>) => e.data.published !== false),
+  getCollection('thoughts', (e: CollectionEntry<'thoughts'>) => e.data.published !== false)
+]);
+const all = [...projects, ...art, ...reviews, ...thoughts];
+const tagged = all.filter(e => (e.data.tags || []).some((t: string) => ['robot','robotics','mechatronics','controls'].includes(t.toLowerCase())));
+tagged.sort((a, b) => (b.data.date as Date).getTime() - (a.data.date as Date).getTime());
+---
+<BaseLayout title="Robotics" description="Robotics, mechatronics, and control systems">
+  <div class="hero-blade">
+    <h1 class="hero-title !mt-0">Robotics</h1>
+    <p class="hero-sub">Mechatronics builds, control systems, and arm projects</p>
+  </div>
+  {tagged.length === 0 ? (
+    <p>No robotics uploads yet.</p>
+  ) : (
+    <div class="cards-window">
+      <Grid>
+      {tagged.map((e) => {
+        const img = (e.data as any).image as string | undefined;
+        const date = (e.data.date as Date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+        return (
+          <li>
+            <Card
+              href={`/${e.collection}/${e.slug}/`}
+              title={e.data.title}
+              image={img}
+              summary={e.data.summary}
+              badge={e.collection}
+              metaRight={date}
+            />
+          </li>
+        );
+      })}
+      </Grid>
+    </div>
+  )}
+</BaseLayout>
+
+<style>
+.hero-blade,
+.main-window-header {
+  border: 2.5px solid #b38a4a;
+  box-shadow: 0 0 0 1px #d8b980 inset, 0 0 12px #b38a4a22 inset;
+}
+</style>

@@ -1,0 +1,20 @@
+# Gallery images and captions
+# Place matching files into /assets, or rename here to match your filenames.
+# Mark exactly one image with hero: true for the page preview.
+items:
+  - file: hero.jpg
+    alt: Watch 2.0 assembled, dieselpunk ESP32 OLED watch on leather strap
+    caption: Assembled prototype.
+    hero: true
+  - file: build-01.jpg
+    alt: PCB and 1.5 inch RGB OLED on the bench
+    caption: PCB + OLED test fit.
+  - file: build-02.jpg
+    alt: Soldered wiring and touch pad film
+    caption: Wiring and touch pads.
+  - file: ui-01.jpg
+    alt: Web UI control panel shown on a phone
+    caption: Web control panel.
+  - file: face-dots.jpg
+    alt: Dots face showing time
+    caption: Dots face (WIP sizing and centering).

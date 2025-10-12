@@ -1,0 +1,91 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+import fs from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import path from 'node:path';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('design', (e: CollectionEntry<'design'>) => e.data.published !== false);
+  return entries.map((entry: CollectionEntry<'design'>) => ({ params: { slug: entry.slug }, props: { entry } }));
+}
+
+const { entry } = Astro.props as { entry: CollectionEntry<'design'> };
+const { Content } = await entry.render();
+
+// Discover gallery images under /uploads/design/<slug>/
+let gallery: string[] = [];
+try {
+  const du = new URL(`../../../public/uploads/design/${entry.slug}/`, import.meta.url);
+  const dp = fileURLToPath(du);
+  const items = fs.readdirSync(dp, { withFileTypes: true });
+  gallery = items
+    .filter((f) => f.isFile() && /\.(png|jpe?g|webp|avif|gif)$/i.test(f.name))
+    .map((f) => ({
+      web: `/uploads/design/${entry.slug}/${f.name}`,
+      abs: fileURLToPath(new URL(`../../../public/uploads/design/${entry.slug}/${f.name}`, import.meta.url)),
+    }))
+    .filter((f) => {
+      try { const st = fs.statSync(f.abs); return st.isFile() && st.size > 0; } catch { return false; }
+    })
+    .map((f) => f.web)
+    .sort();
+} catch {}
+
+function fileOk(p?: string): boolean {
+  if (!p) return false;
+  try {
+    const base = fileURLToPath(new URL(`../../../public/`, import.meta.url));
+    const rel = (p.startsWith('/') ? p.slice(1) : p).replace(/\\/g, '/');
+    const abs = path.join(base, rel);
+    const st = fs.statSync(abs);
+    return st.isFile() && st.size > 0;
+  } catch { return false; }
+}
+
+// Prefer explicit frontmatter image if it exists; otherwise fall back to first gallery image
+let heroSrc = fileOk((entry.data as any).image) ? (entry.data as any).image : (gallery[0] ?? undefined);
+// Force Thresh Lantern detail page to use the exact requested photo when present
+if (entry.slug === 'thresh-lantern-display') {
+  const forced = '/uploads/design/thresh-lantern-display/1000007630 (1).jpg';
+  if (fileOk(forced)) heroSrc = forced;
+}
+---
+<BaseLayout title={entry.data.title} description={entry.data.summary ?? '3D Design detail'}>
+  <article class="prose prose-neutral dark:prose-invert max-w-none">
+    <div class="content-window">
+      <div class="hero-blade">
+        <h1 class="hero-title">{entry.data.title}</h1>
+        {entry.data.summary && <p class="hero-sub">{entry.data.summary}</p>}
+      </div>
+  {heroSrc && (
+    <div class="rounded mb-6 mt-4 overflow-hidden bg-black/60 dark:bg-black/40">
+      <img src={heroSrc} alt={entry.data.title} class="block mx-auto max-h-[420px] w-auto object-contain" />
+    </div>
+  )}
+      <Content />
+
+      {gallery.length > 0 && (
+        <section class="not-prose mt-6">
+          <h2 class="text-xl font-semibold mb-3">Gallery</h2>
+          <ul class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+            {gallery.map((src) => (
+              <li class="overflow-hidden rounded-lg border border-neutral-300 bg-white/90 dark:bg-neutral-900/90">
+                <button type="button" class="w-full aspect-[4/3] group" data-lb-src={src} aria-label="Open image">
+                  <img src={src} alt={`${entry.data.title} image`} class="w-full h-40 object-cover object-center group-hover:opacity-90 transition" loading="lazy" />
+                </button>
+              </li>
+            ))}
+          </ul>
+          <div id="lightbox" class="fixed inset-0 z-[9999] hidden items-center justify-center bg-black/70 p-4" role="dialog" aria-modal="true" aria-label="Image viewer">
+            <div class="max-w-5xl max-h-[85vh] relative">
+              <button id="lightbox-close" class="absolute -top-3 -right-3 bg-white text-black rounded-full w-8 h-8 shadow" aria-label="Close">✕</button>
+              <img id="lightbox-img" src="" alt="" class="w-auto h-auto max-w-full max-h-[85vh] rounded shadow-lg" />
+            </div>
+          </div>
+          <script src="/js/lightbox.js"></script>
+        </section>
+      )}
+    </div>
+  </article>
+</BaseLayout>

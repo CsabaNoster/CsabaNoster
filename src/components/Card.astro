@@ -1,0 +1,66 @@
+---
+export interface Props {
+  href: string;
+  title: string;
+  image?: string;
+  summary?: string;
+  subtitle?: string; // legacy small meta line
+  badge?: string;    // left meta badge (e.g., collection)
+  metaRight?: string;// right meta text (e.g., date)
+  class?: string;
+  imageContain?: boolean; // render media with object-contain instead of cover
+  external?: boolean; // open in new tab with rel attrs
+}
+const { href, title, image, summary, subtitle, badge, metaRight, imageContain, external } = Astro.props as Props;
+const imgClass = imageContain
+  ? 'w-full h-40 object-contain object-center bg-neutral-50 dark:bg-neutral-900 box-border p-1'
+  : 'w-full h-40 object-cover object-center';
+
+function badgeClasses(name?: string) {
+  const key = (name || '').toLowerCase();
+  // Light/Dark pairs chosen for contrast on both themes
+  switch (key) {
+    case 'projects':
+      return 'bg-blue-600 text-white dark:bg-blue-300 dark:text-black';
+    case 'design':
+      return 'bg-purple-600 text-white dark:bg-purple-300 dark:text-black';
+    case 'art':
+      return 'bg-pink-600 text-white dark:bg-pink-300 dark:text-black';
+    case 'reviews':
+      return 'bg-emerald-600 text-white dark:bg-emerald-300 dark:text-black';
+    case 'thoughts':
+      return 'bg-amber-600 text-black dark:bg-amber-300 dark:text-black';
+    default:
+      return 'bg-neutral-900 text-white dark:bg-neutral-200 dark:text-black';
+  }
+}
+---
+<a href={href} class={`block overflow-hidden rounded border border-neutral-300/60 dark:border-neutral-700/70 bg-white/90 dark:bg-neutral-900/85 backdrop-blur-sm shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-amber-500/60`} target={external ? '_blank' : undefined} rel={external ? 'noopener noreferrer' : undefined}>
+  {/* Media */}
+  {image ? (
+    <img src={image} alt={title} class={imgClass} loading="lazy" />
+  ) : (
+    <div class="w-full h-40 bg-neutral-200 dark:bg-neutral-800 flex items-center justify-center text-sm text-neutral-700 dark:text-neutral-300">
+      No image
+    </div>
+  )}
+
+  {/* Body */}
+  <div class="p-3">
+    {(badge || metaRight) && (
+      <div class="flex items-center justify-between text-xs text-neutral-700 dark:text-neutral-300">
+        <span class="inline-flex items-center gap-1">
+          {badge && (
+            <span class={`inline-block px-2 py-0.5 rounded-full uppercase tracking-wide text-[10px] ${badgeClasses(badge)}`}>
+              {badge}
+            </span>
+          )}
+        </span>
+        {metaRight && <span>{metaRight}</span>}
+      </div>
+    )}
+    <h3 class="mt-1 text-base font-semibold text-neutral-900 dark:text-neutral-100">{title}</h3>
+    {subtitle && <p class="m-0 text-xs opacity-70 mt-0.5">{subtitle}</p>}
+    {summary && <p class="mt-1 text-sm text-neutral-800 dark:text-neutral-200 line-clamp-3">{summary}</p>}
+  </div>
+</a>

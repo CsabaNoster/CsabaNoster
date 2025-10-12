@@ -1,0 +1,938 @@
+.hero-blade {
+	border: 2.5px solid #3a8ad8;
+	box-shadow: 0 0 0 1px #7fcfff inset, 0 0 12px #3a8ad822 inset;
+}
+.main-window-header {
+	border-radius: 14px;
+	background: linear-gradient(180deg, rgba(0,0,0,0.55), rgba(0,0,0,0.28));
+	padding: 1rem 1.25rem;
+	box-shadow: 0 10px 18px rgba(0,0,0,0.35) inset, 0 6px 18px rgba(0,0,0,0.35);
+	position: relative;
+	overflow: hidden;
+	margin-bottom: 20px; /* ~5mm */
+}
+html:not(.theme-cyberpunk) .main-window-header {
+	border: 2.5px solid #d88c3a;
+	box-shadow: 0 0 0 1px #e2b798 inset, 0 0 12px #d88c3a44 inset;
+}
+.theme-cyberpunk .main-window-header {
+	border: 2.5px solid #3a8ad8 !important;
+	box-shadow: 0 0 0 1px #7fcfff inset, 0 0 12px #3a8ad822 inset !important;
+}
+.cards-window {
+	border-radius: 14px;
+	background: rgba(20,24,40,0.18);
+	box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+	padding: 1.25rem 1.5rem 1.5rem 1.5rem;
+	margin-bottom: 20px; /* ~5mm */
+	margin-top: 20px; /* ~5mm, for consistency below headers */
+}
+html:not(.theme-cyberpunk) .cards-window {
+	border: 2.5px solid #d88c3a;
+	box-shadow: 0 0 0 1px #e2b798 inset, 0 0 12px #d88c3a44 inset;
+}
+.theme-cyberpunk .cards-window {
+	border: 2.5px solid #3a8ad8 !important;
+	box-shadow: 0 0 0 1px #7fcfff inset, 0 0 12px #3a8ad822 inset !important;
+}
+.link-window {
+	border-radius: 14px;
+	background: rgba(20,24,40,0.12);
+	box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+	padding: 1.25rem 1.5rem 1.5rem 1.5rem;
+	margin-bottom: 20px; /* ~5mm */
+	margin-top: 20px; /* ~5mm, for consistency below headers */
+}
+html:not(.theme-cyberpunk) .link-window {
+	background: rgba(20,24,40,0.18);
+	border: 2.5px solid #d88c3a;
+	box-shadow: 0 0 0 1px #e2b798 inset, 0 0 12px #d88c3a44 inset;
+	margin-bottom: 20px;
+	margin-top: 20px;
+}
+.theme-cyberpunk .link-window {
+	border: 2.5px solid #3a8ad8 !important;
+	box-shadow: 0 0 0 1px #7fcfff inset, 0 0 12px #3a8ad822 inset !important;
+}
+.theme-cyberpunk .intro-list {
+	color: #d6eeff;
+	text-shadow: 0 0 8px rgba(0,255,255,.35), 0 2px 10px rgba(0,0,0,.45);
+}
+.header-bubble-content.center {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+}
+.home-intro {
+	max-width: 600px;
+	margin: 0 auto 1.2rem auto;
+}
+.intro-list {
+	list-style: disc inside;
+	margin: 0.5rem 0 1rem 0;
+	padding: 0;
+	color: #2b1d14;
+	font-size: 1.35rem;
+	text-align: left;
+	display: inline-block;
+}
+.intro-list li {
+	margin-bottom: 0.3rem;
+}
+/* Inner window for latest uploads section */
+.inner-window {
+	background: linear-gradient(180deg, rgba(0,0,0,0.18), rgba(0,0,0,0.08));
+	border-radius: 14px;
+	box-shadow: 0 4px 12px rgba(0,0,0,0.18) inset, 0 2px 8px rgba(0,0,0,0.12);
+	padding: 1.25rem 1.5rem 1.5rem 1.5rem;
+	margin-bottom: 2rem;
+	margin-top: 1.5rem;
+}
+/* Main window header bubble (used on all pages) */
+.main-window-header {
+		background: linear-gradient(180deg, rgba(0,0,0,0.55), rgba(0,0,0,0.28));
+	border: 1px solid rgba(255,255,255,0.05);
+	border-radius: 14px;
+	padding: 1rem 1.25rem;
+	box-shadow: 0 10px 18px rgba(0,0,0,0.35) inset, 0 6px 18px rgba(0,0,0,0.35);
+	position: relative;
+	overflow: hidden;
+	margin-bottom: 20px; /* ~5mm */
+}
+.header-bubble-content {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+/* Make the home page button larger */
+.steam-nav .steam-brand-link.home-btn {
+	padding: .44rem 1.35rem .44rem 1.35rem;
+	font-size: 1.22rem;
+	font-weight: 700;
+	border-radius: 10px;
+}
+/* If Tailwind is not set up, remove these lines. Otherwise, ensure PostCSS and Tailwind are configured in your build. */
+
+:root { 
+	color-scheme: light dark; 
+	/* Palette for SVG background */
+	--sand:#f0d8b2;      /* light tan */
+	--sand-2:#e9cfa6;    /* slightly darker tan */
+	--brick:#7a2621;     /* deep red */
+	--brick-2:#5e1d19;   /* darker red */
+}
+
+/* Background art container (SVG inserted in layout) */
+.bg-art {
+	position: fixed;
+	inset: 0;
+	z-index: -1;
+	pointer-events: none;
+	width: 100vw; /* ensure full viewport width */
+	height: 100vh; /* ensure full viewport height */
+	display: block;
+	overflow: hidden; /* clip overflowing child image */
+}
+
+/* Force the chosen <img> inside <picture> to cover entire viewport */
+.bg-art > img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center center;
+	display: block;
+	/* Slight smoothing for large images */
+	image-rendering: -webkit-optimize-contrast;
+}
+
+/* Ensure root elements allow full-height fixed layer calculation */
+html, body { height: 100%; }
+
+body {
+	margin: 0;
+	min-height: 100vh;
+	font-family: Inter,system-ui,sans-serif;
+	-webkit-font-smoothing: antialiased;
+	background: var(--sand);
+	color: #2b1d14;
+}
+
+/* Ensure stacking: site content above decorative layers */
+html, body, #__astro { position: relative; }
+.steam-nav-wrapper {
+	position: sticky;
+	top: 0;
+	z-index: 10;
+}
+/* Ensure developer tools panel overlays nearby content when needed */
+.dev-tools { position: relative; z-index: 5; }
+/* Global background layer defaults */
+.bg-photo-layer {
+	position: fixed;
+	inset: 0;
+	z-index: -1; /* behind content */
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-color: transparent;
+	transition: opacity 1s ease, filter 1s ease;
+	opacity: 1;
+	pointer-events: none; /* never intercept clicks */
+	transform: translateY(0) !important; /* avoid any drift */
+}
+
+/* Prevent initial flash: if cyberpunk is active at first paint, hide the steampunk picture layer */
+html.theme-cyberpunk .bg-art { display: none !important; }
+/* Conversely, in steampunk, keep the dynamic layer hidden until theme script runs */
+html:not(.theme-cyberpunk) #bg-image { display: none !important; }
+
+/* Two-bar header layout: nav left, clock right */
+.steam-header { display:flex; gap:.75rem; align-items:stretch; width:min(100%, 1280px); margin: 0 auto; }
+.steam-clock-bar { display:flex; align-items:center; justify-content:center; min-width: 320px; padding: .7rem 1.2rem; flex-direction: column; }
+@media (max-width: 880px){ .steam-clock-bar { display:none; } }
+/* Inside the combined header, let the left bar fill and clock size to content */
+.steam-header .steam-nav { width: auto; margin: 0; flex: 1 1 0; }
+.steam-header .steam-clock-bar { flex: 0 0 auto; }
+
+/* Nav bar: use uploaded steel images */
+.steam-nav{
+	/* Seamless tile, repeats horizontally */
+	background: rgba(6,8,18,0.7) !important;
+	border-color: rgba(229,0,255,0.28);
+	box-shadow:
+		0 0 0 1px rgba(229,0,255,.16) inset,
+		0 0 14px rgba(229,0,255,.18),
+		0 12px 24px -8px rgba(0,0,0,.8);
+	border-radius: 12px;
+}
+
+/* Desktop */
+@media (min-width: 1024px){
+	.steam-nav{
+		background: #141618 url("/img/steel_dark_desktop_1920x200.jpeg") center/cover no-repeat;
+	}
+}
+
+/* Mobile */
+@media (max-width: 640px){
+	.steam-nav{
+		background: #141618 url("/img/steel_dark_mobile_1080x240.jpeg") center/cover no-repeat;
+	}
+}
+
+/* ===================== Steampunk Navigation ===================== */
+.steam-nav {
+	--brass-base: #b38a4a;
+	--brass-edge: #d8b980;
+	--brass-shadow: #6a4a1f;
+	--panel-bg: none;
+	--rivet-size: 8px;
+	width: min(100%, 1280px);
+	margin: 0 auto;
+	display: flex;
+	align-items: center;
+	gap: 0.22rem;
+	padding: .18rem .6rem .18rem .6rem;
+	justify-content: flex-start;
+	flex-wrap: nowrap;
+	backdrop-filter: blur(3px) saturate(115%);
+	position: relative;
+	overflow: hidden;
+	border: 2px solid #1f242a;
+		border-radius: 12px;
+				margin-bottom: 4.5rem;
+	box-shadow:
+		0 0 0 1px #d8b980 inset,
+		0 0 14px #b38a4a18,
+		0 12px 24px -8px #6a4a1f80;
+}
+
+/* Copper circuitry overlay (drawn via inline SVG) */
+.steam-nav::before { content: none; }
+
+.steam-brand { display:flex; align-items:center; }
+.steam-brand-link {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+		gap: 0;
+	padding: .22rem .62rem .22rem .62rem;
+	font-weight: 600;
+	font-size: 1.04rem;
+	letter-spacing: .5px;
+	text-transform: uppercase;
+	color: #27140f;
+	text-shadow: 0 1px 0 #fff8, 0 0 6px #f5e3c260;
+	background-image: linear-gradient(180deg, rgba(30,40,80,.85), rgba(15,20,35,.85));
+	border-color: rgba(0,255,255,.22);
+	box-shadow: 0 0 0 1px rgba(0,255,255,.25) inset, 0 0 18px rgba(0,255,255,.25) inset, 0 6px 18px rgba(0,0,0,.6);
+	transition: all .25s ease;
+	overflow: hidden;
+}
+.steam-brand-link:hover,
+	.steam-brand-link:focus-visible {
+	/* Press-in look like other buttons */
+	transform: translateY(1px) scale(0.995);
+	box-shadow:
+		0 0 0 1px #e6c6ac inset,
+		0 3px 8px #000a inset,
+		0 0 6px #0005;
+	outline: none;
+}
+.steam-brand-link:active {
+	transform: translateY(2px) scale(0.99);
+	box-shadow:
+		0 0 0 1px #d2a37d inset,
+		0 4px 10px #000b inset,
+		0 0 4px #0006;
+}
+
+/* Improved gear visuals */
+.steam-gear {
+	--gear-size: 30px;
+	width: var(--gear-size);
+	height: var(--gear-size);
+	position: relative;
+	display: inline-block;
+	filter: drop-shadow(0 1px 1px #0009) drop-shadow(0 0 2px #0006);
+}
+/* Base gear shape with richer metal shading */
+.steam-gear::before {
+	content: "";
+	position: absolute; inset:0;
+	background:
+		radial-gradient(circle at 40% 35%, #fff7e2 0 8%, #f3dbb3 9% 18%, #d2aa66 19% 28%, #b07d38 29% 46%, #8a5a24 47% 62%, #6f4319 63% 78%, #41240c 79% 100%),
+		radial-gradient(circle at 65% 70%, rgba(255,255,255,.35), transparent 60%);
+	-webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%23fff' d='M44 4h12l2.2 9.8a34 34 0 0 1 6.7 3.1l8.9-4 8.5 8.5-4 8.9a34 34 0 0 1 3.1 6.7L96 44v12l-9.8 2.2a34 34 0 0 1-3.1 6.7l4 8.9-8.5 8.5-8.9-4a34 34 0 0 1-6.7 3.1L56 96H44l-2.2-9.8a34 34 0 0 1-6.7-3.1l-8.9 4-8.5-8.5 4-8.9a34 34 0 0 1-3.1-6.7L4 56V44l9.8-2.2a34 34 0 0 1 3.1-6.7l-4-8.9 8.5-8.5 8.9 4a34 34 0 0 1 6.7-3.1L44 4Zm6 24a18 18 0 1 0 0 36 18 18 0 0 0 0-36Z'/%3E%3C/svg%3E") center/100% 100% no-repeat;
+	mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%23fff' d='M44 4h12l2.2 9.8a34 34 0 0 1 6.7 3.1l8.9-4 8.5 8.5-4 8.9a34 34 0 0 1 3.1 6.7L96 44v12l-9.8 2.2a34 34 0 0 1-3.1 6.7l4 8.9-8.5 8.5-8.9-4a34 34 0 0 1-6.7 3.1L56 96H44l-2.2-9.8a34 34 0 0 1-6.7-3.1l-8.9 4-8.5-8.5 4-8.9a34 34 0 0 1-3.1-6.7L4 56V44l9.8-2.2a34 34 0 0 1 3.1-6.7l-4-8.9 8.5-8.5 8.9 4a34 34 0 0 1 6.7-3.1L44 4Zm6 24a18 18 0 1 0 0 36 18 18 0 0 0 0-36Z'/%3E%3C/svg%3E") center/100% 100% no-repeat;
+	animation: gear-spin 16s linear infinite;
+}
+/* Inner hub & rivets */
+.steam-gear::after {
+	content: "";
+	position:absolute; inset:0;
+	background:
+		radial-gradient(circle at 50% 50%, #2f1b0d 0 24%, #8c5b26 25% 26%, #d9b27a 27% 34%, #b4843d 35% 52%, #744a1f 53% 72%, transparent 73% 100%),
+		radial-gradient(circle at 30% 30%, rgba(255,255,255,.35), transparent 55%);
+	-webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='38' fill='%23000'/><circle cx='50' cy='50' r='18' fill='%23fff'/><circle cx='50' cy='50' r='14' fill='%23000'/><circle cx='50' cy='50' r='8' fill='%23fff'/%3E%3C/svg%3E") center/100% 100% no-repeat;
+	mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='38' fill='%23000'/><circle cx='50' cy='50' r='18' fill='%23fff'/><circle cx='50' cy='50' r='14' fill='%23000'/><circle cx='50' cy='50' r='8' fill='%23fff'/%3E%3C/svg%3E") center/100% 100% no-repeat;
+	mix-blend-mode: overlay;
+	pointer-events:none;
+}
+.gear-left::before { animation-direction: reverse; animation-duration: 22s; }
+.gear-right::before { animation-duration: 12s; }
+
+@keyframes gear-spin { to { transform: rotate(360deg); } }
+
+.steam-links {
+	list-style: none; margin:0; padding:0; display:flex; flex-wrap:nowrap; gap:.22rem; align-items:center;
+	margin-left: auto;
+}
+.steam-btn {
+	position: relative; display:inline-block; text-decoration:none; font-weight:500; letter-spacing:.5px; color:#2b1d14;
+}
+/* Steampunk button style: darker plate, brighter text, no screws */
+.steam-btn__plate {
+	text-align: center;
+	text-align: center;
+	display:inline-flex; align-items:center; justify-content:center; gap:0;
+	padding:.22rem .62rem .22rem .62rem; border-radius:10px; position:relative; overflow:hidden;
+}
+html:not(.theme-cyberpunk) .steam-btn__plate {
+	background-image: url('/img/steel_dark_desktop_1920x200.jpeg');
+	background-size: cover;
+	background-repeat: no-repeat;
+	border: 1.5px solid #442514;
+	box-shadow: 0 1px 1px #000a, 0 0 0 1px #edc8abcc inset, 0 0 8px #f9e6d699 inset;
+	transition: all .25s ease;
+}
+.steam-btn__plate:hover,
+.steam-btn__plate:focus-visible { 
+	/* Press-in look: stronger inner shadow, slight downward movement */
+	transform: translateY(1px) scale(0.995);
+	box-shadow:
+		0 0 0 1px #e6c6ac inset,
+		0 3px 8px #000a inset,
+		0 0 6px #0005;
+	outline: none;
+}
+.steam-btn__plate:active { 
+	transform: translateY(2px) scale(0.99);
+	box-shadow:
+		0 0 0 1px #d2a37d inset,
+		0 4px 10px #000b inset,
+		0 0 4px #0006;
+}
+.steam-btn__label { position:relative; z-index:1; }
+.brand-text { z-index:1; }
+/* ========= Engraved Text Effect ========= */
+/* Steampunk button text: brighter fill */
+.steam-btn__label, .brand-text {
+	text-align: center;
+	white-space: nowrap;
+	position:relative;
+	font-weight:700;
+	background: none !important;
+	-webkit-background-clip: initial !important;
+	background-clip: initial !important;
+	color: #d6eeff !important;
+	text-shadow: 0 0 2px rgba(0,255,255,.4), 0 0 6px rgba(0,255,255,.25);
+}
+.steam-btn__label::before, .brand-text::before {
+	content: attr(data-text);
+	position:absolute; inset:0;
+	color:#000; opacity:.45; filter:blur(.5px);
+	transform:translate(1px,1px);
+	pointer-events:none;
+}
+.steam-btn__label::after, .brand-text::after {
+	content: attr(data-text);
+	position:absolute; inset:0;
+	color:#fff1e0; opacity:.32;
+	mix-blend-mode:screen;
+	transform:translate(-1px,-1px);
+	pointer-events:none;
+}
+/* Subtle inner bevel illusion using multiple text-shadows on actual element (affects selection fallback) */
+.steam-btn__label, .brand-text {
+	text-shadow: 0 1px 0 rgba(0,0,0,.55), 0 -1px 0 rgba(255,240,220,.4);
+}
+/* Screws */
+/* Removed screws from button style */
+
+@media (max-width: 720px) {
+	.steam-nav { flex-wrap:wrap; padding: .6rem .85rem 1rem; }
+	.steam-links { width:100%; justify-content:space-between; }
+	.steam-brand-link { font-size:1rem; padding:.4rem .8rem; }
+	.steam-btn__plate { padding:.5rem .75rem .55rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.steam-gear::before { animation: none; }
+	.steam-brand-link, .steam-btn__plate { transition: none; }
+}
+
+/* ===================== Nixie Clock ===================== */
+.nixie-clock {
+	display:flex; align-items:center; justify-content:center; gap:.4rem; margin:0; font-variant-numeric: tabular-nums;
+	position:relative; padding:.7rem 1.2rem; border:1px solid #2a3036; border-radius:10px;
+	/* Match menu bar background */
+	background: #141618 url("/img/steel_dark_tile_512x256.jpeg") top center repeat-x;
+	background-size: auto 200px;
+	box-shadow:
+		0 2px 4px #0008 inset,
+		0 0 0 1px rgba(255,255,255,.03) inset,
+		0 0 0 3px rgba(0,0,0,.35) inset,
+		0 4px 10px -3px #000c;
+}
+
+/* Clock: Desktop */
+@media (min-width: 1024px){
+	.nixie-clock{
+		background: #141618 url("/img/steel_dark_desktop_1920x200.jpeg") center/cover no-repeat;
+	}
+}
+
+/* Clock: Mobile */
+@media (max-width: 640px){
+	.nixie-clock{
+		background: #141618 url("/img/steel_dark_mobile_1080x240.jpeg") center/cover no-repeat;
+	}
+}
+.nixie-group { display:flex; gap:.25rem; }
+.nixie-sep { position:relative; width:.9ch; height:2.9rem; display:inline-flex; align-items:center; justify-content:center; }
+.nixie-sep::before, .nixie-sep::after { content:""; position:absolute; left:50%; width:.42rem; height:.42rem; margin-left:-.21rem; border-radius:50%; background:radial-gradient(circle at 45% 40%, #ffe9c9 0 35%, #ff9c3a 36% 65%, #ff6d00 66% 75%, rgba(255,80,0,.35) 76% 100%); box-shadow:0 0 4px 1px #ff9a2eaa,0 0 9px 2px #ff7b0088,0 0 14px 4px #ff5c0044; }
+.nixie-sep::before { top:42%; transform:translateY(-100%); }
+.nixie-sep::after { top:58%; }
+.nixie-tube {
+	--tube-width: 1.85ch;
+	position:relative; display:inline-flex; justify-content:center; align-items:center;
+	width:var(--tube-width); height:2.9rem; font-size:1.65rem; font-weight:600;
+	font-family: Consolas, "Lucida Console", "Courier New", monospace; font-variant-numeric: tabular-nums;
+	letter-spacing:-1px; transform:scaleX(.92);
+	/* Glass cylinder background (transparent center, darker rim) */
+	background:
+		radial-gradient(circle at 50% 105%, rgba(255,170,90,.25), transparent 60%),
+		radial-gradient(circle at 50% -10%, rgba(255,255,255,.18), transparent 60%),
+		linear-gradient(180deg,#6a3119 0%,#2d1109 85%);
+	border:1px solid #744020; border-top-color:#b77a43; border-bottom-color:#3b190c;
+	border-radius:6px 6px 12px 12px;
+	box-shadow:
+		0 0 0 1px #c58c54 inset,
+		0 0 3px 1px #ffdfa7aa inset,
+		0 6px 10px -4px #000c,
+		0 0 22px 4px #ff7f0033;
+	/* Filament glow palette */
+	--glow-core:#ffe4bd; --glow-hot:#ffb35c; --glow-wire:#ff8a1e; --glow-far:#ff6100;
+	color: var(--glow-core);
+	-webkit-text-stroke: 1px rgba(255,125,10,0.55);
+	text-shadow:
+		0 0 1px #fff5e0,
+		0 0 2px var(--glow-core),
+		0 0 4px var(--glow-hot),
+		0 0 6px var(--glow-hot),
+		0 0 11px var(--glow-wire),
+		0 0 20px var(--glow-wire),
+		0 0 38px var(--glow-far),
+		0 0 60px rgba(255,96,0,.55);
+	overflow:hidden;
+}
+.nixie-tube::before, .nixie-tube::after, .nixie-tube span::before { pointer-events:none; }
+/* Curved glass reflections (top) */
+.nixie-tube::before { content:""; position:absolute; inset:0; background:
+	linear-gradient(115deg,rgba(255,255,255,.35) 8%,rgba(255,255,255,0) 40%),
+	linear-gradient(-105deg,rgba(255,255,255,.18) 10%,rgba(255,255,255,0) 45%);
+	mix-blend-mode:screen; opacity:.6;
+}
+/* Inner dark fade & vertical streaks to simulate aged glass */
+.nixie-tube::after { content:""; position:absolute; inset:0; background:
+	repeating-linear-gradient(90deg, rgba(255,255,255,.05) 0 2px, rgba(255,255,255,0) 2px 6px),
+	linear-gradient(180deg, rgba(0,0,0,.0) 0 55%, rgba(0,0,0,.55) 100%);
+	opacity:.5; mix-blend-mode:overlay; }
+/* Speckled dust / micro-pitting */
+.nixie-tube::after { mask: radial-gradient(circle at 50% 45%, #000 0 75%, transparent 90%); }
+/* Removed blink/flicker animations for steady display */
+.nixie-tube.flash, .nixie-tube.flicker { animation:none; }
+@media (max-width: 880px){ .nixie-clock { display:none; } }
+@media (prefers-reduced-motion: reduce){ .nixie-tube.flash { animation:none; } }
+.prose a {
+  color: #4f46e5;
+}
+.prose a:hover {
+  text-decoration: underline;
+}
+@media (prefers-color-scheme: dark) {
+  body { color: #f5f5f5; }
+  .prose a { color: #818cf8; }
+}
+
+/* Current page highlight */
+.steam-btn[aria-current="page"] .steam-btn__plate {
+  outline: 2px solid #f5e3c2;
+  outline-offset: 2px;
+  filter: brightness(1.08);
+}
+
+/* Darker content window to improve contrast behind objects/content */
+.content-window {
+			background: none;
+			/* background handled by theme-specific ::before */
+					margin-top: 6.5rem;
+					border-radius: 18px;
+					box-shadow: 0 2px 16px -4px #0004, 0 0 0 1px #e2b798 inset;
+					padding: 1.25rem 1.25rem 1.5rem 1.25rem;
+					max-width: 1280px;
+					width: 100%;
+	position: relative;
+	overflow: hidden;
+	transition: background .3s, box-shadow .3s;
+}
+html:not(.theme-cyberpunk) .content-window {
+		border: 4px solid #b38a4a;
+		box-shadow:
+			0 2px 16px -4px #0004,
+			0 0 0 2px #d8b980 inset,
+			0 0 0 8px #b38a4a44 inset,
+			0 0 0 1px #6a4a1f;
+		background:
+			#f0e3c2 /* light beige */
+			url(/backgrounds/main/circuit_overlay_steampunk_2x.png) center/cover no-repeat;
+		opacity: 1 !important;
+		position: relative;
+		overflow: hidden;
+	}
+	/* Cyberpunk pink border for main window */
+	.theme-cyberpunk .content-window {
+		border: 3px solid #ff4fe5 !important;
+		box-shadow:
+			0 0 16px 2px #ff4fe5cc,
+			0 0 32px 8px #ff4fe588,
+			0 0 0 1px #ff4fe5 inset !important;
+		background:
+			linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
+			url(/backgrounds/main/circuit_overlay_cyberpunk_2x.png) center/cover no-repeat;
+		opacity: 1 !important;
+		position: relative;
+		overflow: hidden;
+	}
+html:not(.theme-cyberpunk) .content-window::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: 0;
+	pointer-events: none;
+	background: url(/backgrounds/main/circuit_overlay_steampunk_2x.png) center/cover no-repeat;
+	opacity: 1;
+	filter: none;
+}
+html:not(.theme-cyberpunk) .content-window > * {
+	position: relative;
+	z-index: 1;
+}
+html:not(.theme-cyberpunk) .content-window::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	border-radius: 16px;
+	border: 0;
+	background: none;
+	opacity: 0;
+	z-index: 1;
+}
+html:not(.theme-cyberpunk) .content-window[data-reveal]::before {
+	content: "";
+	position: absolute;
+	left: 18px; top: 18px;
+	width: 32px; height: 32px;
+	background:
+		radial-gradient(circle at 50% 50%, #b38a4a 0 60%, #d8b980 61% 100%);
+	border-radius: 50%;
+	box-shadow: 0 0 0 2px #6a4a1f, 0 2px 8px #b38a4a44;
+	opacity: 0.22;
+	z-index: 2;
+	}
+@media (min-width: 640px) { .content-window { padding: 1.5rem 1.5rem 2rem; } }
+@media (min-width: 1024px) { .content-window { padding: 2rem 2rem 2.5rem; } }
+
+/* Gentle lift on hover (disabled for reduced motion below) */
+.content-window:hover { transform: translateY(-2px); box-shadow: 0 16px 36px rgba(0,0,0,.45), 0 2px 8px rgba(0,0,0,.25) inset; }
+
+/* Grid cards micro-interaction */
+.content-window ul.grid > li { transition: transform .2s ease, box-shadow .2s ease, filter .2s ease; }
+.content-window ul.grid > li:hover { transform: translateY(-3px); box-shadow: 0 12px 26px rgba(0,0,0,.35); filter: saturate(1.05); }
+
+/* ===== Details panel specific tweaks (actuator page) ===== */
+.details-panel { line-height: 1.5; }
+.details-panel .details-title { margin: 0 0 .75rem; font-size: 1.1rem; font-weight: 600; opacity: .95; }
+.details-panel .details-toc { margin: 0 0 .75rem; padding: .5rem .75rem; border: 1px solid rgba(255,255,255,.06); border-radius: 10px; background: rgba(255,255,255,.03); }
+.details-panel .details-toc ul { list-style: none; padding-left: 0; margin: 0; display: grid; gap: .25rem; }
+.details-panel .details-toc li.toc-h2 > a { font-weight: 600; text-decoration: none; color: #f4e7d2; }
+.details-panel .details-toc li.toc-h3 { padding-left: .75rem; }
+.details-panel .details-toc li a:hover { text-decoration: underline; }
+.details-panel #details-content h2 { margin-top: 1.0rem; margin-bottom: .35rem; font-size: 1.05rem; }
+.details-panel #details-content h3 { margin-top: .75rem; margin-bottom: .3rem; font-size: .98rem; opacity: .95; }
+.details-panel #details-content p { margin: .25rem 0 .6rem; }
+.details-panel #details-content ul { margin: .25rem 0 .75rem; padding-left: 1rem; }
+.details-panel #details-content li { margin: .15rem 0; }
+.details-panel #details-content hr { border: none; border-top: 1px solid rgba(255,255,255,.06); margin: .75rem 0; }
+
+/* ===== Highlighted hero block in main content ===== */
+.hero-blade {
+	background: linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.18));
+	border-radius: 14px;
+	padding: 1rem 1.25rem;
+	box-shadow: 0 10px 18px rgba(0,0,0,0.35) inset, 0 6px 18px rgba(0,0,0,0.35);
+	position: relative;
+	overflow: hidden;
+	}
+	html:not(.theme-cyberpunk) .hero-blade {
+		border: 2.5px solid #d88c3a;
+		box-shadow: 0 0 0 1px #e2b798 inset, 0 0 12px #d88c3a44 inset;
+}
+.hero-title {
+	margin: 0 0 .25rem 0;
+	font-size: clamp(1.35rem, 2.1vw, 1.85rem);
+	font-weight: 700;
+	letter-spacing: .2px;
+}
+.hero-sub {
+	margin: 0;
+	opacity: .92;
+	font-size: clamp(.95rem, 1.5vw, 1.05rem);
+}
+
+/* Subtle animated sheen across copper buttons on hover */
+.steam-btn__plate { position: relative; overflow: hidden; }
+.steam-btn__plate::after { content:""; position:absolute; top:-120%; left:-30%; width:40%; height:300%; transform: rotate(25deg); background: linear-gradient(90deg, transparent, rgba(255,255,255,.35), transparent); opacity:0; }
+.steam-btn__plate:hover::after { animation: sheen 950ms ease; opacity: .85; }
+@keyframes sheen { from { transform: translateX(-120%) rotate(25deg); } to { transform: translateX(220%) rotate(25deg); } }
+
+/* Apply the same animated sheen to the brand (home) button */
+.steam-brand-link::after {
+	content:"";
+	position:absolute;
+	top:-120%;
+	left:-30%;
+	width:40%;
+	height:300%;
+	transform: rotate(25deg);
+	background: linear-gradient(90deg, transparent, rgba(255,255,255,.35), transparent);
+	opacity:0;
+}
+.steam-brand-link:hover::after,
+.steam-brand-link:focus-visible::after { animation: sheen 950ms ease; opacity: .85; }
+
+/* Lightbox fade */
+#lightbox { opacity: 0; transition: opacity .25s ease; }
+#lightbox.flex { opacity: 1; }
+
+/* Scroll-reveal animations (JS toggles .is-visible) */
+[data-reveal]:not(.is-visible) { opacity: 0; transform: translateY(12px); }
+[data-reveal].is-visible { opacity: 1; transform: translateY(0); transition: opacity .6s ease, transform .6s ease; }
+/* Slight stagger for items in grids */
+.content-window ul.grid > li[data-reveal] { transition-delay: .04s; }
+.content-window ul.grid > li[data-reveal]:nth-child(2n) { transition-delay: .08s; }
+.content-window ul.grid > li[data-reveal]:nth-child(3n) { transition-delay: .12s; }
+.content-window ul.grid > li[data-reveal]:nth-child(4n) { transition-delay: .16s; }
+
+/* Reduced motion: disable transforms/animations */
+@media (prefers-reduced-motion: reduce) {
+	.content-window, .content-window:hover,
+	.content-window ul.grid > li, .content-window ul.grid > li:hover { transition: none; transform: none; }
+	.steam-btn__plate::after, .steam-btn__plate:hover::after, .steam-brand-link::after, .steam-brand-link:hover::after, .steam-brand-link:focus-visible::after { animation: none; opacity: 0; }
+	[data-reveal]:not(.is-visible), [data-reveal].is-visible { opacity: 1; transform: none; transition: none; }
+}
+
+/* ===== Cyberpunk: replace sheen with electric scan effect on hover ===== */
+/* Disable copper sheen in cyberpunk */
+.theme-cyberpunk .steam-btn__plate::after,
+.theme-cyberpunk .steam-brand-link::after {
+	content: none !important;
+}
+@keyframes electric-scan {
+	0% { transform: translateY(140%) rotate(14deg); opacity: 0; }
+	20% { opacity: .6; }
+	100% { transform: translateY(-140%) rotate(14deg); opacity: 0; }
+}
+/* Extra glow pulse on hover for a futuristic feel */
+.theme-cyberpunk .steam-btn__plate:hover,
+.theme-cyberpunk .steam-brand-link:hover,
+.theme-cyberpunk .steam-brand-link:focus-visible {
+	border-color: rgba(229,0,255,.7);
+	box-shadow:
+		0 0 0 1.5px rgba(229,0,255,.7) inset,
+		0 0 36px 16px #ff4fe5,
+		0 0 72px 32px #ff4fe5cc,
+		0 0 120px 64px #ff4fe588,
+		0 0 14px rgba(229,0,255,.35),
+		0 0 28px rgba(229,0,255,.25);
+	transition: box-shadow .2s ease, border-color .2s ease;
+}
+
+/* LED backlight halo (cyberpunk) */
+.theme-cyberpunk .steam-btn__plate,
+.theme-cyberpunk .steam-btn__plate:hover::before,
+.theme-cyberpunk .steam-brand-link:hover::before,
+.theme-cyberpunk .steam-brand-link:focus-visible::before { opacity: .9; }
+@media (prefers-reduced-motion: reduce) {
+		.theme-cyberpunk .steam-btn__plate:hover::after,
+		.theme-cyberpunk .steam-brand-link:hover::after,
+		.theme-cyberpunk .steam-brand-link:focus-visible::after { content: none !important; }
+}
+
+/* ===== Steampunk-specific: brighter description text; window width unified globally below ===== */
+/* Brighten description text in steampunk for better contrast on the dark panel */
+html:not(.theme-cyberpunk) .hero-sub { color: #f4e7d2; text-shadow: 0 1px 0 rgba(0,0,0,.45); }
+html:not(.theme-cyberpunk) .home-hero-desc { color: #f6ead6; text-shadow: 0 1px 0 rgba(0,0,0,.45); }
+html:not(.theme-cyberpunk) .home-hero-title { color: #f6ead6; text-shadow: 0 1px 0 rgba(0,0,0,.45); }
+html:not(.theme-cyberpunk) .home-latest-heading { color: #f6ead6; text-shadow: 0 1px 0 rgba(0,0,0,.45); }
+
+/* ===== Unified main window size for both themes (use steampunk sizing) ===== */
+main.mx-auto { max-width: min(100%, 80rem) !important; }
+@media (min-width: 1024px){ .content-window { padding: 2.25rem 2.25rem 2.75rem; } }
+
+/* ===== Home hero visibility tweaks ===== */
+.home-hero-title {
+	line-height: 1.1;
+	color: #2b1d14;
+	text-shadow: 0 1px 0 rgba(255,255,255,.35);
+	font-size: 2.4rem;
+	font-weight: 800;
+}
+.home-hero-desc {
+	line-height: 1.25;
+	line-height: 1.2;
+	color: #2b1d14;
+	text-shadow: 0 1px 0 rgba(255,255,255,.35);
+	font-size: 1.25rem;
+}
+.home-latest-heading {
+	color: #1a0f09;
+	text-shadow: 0 1px 0 rgba(255,255,255,.35);
+	font-size: 2rem;
+	font-weight: 700;
+	letter-spacing: .5px;
+	border-radius: 14px;
+	padding: 0.5rem 1.25rem;
+	margin-bottom: 20px; /* ~5mm */
+	background: linear-gradient(180deg, rgba(0,0,0,0.55), rgba(0,0,0,0.28));
+	position: relative;
+	overflow: hidden;
+	}
+	html:not(.theme-cyberpunk) .home-latest-heading {
+		border: 2.5px solid #d88c3a;
+		box-shadow: 0 0 0 1px #e2b798 inset, 0 0 12px #d88c3a44 inset;
+}
+/* Cyberpunk overrides: bright, legible on dark neon */
+.theme-cyberpunk .home-hero-title { color: #d6eeff; text-shadow: 0 0 8px rgba(0,255,255,.35), 0 2px 10px rgba(0,0,0,.45); }
+.theme-cyberpunk .home-hero-desc { color: #d6eeff; text-shadow: 0 0 8px rgba(0,255,255,.35); }
+.theme-cyberpunk .home-latest-heading { color: #d6eeff; text-shadow: 0 0 8px rgba(0,255,255,.35); }
+
+/* ===================== Theme Toggle (pill button) ===================== */
+.theme-toggle { position: fixed; top: 10px; left: 10px; z-index: 110; background: transparent; border: none; padding: 0; cursor: pointer; }
+.theme-toggle:focus-visible { outline: 2px solid #88f; outline-offset: 2px; }
+.theme-toggle__label { display:inline-flex; align-items:center; justify-content:center; padding:.5rem .8rem; border-radius:999px; font-weight:700; letter-spacing:.5px; }
+/* Steampunk style pill */
+.theme-toggle__label { background-image:
+		linear-gradient(180deg,#fce9df 0%, #e2b798 24%, #c98353 50%, #9f5229 70%, #6d3417 88%, #451d0d 100%);
+	background-size: cover; background-repeat:no-repeat; background-blend-mode:multiply; border:1px solid #442514; box-shadow:0 1px 1px #000a,0 0 0 1px #edc8abcc inset,0 0 5px #f9e6d699 inset; }
+.theme-toggle__text {
+	position: relative; font-weight: 700;
+	background: linear-gradient(180deg,#6b2c14 0%, #3a1a10 45%, #21110b 70%);
+	-webkit-background-clip: text; background-clip: text; color: transparent;
+	letter-spacing: .5px;
+}
+.theme-toggle__text::before { content: attr(data-text); position: absolute; inset: 0; color: #000; opacity: .45; filter: blur(.5px); transform: translate(1px,1px); pointer-events: none; }
+.theme-toggle__text::after { content: attr(data-text); position: absolute; inset: 0; color: #fff1e0; opacity: .32; mix-blend-mode: screen; transform: translate(-1px,-1px); pointer-events: none; }
+.theme-toggle__text { text-shadow: 0 1px 0 rgba(0,0,0,.55), 0 -1px 0 rgba(255,240,220,.4); }
+.theme-toggle__label:hover { filter: brightness(1.05) saturate(1.02); }
+/* Cyberpunk style pill when in cyberpunk mode */
+.theme-cyberpunk .theme-toggle__label { background:rgba(0,0,0,.4); border:1px solid rgba(229,0,255,.6); box-shadow:0 0 12px rgba(229,0,255,.35), inset 0 0 8px rgba(229,0,255,.28); }
+.theme-cyberpunk .theme-toggle__text { color:#ff4fe5; text-shadow:0 0 8px rgba(229,0,255,.8),0 0 16px rgba(229,0,255,.6); background:none; -webkit-background-clip: initial; background-clip: initial; }
+
+/* ===================== Cyberpunk Theme Overrides ===================== */
+.theme-cyberpunk .link-window {
+			border: 2.5px solid #3a8ad8 !important;
+			box-shadow: 0 0 0 1px #7fcfff inset, 0 0 12px #3a8ad822 inset !important;
+			background: rgba(20,24,40,0.12) !important;
+		}
+
+		.theme-cyberpunk .content-window.link-window {
+			border: 2.5px solid #3a8ad8 !important;
+			box-shadow: 0 0 0 1px #7fcfff inset, 0 0 12px #3a8ad822 inset !important;
+			background: rgba(20,24,40,0.12) !important;
+}
+.theme-cyberpunk .hero-blade {
+	border: 2.5px solid #3a8ad8 !important;
+	box-shadow: 0 0 0 1px #7fcfff inset, 0 0 12px #3a8ad822 inset !important;
+}
+.theme-cyberpunk .main-window-header {
+	border: 2.5px solid #3a8ad8 !important;
+	box-shadow: 0 0 0 1px #7fcfff inset, 0 0 12px #3a8ad822 inset !important;
+}
+.theme-cyberpunk body {
+	background: #070914;
+	color: #d7e6ff;
+}
+/* Background overlay changes to neon gradients */
+/* In cyberpunk, show the background without tint to preserve the image colors */
+.theme-cyberpunk .bg-photo-layer::after { background: none; mix-blend-mode: normal; }
+/* Header panels become dark glass with neon borders */
+.theme-cyberpunk .steam-nav {
+	background: rgba(6,8,18,0.7) !important;
+	border: 3px solid #3a8ad8 !important;
+	box-shadow:
+		0 0 16px 2px #3a8ad8cc,
+		0 0 32px 8px #3a8ad888,
+		0 0 0 1px #3a8ad8 inset !important;
+	border-radius: 12px;
+}
+/* Brand/button plates switch to neon glass */
+.theme-cyberpunk .steam-brand-link,
+.theme-cyberpunk .steam-btn__plate {
+	background-image: linear-gradient(180deg, rgba(30,40,80,.85), rgba(15,20,35,.85));
+	border: 1.5px solid rgba(0,255,255,.22);
+	box-shadow: 0 0 0 1px rgba(0,255,255,.25) inset, 0 0 18px rgba(0,255,255,.25) inset, 0 6px 18px rgba(0,0,0,.6);
+	border-radius: 10px;
+	position: relative;
+	overflow: hidden;
+	background-image: linear-gradient(180deg, rgba(30,40,80,.85), rgba(15,20,35,.85));
+	border: 1.5px solid rgba(0,255,255,.22);
+	box-shadow: 0 0 0 1px rgba(0,255,255,.25) inset, 0 0 18px rgba(0,255,255,.25) inset, 0 6px 18px rgba(0,0,0,.6);
+	border-radius: 10px;
+	position: relative;
+	overflow: hidden;
+}
+html:not(.theme-cyberpunk) .steam-brand-link {
+	background-image: url('/img/steel_dark_desktop_1920x200.jpeg');
+	background-size: cover;
+	background-repeat: no-repeat;
+	border: 1.5px solid #442514;
+	box-shadow: 0 1px 1px #000a, 0 0 0 1px #edc8abcc inset, 0 0 8px #f9e6d699 inset;
+}
+.theme-cyberpunk .steam-btn__plate:hover,
+.theme-cyberpunk .steam-brand-link:hover,
+.theme-cyberpunk .steam-brand-link:focus-visible { box-shadow: 0 0 0 1px rgba(120,200,255,.35) inset, 0 0 22px rgba(0,255,255,.35) inset, 0 6px 22px rgba(0,0,0,.7); }
+
+/* Engraved text becomes neon glyphs */
+/* Sharper, more legible button text in cyberpunk (remove engraving/blur) */
+.theme-cyberpunk .steam-btn__label,
+.theme-cyberpunk .brand-text {
+	background: none !important;
+	-webkit-background-clip: initial !important;
+	background-clip: initial !important;
+	color: #d6eeff !important;
+	text-shadow: 0 0 2px rgba(0,255,255,.4), 0 0 6px rgba(0,255,255,.25);
+}
+.theme-cyberpunk .steam-btn__label::before,
+.theme-cyberpunk .brand-text::before,
+.theme-cyberpunk .steam-btn__label::after,
+.theme-cyberpunk .brand-text::after { content: none !important; }
+
+/* Remove decorative screws on buttons/brand in cyberpunk */
+.theme-cyberpunk .screw { display: none !important; }
+
+/* Nixie tubes swap to 7-seg neon look, but keep structure */
+.theme-cyberpunk .nixie-tube {
+		background: linear-gradient(180deg, rgba(0,0,0,.6), rgba(0,0,0,.2));
+		border: 1px solid rgba(229,0,255,.28);
+		border-top-color: rgba(229,0,255,.45);
+		border-bottom-color: rgba(229,0,255,.2);
+		color: #e9d6ff;
+		-webkit-text-stroke: 0;
+		box-shadow: 0 0 0 1px rgba(229,0,255,.22) inset, 0 0 16px rgba(229,0,255,.15) inset;
+		text-shadow:
+			0 0 4px rgba(229,0,255,.65),
+			0 0 10px rgba(229,0,255,.55),
+			0 0 22px rgba(229,0,255,.45),
+			0 0 36px rgba(0,255,255,.18);
+}
+.theme-cyberpunk .nixie-sep::before, .theme-cyberpunk .nixie-sep::after {
+	background: radial-gradient(circle at 45% 40%, #ffd6ff 0 35%, #ff63f2 36% 65%, #ff1cdf 66% 75%, rgba(229,0,255,.35) 76% 100%);
+	box-shadow: 0 0 8px 1px rgba(229,0,255,.55), 0 0 14px 2px rgba(229,0,255,.45), 0 0 22px 4px rgba(229,0,255,.35);
+}
+
+/* Content windows become glassy panels */
+.theme-cyberpunk .content-window {
+	background:
+		linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
+		url(/backgrounds/main/circuit_overlay_cyberpunk_2x.png) center/cover no-repeat;
+			border: 3px solid #ff4fe5 !important;
+			box-shadow:
+				0 0 16px 2px #ff4fe5cc,
+				0 0 32px 8px #ff4fe588,
+				0 0 0 1px #ff4fe5 inset !important;
+	max-width: min(100%, 1280px);
+	width: min(100%, 1280px);
+	padding: 1.5rem 1.5rem 2rem 1.5rem;
+}
+.theme-cyberpunk .content-window:hover { box-shadow: 0 16px 36px rgba(0,0,0,.65), 0 0 0 1px rgba(120,200,255,.18) inset, 0 0 28px rgba(0,255,255,.18) inset; }
+	/* Add missing selector for these properties */
+	.theme-cyberpunk .content-window {
+		max-width: min(100%, 1280px);
+		width: min(100%, 1280px);
+		padding: 1.5rem 1.5rem 2rem 1.5rem;
+	}
+/* Links and prose hues */
+.theme-cyberpunk .prose a { color: #7dd3fc; }
+.theme-cyberpunk .prose a:hover { color: #a78bfa; text-decoration: underline; }
+
+/* Remove steel background images in cyberpunk to avoid conflicts */
+.theme-cyberpunk .steam-nav { background-image: none !important; }
+.theme-cyberpunk .nixie-clock { background-image: none !important; }
+/* Hide the static picture layer so the theme background (#bg-image) shows */
+.theme-cyberpunk .bg-art { display: none; }
+/* Remove the radial mask so the image isn’t clipped */
+.theme-cyberpunk .bg-photo-layer { -webkit-mask: none !important; mask: none !important; opacity: 1; filter: none; background-color: transparent !important; z-index: -1; }
+.theme-cyberpunk .bg-photo-layer::after { content: none !important; background: none !important; }
+/* In cyberpunk, hide the static steampunk picture layer */
+.theme-cyberpunk .bg-art { display: none !important; }
+/* In steampunk, hide the rotating cyber layer to avoid overlap */
+/* In steampunk, hide the rotating cyberpunk background layer */
+
+/* Background pulse removed per request: ensure no overlay or animation on cyberpunk background */
+html:not(.theme-cyberpunk) .bg-photo-layer { display: none !important; }
+/* End of file */
+/* End of file */

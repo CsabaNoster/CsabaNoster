@@ -1,0 +1,300 @@
+---
+import '../styles.css';
+const { title = 'NostersLab', description = 'Creative engineering experiments by Csaba (Noster)', wrap = true, wide = false } = Astro.props as { title?: string; description?: string; wrap?: boolean; wide?: boolean };
+---
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+  <link rel="preload" as="image" href="/backgrounds/steampunk.png" />
+  <link rel="preload" as="image" href="/backgrounds/cyberpunk.png" />
+    <style is:inline>
+      /* Early paint safeguards to avoid background flash on navigation */
+      html.theme-cyberpunk #bg-image { background-image: url('/backgrounds/cyberpunk.png'); opacity: 1; }
+      html.theme-cyberpunk .bg-art { display: none; }
+      html:not(.theme-cyberpunk) #bg-image { display: none; }
+    </style>
+    <script is:inline>
+      // Theme boot: apply saved theme class ASAP to avoid background flash on navigation
+      try {
+        const saved = localStorage.getItem('theme-style');
+        if (saved === 'cyberpunk') {
+          document.documentElement.classList.add('theme-cyberpunk');
+        } else {
+          document.documentElement.classList.remove('theme-cyberpunk');
+        }
+      } catch (e) { /* ignore */ }
+    </script>
+    <script is:inline>
+      // Force dark mode to match the site's theme consistently
+      document.documentElement.classList.add('dark');
+    </script>
+  </head>
+  <body>
+    <!-- Responsive raster background (three resolutions). Replace placeholder filenames with actual uploaded images. -->
+    <picture class="bg-art" aria-hidden="true">
+      <!-- Steampunk background (static picture layer) -->
+      <img src="/backgrounds/steampunk.png" alt="" decoding="async" fetchpriority="high" />
+    </picture>
+    <div id="bg-image" class="bg-photo-layer"></div>
+    <header class="steam-nav-wrapper">
+      <div class="steam-header">
+        <div class="steam-nav" role="navigation" aria-label="Primary">
+        <div class="steam-brand">
+          <a href="/" class="steam-brand-link home-btn" aria-label="Home / Nosters Lab">
+            <span class="screw tl" aria-hidden="true"></span>
+            <span class="screw tr" aria-hidden="true"></span>
+            <span class="screw bl" aria-hidden="true"></span>
+            <span class="screw br" aria-hidden="true"></span>
+            <span class="brand-text" data-text="Nosters Lab">Nosters Lab</span>
+          </a>
+        </div>
+        <ul class="steam-links">
+          <li>
+            <a class="steam-btn" href="/projects">
+              <span class="steam-btn__plate">
+                <span class="screw tl" aria-hidden="true"></span>
+                <span class="screw tr" aria-hidden="true"></span>
+                <span class="screw bl" aria-hidden="true"></span>
+                <span class="screw br" aria-hidden="true"></span>
+                <span class="steam-btn__label" data-text="Projects">Projects</span>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a class="steam-btn" href="/design">
+              <span class="steam-btn__plate">
+                <span class="screw tl" aria-hidden="true"></span>
+                <span class="screw tr" aria-hidden="true"></span>
+                <span class="screw bl" aria-hidden="true"></span>
+                <span class="screw br" aria-hidden="true"></span>
+                <span class="steam-btn__label" data-text="3D Design">3D Design</span>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a class="steam-btn" href="/robotics">
+              <span class="steam-btn__plate">
+                <span class="screw tl" aria-hidden="true"></span>
+                <span class="screw tr" aria-hidden="true"></span>
+                <span class="screw bl" aria-hidden="true"></span>
+                <span class="screw br" aria-hidden="true"></span>
+                <span class="steam-btn__label" data-text="Robotics">Robotics</span>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a class="steam-btn" href="/art">
+              <span class="steam-btn__plate">
+                <span class="screw tl" aria-hidden="true"></span>
+                <span class="screw tr" aria-hidden="true"></span>
+                <span class="screw bl" aria-hidden="true"></span>
+                <span class="screw br" aria-hidden="true"></span>
+                <span class="steam-btn__label" data-text="Art">Art</span>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a class="steam-btn" href="/reviews">
+              <span class="steam-btn__plate">
+                <span class="screw tl" aria-hidden="true"></span>
+                <span class="screw tr" aria-hidden="true"></span>
+                <span class="screw bl" aria-hidden="true"></span>
+                <span class="screw br" aria-hidden="true"></span>
+                <span class="steam-btn__label" data-text="Reviews">Reviews</span>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a class="steam-btn" href="/thoughts">
+              <span class="steam-btn__plate">
+                <span class="screw tl" aria-hidden="true"></span>
+                <span class="screw tr" aria-hidden="true"></span>
+                <span class="screw bl" aria-hidden="true"></span>
+                <span class="screw br" aria-hidden="true"></span>
+                <span class="steam-btn__label" data-text="Thoughts">Thoughts</span>
+              </span>
+            </a>
+          </li>
+        </ul>
+        </div>
+        <div class="steam-nav steam-clock-bar" role="region" aria-label="Clock">
+          <div class="nixie-clock" aria-label="Current local time" role="timer" aria-live="polite">
+            <span class="nixie-group" data-part="hours">
+              <span class="nixie-tube" data-digit="0">0</span>
+              <span class="nixie-tube" data-digit="0">0</span>
+            </span>
+            <span class="nixie-sep" aria-hidden="true"></span>
+            <span class="nixie-group" data-part="minutes">
+              <span class="nixie-tube" data-digit="0">0</span>
+              <span class="nixie-tube" data-digit="0">0</span>
+            </span>
+            <span class="nixie-sep" aria-hidden="true"></span>
+            <span class="nixie-group" data-part="seconds">
+              <span class="nixie-tube" data-digit="0">0</span>
+              <span class="nixie-tube" data-digit="0">0</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- Persistent theme toggle button in the top-left corner -->
+    <button id="theme-toggle" class="theme-toggle" aria-label="Switch theme" aria-pressed="false">
+      <span class="theme-toggle__label">
+        <span class="theme-toggle__text" data-text="CYBERPUNK">CYBERPUNK</span>
+      </span>
+    </button>
+  <main class={`mx-auto px-6 pb-24 prose prose-neutral dark:prose-invert ${wide ? 'max-w-7xl' : 'max-w-5xl'}`}>
+      {wrap ? (
+        <div class="content-window">
+          <slot />
+        </div>
+      ) : (
+        <slot />
+      )}
+    </main>
+  <footer class="border-t border-neutral-200 dark:border-neutral-800 py-10 text-center text-xs text-neutral-500">© {new Date().getFullYear()} NostersLab • Csaba / Noster</footer>
+  </body>
+</html>
+
+<!-- styles moved to global stylesheet -->
+
+<script>
+  // Background image sets for themes
+  const imagesSteam = [
+    '/backgrounds/steampunk.png'
+  ];
+  // Use your uploaded cyberpunk background here (fallback to desktop if missing)
+  const imagesCyber = [
+    '/backgrounds/cyberpunk.png'
+  ];
+
+  const html = document.documentElement;
+  const bgEl = document.getElementById('bg-image');
+  let idx = 0;
+  let cycleTimer: any = null;
+  function activeImages(){
+    return html.classList.contains('theme-cyberpunk') ? imagesCyber : imagesSteam;
+  }
+  function setBackgroundFromList(list, startIndex = 0){
+    if (!bgEl || !list.length) return;
+    let i = startIndex;
+    const tryLoad = () => {
+      const src = list[i % list.length];
+      // If the requested image is already applied, skip fade to avoid visible pulse
+      const current = (bgEl as HTMLElement).style.backgroundImage || '';
+      if (current.includes(src)) {
+        (bgEl as HTMLElement).style.opacity = '1';
+        return;
+      }
+      const probe = new Image();
+      probe.onload = () => {
+        bgEl.style.opacity = '0';
+        setTimeout(() => {
+          bgEl.style.backgroundImage = `url(\"${src}\")`;
+          bgEl.style.opacity = '1';
+        }, 400);
+      };
+      probe.onerror = () => { i++; if (i < startIndex + list.length + 3) tryLoad(); };
+      probe.src = src;
+    };
+    tryLoad();
+  }
+  function show(i){ setBackgroundFromList(activeImages(), i); }
+  function cycle(){ idx = (idx + 1) % activeImages().length; setBackgroundFromList(activeImages(), idx); }
+  setBackgroundFromList(activeImages(), idx);
+  // Only cycle if there are multiple images; otherwise avoid periodic fade/pulse
+  if (activeImages().length > 1) { cycleTimer = setInterval(cycle, 15000); }
+
+  // ===== Nixie Clock =====
+  (function initNixieClock(){
+    const clock = document.querySelector('.nixie-clock') as HTMLElement | null;
+    if(!clock) return;
+    const tubes = clock.querySelectorAll<HTMLElement>('.nixie-tube');
+    function setDigits(h: number, m: number, s: number){
+      const pad = (n: number) => n.toString().padStart(2,'0');
+      const hs = pad(h), ms = pad(m), ss = pad(s);
+      const all = hs+ms+ss; // length 6
+      tubes.forEach((tube, i) => {
+        const d: string | undefined = all[i];
+        if (d && tube.dataset.digit !== d) {
+          tube.dataset.digit = d;
+          tube.textContent = d; // direct change, no flash animation
+        }
+      });
+    }
+    function tick(){
+      const now = new Date();
+      setDigits(now.getHours(), now.getMinutes(), now.getSeconds());
+    }
+    tick();
+    setInterval(tick,1000); // steady update, no flicker
+  })();
+
+  // ===== Subtle Parallax (reduced motion aware) & Scroll Reveal =====
+  (function enhanceMotion(){
+    // Disable background parallax: keep background fixed without vertical shift
+    const bg = document.getElementById('bg-image');
+    if (bg) { (bg as HTMLElement).style.transform = ''; }
+
+    // Auto-tag common blocks for reveal
+    const tagReveal = () => {
+      const sels = ['.content-window', '.hero-blade', 'ul.grid > li', '.details-panel'];
+      sels.forEach((sel) => document.querySelectorAll(sel).forEach((n) => n.setAttribute('data-reveal','')));
+    };
+    const reveal = () => {
+      const items = Array.from(document.querySelectorAll('[data-reveal]')) as HTMLElement[];
+      if (!items.length) return;
+      const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce) { items.forEach((el) => el.classList.add('is-visible')); return; }
+      const io = new IntersectionObserver((entries, obs) => {
+        entries.forEach((en) => {
+          if (en.isIntersecting) { (en.target as HTMLElement).classList.add('is-visible'); obs.unobserve(en.target); }
+        });
+      }, { rootMargin: '0px 0px -10% 0px', threshold: 0.05 });
+      items.forEach((el) => io.observe(el));
+    };
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => { tagReveal(); reveal(); });
+    } else { tagReveal(); reveal(); }
+  })();
+
+  // ===== Theme Toggle (Steampunk <-> Cyberpunk) =====
+  (function themeToggle(){
+    const btn = document.getElementById('theme-toggle');
+    if(!btn) return;
+
+    // Load preference
+    const saved = localStorage.getItem('theme-style');
+    if(saved === 'cyberpunk') {
+      html.classList.add('theme-cyberpunk');
+      btn.setAttribute('aria-pressed','true');
+    }
+
+    // Update UI state for the button label/appearance
+    const updateBtn = () => {
+      const isCyber = html.classList.contains('theme-cyberpunk');
+      const text = isCyber ? 'STEAMPUNK' : 'CYBERPUNK';
+      const textEl = btn.querySelector('.theme-toggle__text');
+      if (textEl) { textEl.textContent = text; (textEl as HTMLElement).setAttribute('data-text', text); }
+      btn.setAttribute('aria-pressed', isCyber ? 'true' : 'false');
+      // When switching themes, ensure the picture layer behavior is correct
+      // Force an immediate bg refresh from the active list
+      idx = 0; setBackgroundFromList(activeImages(), idx);
+      // Re-evaluate cycling based on the active theme's image count
+      if (cycleTimer) { clearInterval(cycleTimer); cycleTimer = null; }
+      if (activeImages().length > 1) { cycleTimer = setInterval(cycle, 15000); }
+    };
+
+    btn.addEventListener('click', () => {
+      const isCyber = html.classList.toggle('theme-cyberpunk');
+      localStorage.setItem('theme-style', isCyber ? 'cyberpunk' : 'steampunk');
+      updateBtn();
+    });
+
+    updateBtn();
+  })();
+
+</script>

@@ -1,0 +1,211 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+import fs from 'node:fs';
+import { fileURLToPath } from 'node:url';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('projects', (e: CollectionEntry<'projects'>) => e.data.published !== false);
+  return entries.map((entry: CollectionEntry<'projects'>) => ({ params: { slug: entry.slug }, props: { entry } }));
+}
+
+const { entry } = Astro.props as { entry: CollectionEntry<'projects'> };
+const { Content } = await entry.render();
+
+// Optional gallery: if this is the actuator page, include images from /uploads/robotics/actuator
+let gallery: string[] = [];
+if (entry.slug) {
+  // Candidate folders under different roots
+  const roboticsCandidates: string[] = [`${entry.slug}`];
+
+  const rootsAndNames: Array<{ root: string; names: string[] }> = [
+    { root: 'robotics', names: roboticsCandidates },
+    { root: 'projects', names: [entry.slug] }
+  ];
+
+  // Read the first existing folder with images across roots
+  outer: for (const rn of rootsAndNames) {
+    for (const name of rn.names) {
+      try {
+        const du = new URL(`../../../public/uploads/${rn.root}/${name}/`, import.meta.url);
+        const dp = fileURLToPath(du);
+        const items = fs.readdirSync(dp, { withFileTypes: true });
+        const imgs = items
+          .filter(f => f.isFile() && /\.(png|jpe?g|webp|avif|gif)$/i.test(f.name))
+          .map(f => `/uploads/${rn.root}/${name}/${f.name}`)
+          .sort();
+        if (imgs.length) { gallery = imgs; break outer; }
+      } catch {}
+    }
+  }
+  // EB-15: previously filtered out IDE screenshots; files removed from disk, so no filter needed.
+}
+---
+<BaseLayout title={entry.data.title} description={entry.data.summary ?? 'Project detail'} wrap={false}>
+  {entry.slug === 'actuator-38-4-1' ? (
+    <div class="relative">
+      {/* Primary content in its own window */}
+      <article class="prose prose-neutral dark:prose-invert max-w-none">
+        <div class="content-window">
+          {/* Highlighted headline block */}
+          <div class="hero-blade">
+            <h1 class="hero-title">{entry.data.title}</h1>
+            {entry.data.summary && <p class="hero-sub">{entry.data.summary}</p>}
+          </div>
+          {(entry.data as any).image && <img src={(entry.data as any).image} alt={entry.data.title} class="rounded mb-6 mt-4" />}
+
+          {/* Mobile-only details below main content */}
+          <div class="block lg:hidden">
+            <Content />
+          </div>
+
+          {/* Download section (main window, above gallery) */}
+          {entry.slug === 'actuator-38-4-1' && (
+            <section class="not-prose mt-4 mb-6">
+              <h2 class="text-xl font-semibold mb-2">Download</h2>
+              <a class="steam-btn" href="/downloads/actuator/ActuatorNema17.step" download>
+                <span class="steam-btn__plate">
+                  <span class="screw tl" aria-hidden="true"></span>
+                  <span class="screw tr" aria-hidden="true"></span>
+                  <span class="screw bl" aria-hidden="true"></span>
+                  <span class="screw br" aria-hidden="true"></span>
+                  <span class="steam-btn__label" data-text="STEP: ActuatorNema17">STEP: ActuatorNema17</span>
+                </span>
+              </a>
+            </section>
+          )}
+          {/* End download section, continue with gallery below */}
+
+        {gallery.length > 0 && (
+          <section class="not-prose mt-6">
+            <h2 class="text-xl font-semibold mb-3">Gallery</h2>
+            <ul class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+              {gallery.map((src) => (
+                <li class="overflow-hidden rounded-lg border border-neutral-300 bg-white/90">
+                  <button type="button" class="w-full aspect-[4/3] group" data-lb-src={src} aria-label="Open image">
+                    <img src={src} alt={`${entry.data.title} image`} class="w-full h-40 object-cover object-center group-hover:opacity-90 transition" loading="lazy" />
+                  </button>
+                </li>
+              ))}
+            </ul>
+            <div id="lightbox" class="fixed inset-0 z-[9999] hidden items-center justify-center bg-black/70 p-4" role="dialog" aria-modal="true" aria-label="Image viewer">
+              <div class="max-w-5xl max-h-[85vh] relative">
+                <button id="lightbox-close" class="absolute -top-3 -right-3 bg-white text-black rounded-full w-8 h-8 shadow" aria-label="Close">✕</button>
+                <img id="lightbox-img" src="" alt="" class="w-auto h-auto max-w-full max-h-[85vh] rounded shadow-lg" />
+              </div>
+            </div>
+            <script src="/js/lightbox.js"></script>
+          </section>
+        )}
+        </div>
+      </article>
+
+      {/* Separate fixed-position details window outside the main window */}
+      <aside class="hidden lg:block">
+        <div class="content-window fixed right-8 top-28 w-[380px] max-h-[78vh] overflow-auto z-40 details-panel">
+          <h2 class="details-title">Project Details</h2>
+          <div id="details-content">
+            <Content />
+          </div>
+        </div>
+      </aside>
+    </div>
+  ) : (
+    // Shared layout for other project pages (e.g., control box)
+    <div class="relative">
+      <article class="prose prose-neutral dark:prose-invert max-w-none">
+        <div class="content-window">
+          <div class="hero-blade">
+            <h1 class="hero-title">{entry.data.title}</h1>
+            {entry.data.summary && <p class="hero-sub">{entry.data.summary}</p>}
+          </div>
+          {(entry.data as any).image && <img src={(entry.data as any).image} alt={entry.data.title} class="rounded mb-6 mt-4" />}
+          <div class="block lg:hidden"><Content /></div>
+
+          {entry.slug === 'eb15-robotic-arm' && (
+            <section class="not-prose mt-4 mb-6">
+              <h2 class="text-xl font-semibold mb-2">Download</h2>
+              <a class="steam-btn" href="/downloads/eb15/EB15_Arm_STEPs.zip" download>
+                <span class="steam-btn__plate">
+                  <span class="screw tl" aria-hidden="true"></span>
+                  <span class="screw tr" aria-hidden="true"></span>
+                  <span class="screw bl" aria-hidden="true"></span>
+                  <span class="screw br" aria-hidden="true"></span>
+                <div class="flex-1">
+                  <aside class="hidden lg:block">
+                    <div class="content-window fixed right-8 top-28 w-[380px] max-h-[78vh] overflow-auto z-40 details-panel">
+                      <h2 class="details-title">Project Details</h2>
+                      <div id="details-content"><Content /></div>
+                    </div>
+                  </aside>
+                </div>
+                  <span class="steam-btn__plate">
+                    <span class="screw tl" aria-hidden="true"></span>
+                    <span class="screw tr" aria-hidden="true"></span>
+                    <span class="screw bl" aria-hidden="true"></span>
+                    <span class="screw br" aria-hidden="true"></span>
+                    <span class="steam-btn__label" data-text="Arduino Mega: Full Control (.ino)">Arduino Mega: Full Control (.ino)</span>
+                  </span>
+                </a>
+                <a class="steam-btn" href="/downloads/eb15/Due_full_control.ino" download>
+                  <span class="steam-btn__plate">
+                    <span class="screw tl" aria-hidden="true"></span>
+                    <span class="screw tr" aria-hidden="true"></span>
+                    <span class="screw bl" aria-hidden="true"></span>
+                    <span class="screw br" aria-hidden="true"></span>
+                    <span class="steam-btn__label" data-text="Arduino Due: Full Control (.ino)">Arduino Due: Full Control (.ino)</span>
+                  </span>
+                </a>
+              </div>
+            </section>
+          )}
+
+          {entry.slug === 'arduino-control-box' && (
+            <section class="not-prose mt-4 mb-6">
+              <h2 class="text-xl font-semibold mb-2">Download</h2>
+              <a class="steam-btn" href="/downloads/control-box/Control_Box_STEPs.zip" download>
+                <span class="steam-btn__plate">
+                  <span class="screw tl" aria-hidden="true"></span>
+                  <span class="screw tr" aria-hidden="true"></span>
+                  <span class="screw bl" aria-hidden="true"></span>
+                  <span class="screw br" aria-hidden="true"></span>
+                  <span class="steam-btn__label" data-text="STEP bundle: Control Box (1.4, 2.4, 3.4, 4.4)">STEP bundle: Control Box (1.4, 2.4, 3.4, 4.4)</span>
+                </span>
+              </a>
+            </section>
+          )}
+
+          {gallery.length > 0 && (
+            <section class="not-prose mt-6">
+              <h2 class="text-xl font-semibold mb-3">Gallery</h2>
+              <ul class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+                {gallery.map((src) => (
+                  <li class="overflow-hidden rounded-lg border border-neutral-300 bg-white/90">
+                    <button type="button" class="w-full aspect-[4/3] group" data-lb-src={src} aria-label="Open image">
+                      <img src={src} alt={`${entry.data.title} image`} class="w-full h-40 object-cover object-center group-hover:opacity-90 transition" loading="lazy" />
+                    </button>
+                  </li>
+                ))}
+              </ul>
+              <div id="lightbox" class="fixed inset-0 z-[9999] hidden items-center justify-center bg-black/70 p-4" role="dialog" aria-modal="true" aria-label="Image viewer">
+                <div class="max-w-5xl max-h-[85vh] relative">
+                  <button id="lightbox-close" class="absolute -top-3 -right-3 bg-white text-black rounded-full w-8 h-8 shadow" aria-label="Close">✕</button>
+                  <img id="lightbox-img" src="" alt="" class="w-auto h-auto max-w-full max-h-[85vh] rounded shadow-lg" />
+                </div>
+              </div>
+              <script src="/js/lightbox.js"></script>
+            </section>
+          )}
+        </div>
+      </article>
+
+      {/* Right-hand fixed details window */}
+      <aside class="hidden lg:block">
+        <div class="content-window fixed right-8 top-28 w-[380px] max-h-[78vh] overflow-auto z-40 details-panel">
+          <h2 class="details-title">Project Details</h2>
+          <div id="details-content"><Content /></div>
+        </div>
+      </aside>
+    </div>
+  )}
+</BaseLayout>

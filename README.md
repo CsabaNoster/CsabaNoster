@@ -1,16 +1,30 @@
-## Hi there 👋
+# NostersLab
 
-<!--
-**CsabaNoster/CsabaNoster** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+Creative engineering & content site (Astro + Tailwind + MDX) with collections for:
+- Projects (`/projects`)
+- Art (`/art`)
+- Book Reviews (`/reviews`)
+- Thoughts (`/thoughts`)
 
-Here are some ideas to get you started:
+## Development
+Install deps then start dev server.
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+```bash
+npm install
+npm run dev
+```
+
+## Content Collections
+Edit or add Markdown in `content/<collection>/`. Frontmatter fields are validated by `src/content/config.ts`.
+
+## Build
+```bash
+npm run build
+npm run preview
+```
+
+## Roadmap Ideas
+- Add RSS feed & sitemap (sitemap added)
+- Add search (FlexSearch)
+- Theming refinements (dynamic palette, dark mode art)
+- Performance budget & image automation

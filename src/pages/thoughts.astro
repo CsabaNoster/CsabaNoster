@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+import Card from '../components/Card.astro';
+const entries = await getCollection('thoughts', (e: CollectionEntry<'thoughts'>) => e.data.published !== false);
+---
+<BaseLayout title="Thoughts" description="Scientific & philosophical thoughts">
+  <div class="hero-blade">
+    <h1 class="hero-title !mt-0">Thoughts</h1>
+    <p class="hero-sub">Short notes on science, tools, and meaning</p>
+  </div>
+  <div class="cards-window mt-3">
+    <ul class="grid gap-6 md:grid-cols-2">
+      {entries.map((e: CollectionEntry<'thoughts'>) => (
+        <li>
+          <Card href={`/thoughts/${e.slug}/`} title={e.data.title} summary={e.data.summary} badge="thoughts" metaRight={(e.data.date as Date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })} />
+        </li>
+      ))}
+    </ul>
+  </div>
+</BaseLayout>

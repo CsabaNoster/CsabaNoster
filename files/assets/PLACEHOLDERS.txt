@@ -1,0 +1,10 @@
+Place these files in /assets (filenames are referenced in content/gallery.yml):
+
+- hero.jpg
+- build-01.jpg
+- build-02.jpg
+- ui-01.jpg
+- face-dots.jpg
+- wiring.png
+
+Tip: keep images ~1600px width for web; export lossless for UI screens; compress JPEGs to ~75–85 quality.

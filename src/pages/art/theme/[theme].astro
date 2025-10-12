@@ -1,0 +1,192 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import fs from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { desiredThemes, mapKey } from '../../../lib/artThemes';
+import { getThemesForBase } from '../../../lib/artAssignments';
+
+export async function getStaticPaths() {
+  return desiredThemes.map((t) => ({ params: { theme: t } }));
+}
+
+const { theme } = Astro.params as { theme: string };
+const themeNameRaw = decodeURIComponent(theme);
+const themeName = (desiredThemes.find((t) => t.toLowerCase() === themeNameRaw.toLowerCase()) || themeNameRaw);
+const canon = (n: string) => {
+  const low = n.toLowerCase();
+  const hit = desiredThemes.find((t) => t.toLowerCase() === low);
+  return hit || n;
+};
+
+function extractNumId(base: string): string | undefined {
+  const m1 = base.match(/art[ _-]*([0-9]{1,3})(?![0-9])/i);
+  const m2 = (!m1) ? base.match(/^([0-9]{1,3})(?![0-9])/i) : null;
+  const m = m1 || m2;
+  if (!m) return undefined;
+  const n = parseInt(m[1], 10);
+  if (isNaN(n)) return undefined;
+  return mapKey(`art${String(n)}`);
+}
+
+// Build gallery for specific theme
+const isImg = (n: string) => /\.(png|jpe?g|webp|avif|gif)$/i.test(n);
+function listImages(): { src: string; title: string; themes: string[] }[] {
+  const out: { src: string; title: string; themes: string[] }[] = [];
+  try {
+    const baseUrl = new URL(`../../../../public/uploads/art/`, import.meta.url);
+    const basePath = fileURLToPath(baseUrl);
+    const dirents = fs.readdirSync(basePath, { withFileTypes: true });
+
+    // Root images
+    dirents.filter(d=>d.isFile() && isImg(d.name)).forEach((d) => {
+      const base = d.name.replace(/\.[^.]+$/,'');
+      const mapped = getThemesForBase(base);
+      const themes = (mapped.length ? mapped : ['Ungrouped']).map(canon);
+      if (themes.some((t) => t.toLowerCase() === themeName.toLowerCase())) {
+        const title = base;
+        out.push({ src: `/uploads/art/${d.name}`, title, themes });
+      }
+    });
+
+  // Subfolders
+    dirents.filter(d=>d.isDirectory()).forEach((d) => {
+      try {
+        const sub = fileURLToPath(new URL(`../../../../public/uploads/art/${d.name}/`, import.meta.url));
+        const items = fs.readdirSync(sub, { withFileTypes: true });
+        items.filter(f=>f.isFile() && isImg(f.name)).forEach((f) => {
+          const base = f.name.replace(/\.[^.]+$/,'');
+          const mapped = getThemesForBase(base);
+          const themes = (mapped.length ? mapped : ['Ungrouped']).map(canon);
+          if (themes.some((t) => t.toLowerCase() === themeName.toLowerCase())) {
+            const title = base;
+            out.push({ src: `/uploads/art/${d.name}/${f.name}`, title, themes });
+          }
+        });
+      } catch {}
+    });
+  } catch {}
+  return out.sort((a,b) => a.src.localeCompare(b.src));
+}
+
+const items = listImages();
+const isAdmin = false;
+const isDev = process.env.NODE_ENV !== 'production';
+---
+<BaseLayout title={`Art • ${themeName}`} description={`Artwork in theme: ${themeName}`}>
+  <div class="hero-blade">
+    <h1 class="hero-title !mt-0">{themeName}</h1>
+    <p class="hero-sub">Artwork grouped under {themeName}</p>
+  </div>
+
+  {items.length === 0 ? (
+    <p>No images yet for this theme.</p>
+  ) : (
+    <section class="not-prose mt-2">
+      
+      <ul class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4">
+        {items.map((it) => (
+          <li class="overflow-hidden rounded-lg border border-neutral-300 bg-white/90 dark:bg-neutral-900/90 dark:border-neutral-800" data-reveal data-base={it.src.split('/').pop()?.replace(/\.[^.]+$/,'')}>
+            <button type="button" class="relative block w-full aspect-[4/3] group" data-lb-src={it.src} aria-label={`Open ${it.title}`}>
+              <img src={it.src} alt={it.title} loading="lazy" class="w-full h-full object-cover object-center transition duration-200 group-hover:scale-[1.02]" />
+              <span class="pointer-events-none absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></span>
+              <span class="pointer-events-none absolute left-2 bottom-2 text-white text-[0.8rem] font-medium drop-shadow">{it.title}</span>
+            </button>
+            
+          </li>
+        ))}
+      </ul>
+
+      <div id="lightbox" class="fixed inset-0 z-[9999] hidden items-center justify-center bg-black/70 p-4" role="dialog" aria-modal="true" aria-label="Image viewer">
+        <div class="max-w-6xl max-h-[85vh] relative">
+          <button id="lightbox-close" class="absolute -top-3 -right-3 bg-white text-black rounded-full w-8 h-8 shadow" aria-label="Close">✕</button>
+          <img id="lightbox-img" src="" alt="" class="w-auto h-auto max-w-full max-h-[85vh] rounded shadow-lg" />
+        </div>
+      </div>
+      <script src="/js/lightbox.js"></script>
+      
+    </section>
+  )}
+</BaseLayout>
+{isDev && (
+  <section class="mt-10 not-prose">
+    <h2 class="text-xl font-semibold mb-3">Developer tools</h2>
+    <div class="p-4 rounded border border-amber-400/50 bg-amber-50/60 dark:bg-amber-900/20 dev-tools">
+      <p class="text-sm mb-3">Upload images (drag & drop) under <code>/public/uploads/art</code>, then assign themes and copy the snippet for <code>src/lib/artAssignments.ts</code>.</p>
+      <div id="dev-drop" class="border-2 border-dashed rounded p-6 text-center hover:bg-black/5 dark:hover:bg-white/5">Drop images here or <label class="underline cursor-pointer"><input id="dev-file" type="file" accept="image/*" multiple class="sr-only" />browse</label></div>
+      <div class="mt-3 text-sm" id="dev-status"></div>
+      <div id="dev-list" class="mt-4 hidden">
+        <div class="mb-2 text-sm">Files:</div>
+        <div id="dev-items" class="space-y-2"></div>
+        <div class="mt-3 flex gap-2 items-center">
+          <button id="dev-copy" class="px-3 py-1.5 rounded bg-emerald-600 text-white hover:bg-emerald-500">Copy assignments snippet</button>
+          <span id="dev-copy-status" class="text-sm opacity-80"></span>
+        </div>
+      </div>
+    </div>
+    <div class="mt-6 text-sm">
+      <h3 class="font-semibold mb-2">Current image names (in order)</h3>
+      <ol class="list-decimal ml-5" id="dev-name-list"></ol>
+    </div>
+    <script is:inline>
+      (function(){
+        var drop = document.getElementById('dev-drop');
+        var fileIn = document.getElementById('dev-file');
+        var status = document.getElementById('dev-status');
+        var list = document.getElementById('dev-list');
+        var itemsEl = document.getElementById('dev-items');
+        var copyBtn = document.getElementById('dev-copy');
+        var copyStatus = document.getElementById('dev-copy-status');
+        var nameList = document.getElementById('dev-name-list');
+  var themes = JSON.parse(decodeURIComponent('{encodeURIComponent(JSON.stringify(desiredThemes))}'));
+        function setStatus(t){ if(status) status.textContent = t; }
+        function prevent(e){ e.preventDefault(); e.stopPropagation(); }
+        if(drop){ ['dragenter','dragover','dragleave','drop'].forEach(function(ev){ drop.addEventListener(ev, prevent, false); }); }
+        if(drop){ drop.addEventListener('drop', function(e){ try{ var dt=e.dataTransfer; if(!dt) return; var files=dt.files; if(files&&files.length){ upload(files); } }catch(err){ setStatus('Error: '+(err&&err.message?err.message:err)); } }); }
+        if(fileIn){ fileIn.addEventListener('change', function(){ if(fileIn.files && fileIn.files.length){ upload(fileIn.files); fileIn.value=''; } }); }
+        function upload(fileList){
+          setStatus('Uploading '+fileList.length+' file(s)...');
+          var fd = new FormData();
+          Array.prototype.forEach.call(fileList, function(f){ fd.append('files', f); });
+          fetch('/api/admin/art/upload', { method:'POST', body: fd })
+            .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+            .then(function(resp){ if(!resp||!resp.saved){ setStatus('Upload failed'); return; } setStatus('Uploaded '+resp.saved.length+' file(s)'); render(resp.saved); })
+            .catch(function(e){ setStatus('Error: '+e.message); });
+        }
+        function render(saved){
+          list.classList.remove('hidden');
+          itemsEl.innerHTML = '';
+          (themes || []).forEach(function(t){ /* create a row per uploaded item */ });
+          saved.forEach(function(item){
+            var base = (item.base || '').trim();
+            var row = document.createElement('div');
+            row.className = 'flex flex-wrap items-center gap-2';
+            var name = document.createElement('code'); name.textContent = base; name.className='px-1.5 py-0.5 rounded bg-black/10 dark:bg-white/10';
+            var selWrap = document.createElement('div'); selWrap.className = 'flex flex-wrap gap-2 ml-2';
+            (themes || []).forEach(function(t){ var label=document.createElement('label'); label.className='inline-flex items-center gap-1 text-xs'; var cb=document.createElement('input'); cb.type='checkbox'; cb.value=t; label.appendChild(cb); var sp=document.createElement('span'); sp.textContent=t; label.appendChild(sp); selWrap.appendChild(label); });
+            row.appendChild(name); row.appendChild(selWrap);
+            itemsEl.appendChild(row);
+          });
+          // Refresh list of current names from DOM gallery
+          if(nameList){
+            nameList.innerHTML = '';
+            var bases = Array.from(document.querySelectorAll('[data-base]')).map(function(el){ return el.getAttribute('data-base'); });
+            (bases || []).forEach(function(b){ var li=document.createElement('li'); li.textContent=b||''; nameList.appendChild(li); });
+          }
+        }
+        if(copyBtn){
+          copyBtn.addEventListener('click', function(){ try{
+            var rows = Array.from(itemsEl.querySelectorAll('div.flex.flex-wrap.items-center'));
+            var parts = rows.map(function(r){
+              var base = (r.querySelector('code')||{}).textContent || '';
+              var checks = Array.from(r.querySelectorAll('input[type="checkbox"]')).filter(function(cb){ return cb.checked; }).map(function(cb){ return cb.value; });
+              return '  \''+base+'\': ['+checks.map(function(t){ return '\''+t+'\''; }).join(', ')+']';
+            });
+            var out = 'export const assignments = {\n'+parts.join(',\n')+'\n};\n';
+            navigator.clipboard.writeText(out).then(function(){ copyStatus.textContent = 'Copied!'; setTimeout(function(){ copyStatus.textContent=''; }, 1500); });
+          }catch(e){ copyStatus.textContent = 'Copy failed'; setTimeout(function(){ copyStatus.textContent=''; }, 1500); }
+          });
+        }
+      })();
+    </script>
+  </section>
+)}
