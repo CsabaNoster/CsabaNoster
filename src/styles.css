@@ -79,9 +79,16 @@ html.theme-steampunk .link-window {
 	flex-direction: column;
 	align-items: center;
 	text-align: center;
-}
-.home-intro {
-	max-width: 600px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0;
+	padding: .44rem 1.35rem .44rem 1.35rem;
+	border-radius: 14px;
+	font-size: 1.22rem;
+	font-weight: 700;
+	position: relative;
+	overflow: hidden;
 	margin: 0 auto 1.2rem auto;
 }
 .intro-list {
@@ -122,11 +129,32 @@ html.theme-steampunk .link-window {
 	align-items: flex-start;
 }
 /* Make the home page button larger */
+.steam-nav .steam-brand-link {
+	padding: 1.1rem 3.2rem 1.1rem 3.2rem;
+	font-size: 2.1rem;
+	font-weight: 900;
+	border-radius: 24px;
+}
 .steam-nav .steam-brand-link.home-btn {
+	font-size: 2.1rem;
+	font-weight: 900;
+	line-height: 1.1;
+	letter-spacing: 1.5px;
 	padding: .44rem 1.35rem .44rem 1.35rem;
-	font-size: 1.22rem;
-	font-weight: 700;
-	border-radius: 10px;
+}
+html.theme-steampunk .steam-brand-link.home-btn {
+	background-image: url('/img/steel_dark_desktop_1920x200.jpeg');
+	background-size: cover;
+	background-repeat: no-repeat;
+	border: none;
+	box-shadow: 0 1px 1px #000a, 0 0 0 1px #edc8abcc inset, 0 0 8px #f9e6d699 inset;
+}
+/* Make all menu bar page buttons much larger */
+.steam-nav .steam-btn__plate {
+	padding: 1rem 1.2rem 1rem 1.2rem;
+	font-size: 1.5rem;
+	font-weight: 900;
+	border-radius: 24px;
 }
 /* If Tailwind is not set up, remove these lines. Otherwise, ensure PostCSS and Tailwind are configured in your build. */
 
@@ -180,6 +208,14 @@ html, body, #__astro { position: relative; }
 	position: sticky;
 	top: 0;
 	z-index: 10;
+	width: 100% !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	left: 0 !important;
+	right: 0 !important;
+	position: fixed !important;
+	top: 0 !important;
+	z-index: 100 !important;
 }
 /* Ensure developer tools panel overlays nearby content when needed */
 .dev-tools { position: relative; z-index: 5; }
@@ -204,8 +240,8 @@ html.theme-cyberpunk .bg-art { display: none !important; }
 html.theme-steampunk #bg-image { display: none !important; }
 
 /* Two-bar header layout: nav left, clock right */
-.steam-header { display:flex; gap:.75rem; align-items:stretch; width:min(100%, 1280px); margin: 0 auto; }
-.steam-clock-bar { display:flex; align-items:center; justify-content:center; min-width: 320px; padding: .7rem 1.2rem; flex-direction: column; }
+.steam-header { display:flex; gap:.75rem; align-items:stretch; width:min(100%, 1280px); margin: 0 auto; justify-content: flex-start; }
+.steam-clock-bar { display:flex; align-items:center; justify-content:flex-end; min-width: 320px; padding: .7rem 1.2rem; flex-direction: column; margin-right: 2.5rem; }
 @media (max-width: 880px){ .steam-clock-bar { display:none; } }
 /* Inside the combined header, let the left bar fill and clock size to content */
 .steam-header .steam-nav { width: auto; margin: 0; flex: 1 1 0; }
@@ -213,8 +249,18 @@ html.theme-steampunk #bg-image { display: none !important; }
 
 /* Nav bar: use uploaded steel images */
 .steam-nav{
-	/* Seamless tile, repeats horizontally */
-	background: rgba(6,8,18,0.7) !important;
+	/* ...existing code... */
+	background: rgba(6,8,18,0.7);
+html.theme-steampunk .steam-nav {
+	background: url('/img/copper_orange_dark_512%20(2).png') center/cover no-repeat !important;
+	background-color: #2a140a !important;
+	border: 2px solid #7c3f1c;
+	box-shadow:
+		0 0 0 1px #d8b980 inset,
+		0 0 14px #b38a4a18,
+		0 12px 24px -8px #6a4a1f80;
+	border-radius: 12px;
+}
 	border-color: rgba(229,0,255,0.28);
 	box-shadow:
 		0 0 0 1px rgba(229,0,255,.16) inset,
@@ -225,15 +271,17 @@ html.theme-steampunk #bg-image { display: none !important; }
 
 /* Desktop */
 @media (min-width: 1024px){
-	.steam-nav{
-		background: #141618 url("/img/steel_dark_desktop_1920x200.jpeg") center/cover no-repeat;
+	html.theme-steampunk .steam-nav {
+		background: url('/img/copper_orange_dark_512%20(2).png') center/cover no-repeat !important;
+		background-color: #2a140a !important;
 	}
 }
 
 /* Mobile */
 @media (max-width: 640px){
-	.steam-nav{
-		background: #141618 url("/img/steel_dark_mobile_1080x240.jpeg") center/cover no-repeat;
+	html.theme-steampunk .steam-nav {
+		background: url('/img/copper_orange_dark_512%20(2).png') center/cover no-repeat !important;
+		background-color: #2a140a !important;
 	}
 }
 
@@ -244,24 +292,29 @@ html.theme-steampunk #bg-image { display: none !important; }
 	--brass-shadow: #6a4a1f;
 	--panel-bg: none;
 	--rivet-size: 8px;
-	width: min(100%, 1280px);
-	margin: 0 auto;
-	display: flex;
-	align-items: center;
-	gap: 0.22rem;
-	padding: .18rem .6rem .18rem .6rem;
-	justify-content: flex-start;
-	flex-wrap: nowrap;
-	backdrop-filter: blur(3px) saturate(115%);
-	position: relative;
-	overflow: hidden;
-	border: 2px solid #1f242a;
-		border-radius: 12px;
-				margin-bottom: 4.5rem;
+	width: 100% !important;
+	box-sizing: border-box;
+	display: flex !important;
+	align-items: center !important;
+	gap: 0.1rem !important;
+	padding: .18rem 0 .18rem 0 !important;
+	justify-content: flex-start !important;
+	flex-wrap: nowrap !important;
+	backdrop-filter: blur(3px) saturate(115%) !important;
+	position: fixed !important;
+	left: 0 !important;
+	top: 0 !important;
+	right: 0 !important;
+	overflow-x: visible !important;
+	overflow-y: visible !important;
+	border: 2px solid #1f242a !important;
+	border-radius: 18px !important;
+	margin-bottom: 0 !important;
 	box-shadow:
 		0 0 0 1px #d8b980 inset,
 		0 0 14px #b38a4a18,
-		0 12px 24px -8px #6a4a1f80;
+		0 12px 24px -8px #6a4a1f80 !important;
+	z-index: 1000 !important;
 }
 
 /* Copper circuitry overlay (drawn via inline SVG) */
@@ -272,10 +325,10 @@ html.theme-steampunk #bg-image { display: none !important; }
 	position: relative;
 	display: inline-flex;
 	align-items: center;
-		gap: 0;
-	padding: .22rem .62rem .22rem .62rem;
-	font-weight: 600;
-	font-size: 1.04rem;
+	gap: 0;
+	padding: .44rem 1.35rem .44rem 1.35rem;
+	font-weight: 700;
+	font-size: 1.22rem;
 	letter-spacing: .5px;
 	text-transform: uppercase;
 	color: #27140f;
@@ -349,18 +402,18 @@ html.theme-steampunk #bg-image { display: none !important; }
 	position: relative; display:inline-block; text-decoration:none; font-weight:500; letter-spacing:.5px; color:#2b1d14;
 }
 /* Steampunk button style: darker plate, brighter text, no screws */
+/* Default button plate style for non-menu buttons */
 .steam-btn__plate {
-	text-align: center;
 	text-align: center;
 	display:inline-flex; align-items:center; justify-content:center; gap:0;
 	padding:.22rem .62rem .22rem .62rem; border-radius:10px; position:relative; overflow:hidden;
 }
 html.theme-steampunk .steam-btn__plate {
-	background-image: linear-gradient(180deg,#c98353 0%, #9f5229 70%, #6d3417 100%);
+	background-image: url('/img/steel_dark_desktop_1920x200.jpeg');
 	background-size: cover;
 	background-repeat: no-repeat;
-	border: 2px solid #7c3f1c;
-	box-shadow: 0 0 0 2px #b87333 inset, 0 0 12px #7c3f1c88 inset, 0 2px 8px #3a1f0a44;
+	border: none;
+	box-shadow: 0 1px 1px #000a, 0 0 0 1px #edc8abcc inset, 0 0 8px #f9e6d699 inset;
 	transition: all .25s ease;
 }
 .steam-btn__plate:hover,
@@ -525,9 +578,9 @@ html.theme-steampunk .steam-btn__plate {
 
 /* Current page highlight */
 .steam-btn[aria-current="page"] .steam-btn__plate {
-  outline: 2px solid #f5e3c2;
-  outline-offset: 2px;
-  filter: brightness(1.08);
+	outline: 2px solid #f5e3c2;
+	outline-offset: 2px;
+	filter: brightness(1.08);
 }
 
 /* Darker content window to improve contrast behind objects/content */
@@ -696,7 +749,7 @@ html.theme-steampunk .content-window[data-reveal]::before {
 @media (prefers-reduced-motion: reduce) {
 	.content-window, .content-window:hover,
 	.content-window ul.grid > li, .content-window ul.grid > li:hover { transition: none; transform: none; }
-	.steam-btn__plate::after, .steam-btn__plate:hover::after, .steam-brand-link::after, .steam-brand-link:hover::after, .steam-brand-link:focus-visible::after { animation: none; opacity: 0; }
+	.steam-btn__plate::after, .steam-btn__plate:hover::after, .steam-brand-link::after, .steam-brand_link:hover::after, .steam-brand-link:focus-visible::after { animation: none; opacity: 0; }
 	[data-reveal]:not(.is-visible), [data-reveal].is-visible { opacity: 1; transform: none; transition: none; }
 }
 
@@ -714,7 +767,7 @@ html.theme-steampunk .content-window[data-reveal]::before {
 /* Extra glow pulse on hover for a futuristic feel */
 .theme-cyberpunk .steam-btn__plate:hover,
 .theme-cyberpunk .steam-brand-link:hover,
-.theme-cyberpunk .steam-brand-link:focus-visible {
+.theme-cyberpunk .steam-brand_link:focus-visible {
 	border-color: rgba(229,0,255,.7);
 	box-shadow:
 		0 0 0 1.5px rgba(229,0,255,.7) inset,
@@ -734,7 +787,7 @@ html.theme-steampunk .content-window[data-reveal]::before {
 @media (prefers-reduced-motion: reduce) {
 		.theme-cyberpunk .steam-btn__plate:hover::after,
 		.theme-cyberpunk .steam-brand-link:hover::after,
-		.theme-cyberpunk .steam-brand-link:focus-visible::after { content: none !important; }
+		.theme-cyberpunk .steam-brand_link:focus-visible::after { content: none !important; }
 }
 
 /* ===== Steampunk-specific: brighter description text; window width unified globally below ===== */
@@ -746,7 +799,7 @@ html.theme-steampunk .home-latest-heading { color: #f6ead6; text-shadow: 0 1px 0
 
 /* ===== Unified main window size for both themes (use steampunk sizing) ===== */
 main.mx-auto { max-width: min(100%, 80rem) !important; }
-@media (min-width: 1024px){ .content-window { padding: 2.25rem 2.25rem 2.75rem; } }
+@media (min-width: 1024px) { .content-window { padding: 2.25rem 2.25rem 2.75rem; } }
 
 /* ===== Home hero visibility tweaks ===== */
 .home-hero-title {
@@ -755,13 +808,6 @@ main.mx-auto { max-width: min(100%, 80rem) !important; }
 	text-shadow: 0 1px 0 rgba(255,255,255,.35);
 	font-size: 2.4rem;
 	font-weight: 800;
-}
-.home-hero-desc {
-	line-height: 1.25;
-	line-height: 1.2;
-	color: #2b1d14;
-	text-shadow: 0 1px 0 rgba(255,255,255,.35);
-	font-size: 1.25rem;
 }
 .home-latest-heading {
 	color: #1a0f09;
@@ -780,7 +826,7 @@ main.mx-auto { max-width: min(100%, 80rem) !important; }
 		border: 2.5px solid #d88c3a;
 		box-shadow: 0 0 0 1px #e2b798 inset, 0 0 12px #d88c3a44 inset;
 }
-/* Cyberpunk overrides: bright, legible on dark neon */
+	/* Cyberpunk overrides: bright, legible on dark neon */
 .theme-cyberpunk .home-hero-title { color: #d6eeff; text-shadow: 0 0 8px rgba(0,255,255,.35), 0 2px 10px rgba(0,0,0,.45); }
 .theme-cyberpunk .home-hero-desc { color: #d6eeff; text-shadow: 0 0 8px rgba(0,255,255,.35); }
 .theme-cyberpunk .home-latest-heading { color: #d6eeff; text-shadow: 0 0 8px rgba(0,255,255,.35); }
@@ -831,35 +877,38 @@ main.mx-auto { max-width: min(100%, 80rem) !important; }
 	background: #070914;
 	color: #d7e6ff;
 }
-/* Background overlay changes to neon gradients */
-/* In cyberpunk, show the background without tint to preserve the image colors */
-.theme-cyberpunk .bg-photo-layer::after { background: none; mix-blend-mode: normal; }
-/* Header panels become dark glass with neon borders */
-.theme-cyberpunk .steam-nav {
-	background: rgba(6,8,18,0.7) !important;
-	border: 3px solid #3a8ad8 !important;
-	box-shadow:
-		0 0 16px 2px #3a8ad8cc,
-		0 0 32px 8px #3a8ad888,
-		0 0 0 1px #3a8ad8 inset !important;
-	border-radius: 12px;
-}
-/* Brand/button plates switch to neon glass */
-.theme-cyberpunk .steam-brand-link,
-.theme-cyberpunk .steam-btn__plate {
-	background-image: linear-gradient(180deg, rgba(30,40,80,.85), rgba(15,20,35,.85));
-	border: 1.5px solid rgba(0,255,255,.22);
-	box-shadow: 0 0 0 1px rgba(0,255,255,.25) inset, 0 0 18px rgba(0,255,255,.25) inset, 0 6px 18px rgba(0,0,0,.6);
-	border-radius: 10px;
-	position: relative;
-	overflow: hidden;
-	background-image: linear-gradient(180deg, rgba(30,40,80,.85), rgba(15,20,35,.85));
-	border: 1.5px solid rgba(0,255,255,.22);
-	box-shadow: 0 0 0 1px rgba(0,255,255,.25) inset, 0 0 18px rgba(0,255,255,.25) inset, 0 6px 18px rgba(0,0,0,.6);
-	border-radius: 10px;
-	position: relative;
-	overflow: hidden;
-}
+	/* Background overlay changes to neon gradients */
+	/* In cyberpunk, show the background without tint to preserve the image colors */
+	.theme-cyberpunk .bg-photo-layer::after { background: none; mix-blend-mode: normal; }
+	/* Header panels become dark glass with neon borders */
+	.theme-cyberpunk .steam-nav {
+		background: rgba(6,8,18,0.7) !important;
+		border: 3px solid #3a8ad8 !important;
+		box-shadow:
+			0 0 16px 2px #3a8ad8cc,
+			0 0 32px 8px #3a8ad888,
+			0 0 0 1px #3a8ad8 inset !important;
+		border-radius: 12px;
+	}
+	/* Brand/button plates switch to neon glass */
+	.theme-cyberpunk .steam-brand-link,
+	.theme-cyberpunk .steam-btn__plate {
+		background-image: linear-gradient(180deg, rgba(30,40,80,.85), rgba(15,20,35,.85));
+		border: 1.5px solid rgba(0,255,255,.22);
+		box-shadow: 0 0 0 1px rgba(0,255,255,.25) inset, 0 0 18px rgba(0,255,255,.25) inset, 0 6px 18px rgba(0,0,0,.6);
+		border-radius: 10px;
+		position: relative;
+		overflow: hidden;
+		padding:.22rem .62rem .22rem .62rem; 
+		border-radius:10px; 
+		position:relative; 
+		overflow:hidden;
+		border: 1.5px solid rgba(0,255,255,.22);
+		box-shadow: 0 0 0 1px rgba(0,255,255,.25) inset, 0 0 18px rgba(0,255,255,.25) inset, 0 6px 18px rgba(0,0,0,.6);
+		border-radius: 10px;
+		position: relative;
+		overflow: hidden;
+	}
 html.theme-steampunk .steam-brand-link {
 	background-image: linear-gradient(180deg,#c98353 0%, #9f5229 70%, #6d3417 100%);
 	background-size: cover;
@@ -869,7 +918,7 @@ html.theme-steampunk .steam-brand-link {
 }
 .theme-cyberpunk .steam-btn__plate:hover,
 .theme-cyberpunk .steam-brand-link:hover,
-.theme-cyberpunk .steam-brand-link:focus-visible { box-shadow: 0 0 0 1px rgba(120,200,255,.35) inset, 0 0 22px rgba(0,255,255,.35) inset, 0 6px 22px rgba(0,0,0,.7); }
+.theme-cyberpunk .steam-brand_link:focus-visible { box-shadow: 0 0 0 1px rgba(120,200,255,.35) inset, 0 0 22px rgba(0,255,255,.35) inset, 0 6px 22px rgba(0,0,0,.7); }
 
 /* Engraved text becomes neon glyphs */
 /* Sharper, more legible button text in cyberpunk (remove engraving/blur) */
@@ -930,6 +979,25 @@ html.theme-steampunk .steam-brand-link {
 		width: min(100%, 1280px);
 		padding: 1.5rem 1.5rem 2rem 1.5rem;
 	}
+	.steam-header {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    max-width: min(100%, 80rem);
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+    justify-content: flex-start;
+}
+.steam-header > .steam-nav {
+    flex: 1 1 auto;
+}
+.steam-header > .steam-clock-bar {
+    flex: 0 0 auto;
+    margin-left: auto;
+    margin-right: 2.5rem;
+}
+
 /* Links and prose hues */
 .theme-cyberpunk .prose a { color: #7dd3fc; }
 .theme-cyberpunk .prose a:hover { color: #a78bfa; text-decoration: underline; }

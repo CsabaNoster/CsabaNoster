@@ -45,8 +45,7 @@ const { title = 'NostersLab', description = 'Creative engineering experiments by
     </picture>
     <div id="bg-image" class="bg-photo-layer"></div>
     <header class="steam-nav-wrapper">
-      <div class="steam-header">
-        <div class="steam-nav" role="navigation" aria-label="Primary">
+      <div class="steam-nav" role="navigation" aria-label="Primary">
         <div class="steam-brand">
           <a href="/" class="steam-brand-link home-btn" aria-label="Home / Nosters Lab">
             <span class="screw tl" aria-hidden="true"></span>
@@ -55,6 +54,11 @@ const { title = 'NostersLab', description = 'Creative engineering experiments by
             <span class="screw br" aria-hidden="true"></span>
             <span class="brand-text" data-text="Nosters Lab">Nosters Lab</span>
           </a>
+          <button id="theme-toggle" class="theme-toggle" aria-label="Switch theme" aria-pressed="false" style="margin-left: 1rem;">
+            <span class="theme-toggle__label">
+              <span class="theme-toggle__text" data-text="CYBERPUNK">CYBERPUNK</span>
+            </span>
+          </button>
         </div>
         <ul class="steam-links">
           <li>
@@ -124,33 +128,24 @@ const { title = 'NostersLab', description = 'Creative engineering experiments by
             </a>
           </li>
         </ul>
-        </div>
-        <div class="steam-nav steam-clock-bar" role="region" aria-label="Clock">
-          <div class="nixie-clock" aria-label="Current local time" role="timer" aria-live="polite">
-            <span class="nixie-group" data-part="hours">
-              <span class="nixie-tube" data-digit="0">0</span>
-              <span class="nixie-tube" data-digit="0">0</span>
-            </span>
-            <span class="nixie-sep" aria-hidden="true"></span>
-            <span class="nixie-group" data-part="minutes">
-              <span class="nixie-tube" data-digit="0">0</span>
-              <span class="nixie-tube" data-digit="0">0</span>
-            </span>
-            <span class="nixie-sep" aria-hidden="true"></span>
-            <span class="nixie-group" data-part="seconds">
-              <span class="nixie-tube" data-digit="0">0</span>
-              <span class="nixie-tube" data-digit="0">0</span>
-            </span>
-          </div>
+        <div class="nixie-clock" aria-label="Current local time" role="timer" aria-live="polite">
+          <span class="nixie-group" data-part="hours">
+            <span class="nixie-tube" data-digit="0">0</span>
+            <span class="nixie-tube" data-digit="0">0</span>
+          </span>
+          <span class="nixie-sep" aria-hidden="true"></span>
+          <span class="nixie-group" data-part="minutes">
+            <span class="nixie-tube" data-digit="0">0</span>
+            <span class="nixie-tube" data-digit="0">0</span>
+          </span>
+          <span class="nixie-sep" aria-hidden="true"></span>
+          <span class="nixie-group" data-part="seconds">
+            <span class="nixie-tube" data-digit="0">0</span>
+            <span class="nixie-tube" data-digit="0">0</span>
+          </span>
         </div>
       </div>
     </header>
-    <!-- Persistent theme toggle button in the top-left corner -->
-    <button id="theme-toggle" class="theme-toggle" aria-label="Switch theme" aria-pressed="false">
-      <span class="theme-toggle__label">
-        <span class="theme-toggle__text" data-text="CYBERPUNK">CYBERPUNK</span>
-      </span>
-    </button>
   <main class={`mx-auto px-6 pb-24 prose prose-neutral dark:prose-invert ${wide ? 'max-w-7xl' : 'max-w-5xl'}`}>
       {wrap ? (
         <div class="content-window">

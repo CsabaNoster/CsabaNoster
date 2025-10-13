@@ -9,8 +9,6 @@ html.theme-cyberpunk, html.theme-cyberpunk body {
     url(/backgrounds/cyberpunk/cyberpunk.png) center center no-repeat;
   background-size: cover;
 }
-/* Cyberpunk Theme Styles (theme-cyberpunk) */
-/* Structure matches main styles.css, but only cyberpunk rules included. */
 
 html.theme-cyberpunk .main-window-header {
   border: 2.5px solid #3a8ad8 !important;

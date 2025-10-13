@@ -1,0 +1,66 @@
+
+/* Steampunk Theme Styles (theme-steampunk) */
+/* Structure matches main styles.css, but only steampunk rules included. */
+
+html.theme-steampunk .main-window-header {
+	border-radius: 14px;
+	background: linear-gradient(180deg, rgba(34,24,12,0.55), rgba(60,40,20,0.28));
+	border: 3.5px solid #7c3f1c; /* dark polished copper */
+	box-shadow:
+		0 0 0 2.5px #b87333 inset,
+		0 0 18px #7c3f1c88 inset,
+		0 2px 14px #3a1f0a44;
+	padding: 1rem 1.25rem;
+	position: relative;
+	overflow: hidden;
+	margin-bottom: 20px;
+}
+html.theme-steampunk .cards-window {
+	border-radius: 14px;
+	border: 2.5px solid #e2b798; /* polished brass */
+	box-shadow:
+		0 0 0 1.5px #d88c3a inset,
+		0 0 12px #e2b79844 inset;
+}
+html.theme-steampunk .link-window {
+	background: rgba(20,24,40,0.18);
+	border-radius: 14px;
+	border: 2.5px solid #e2b798; /* polished brass */
+	box-shadow:
+		0 0 0 1.5px #d88c3a inset,
+		0 0 12px #e2b79844 inset;
+	margin-bottom: 20px;
+	margin-top: 20px;
+}
+html.theme-steampunk .content-window {
+	border: 4px solid #3a3f44; /* dark polished steel */
+	box-shadow:
+		0 2px 16px -4px #0004,
+		0 0 0 2px #d8b980 inset,
+		0 0 0 8px #b38a4a44 inset,
+		0 0 0 1px #6a4a1f;
+	background:
+		#f0e3c2 /* light beige */
+		url(/backgrounds/main/circuit_overlay_steampunk_2x.png) center/cover no-repeat;
+	opacity: 1 !important;
+	position: relative;
+	overflow: hidden;
+}
+html.theme-steampunk .steam-btn__plate {
+	background-image: url('/img/steel_dark_desktop_1920x200.jpeg');
+	background-size: cover;
+	background-repeat: no-repeat;
+	border: 1.5px solid #442514;
+	box-shadow: 0 1px 1px #000a, 0 0 0 1px #edc8abcc inset, 0 0 8px #f9e6d699 inset;
+	transition: all .25s ease;
+}
+html.theme-steampunk .steam-brand-link {
+	background-image: url('/img/steel_dark_desktop_1920x200.jpeg');
+	background-size: cover;
+	background-repeat: no-repeat;
+	border: 1.5px solid #442514;
+	box-shadow: 0 1px 1px #000a, 0 0 0 1px #edc8abcc inset, 0 0 8px #f9e6d699 inset;
+}
+/* Removed empty rulesets for cleaner, functional CSS. */
+/* Add all other steampunk-specific rules here, matching the structure of styles.css. */
+
