@@ -1,0 +1,105 @@
+---
+// Props: none (uses global theme logic)
+---
+---
+---
+<!--
+  ThemeToggle.astro
+  ----------------
+  This component renders the theme toggle button in the top-left corner of the site.
+  It allows users to switch between steampunk and cyberpunk modes by toggling the
+  'theme-cyberpunk' class on the <html> element. The current mode is saved in localStorage
+  and the button label updates to reflect the active theme.
+-->
+<button id="theme-toggle" class="theme-toggle-btn" aria-label="Switch theme" aria-pressed="false">
+  <span class="theme-toggle__label">
+    <!-- Label text updates dynamically to show the current mode -->
+    <span class="theme-toggle__text" id="theme-toggle-label"></span>
+  </span>
+</button>
+<script is:client>
+  // Updates the button label and aria-pressed state based on the current theme
+  function updateLabel() {
+    const label = document.getElementById('theme-toggle-label');
+    if (!label) return;
+  // If 'theme-cyberpunk' is present, show 'STEAMPUNK' (next mode); otherwise show 'CYBERPUNK'
+  const isCyberpunk = document.documentElement.classList.contains('theme-cyberpunk');
+  label.textContent = isCyberpunk ? 'STEAMPUNK' : 'CYBERPUNK';
+  const btn = document.getElementById('theme-toggle');
+  if (btn) btn.setAttribute('aria-pressed', isCyberpunk ? 'true' : 'false');
+  }
+
+  // Sets up the click handler for the theme toggle button
+  function setupToggle() {
+    const btn = document.getElementById('theme-toggle');
+    if (!btn) return;
+    btn.onclick = function() {
+      // Toggle theme classes on <html>
+      const html = document.documentElement;
+      const isCyberpunk = html.classList.contains('theme-cyberpunk');
+      if (isCyberpunk) {
+        // Switch to steampunk mode
+        html.classList.remove('theme-cyberpunk');
+        html.classList.add('theme-steampunk');
+        localStorage.setItem('theme-style', 'steampunk');
+        console.log('Switched to steampunk mode. <html> class:', html.className);
+      } else {
+        // Switch to cyberpunk mode
+        html.classList.remove('theme-steampunk');
+        html.classList.add('theme-cyberpunk');
+        localStorage.setItem('theme-style', 'cyberpunk');
+        console.log('Switched to cyberpunk mode. <html> class:', html.className);
+      }
+      // Force reflow to ensure CSS updates immediately
+      void document.body.offsetWidth;
+      updateLabel();
+      // Notify other scripts to update backgrounds/assets
+      window.dispatchEvent(new Event('theme-changed'));
+    };
+    // Set initial label on load
+    updateLabel();
+  }
+
+  // Ensure setup runs after DOM is ready
+  if (document.readyState === 'loading') {
+    window.addEventListener('DOMContentLoaded', setupToggle);
+  } else {
+    setupToggle();
+  }
+  // Update label if theme changes from elsewhere
+  window.addEventListener('theme-changed', updateLabel);
+</script>
+<style>
+.theme-toggle-btn {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 2000;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--toggle-color, #c67c2e);
+  font-size: 1.1rem;
+  font-family: inherit;
+  font-weight: bold;
+  letter-spacing: 0.08em;
+  padding: 0.5em 1.2em;
+  border-radius: 1.5em;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+  transition: color 0.2s, background 0.2s;
+}
+.theme-toggle__label {
+  display: flex;
+  align-items: center;
+}
+.theme-toggle__text {
+  font-size: 1.1em;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+html.theme-cyberpunk .theme-toggle-btn {
+  color: #00ffe7;
+  background: #1a1a2a;
+}
+</style>

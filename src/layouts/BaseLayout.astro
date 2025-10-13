@@ -8,8 +8,11 @@ const { title = 'NostersLab', description = 'Creative engineering experiments by
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-  <link rel="preload" as="image" href="/backgrounds/steampunk.png" />
-  <link rel="preload" as="image" href="/backgrounds/cyberpunk.png" />
+    <link rel="preload" as="image" href="/backgrounds/steampunk.png" />
+    <link rel="preload" as="image" href="/backgrounds/cyberpunk.png" />
+      <!-- Theme-specific styles are now handled in external files -->
+      <link rel="stylesheet" href="/src/styles.steampunk.css" />
+      <link rel="stylesheet" href="/src/styles.cyberpunk.css" />
     <style is:inline>
       /* Early paint safeguards to avoid background flash on navigation */
       html.theme-cyberpunk #bg-image { background-image: url('/backgrounds/cyberpunk.png'); opacity: 1; }
@@ -22,7 +25,9 @@ const { title = 'NostersLab', description = 'Creative engineering experiments by
         const saved = localStorage.getItem('theme-style');
         if (saved === 'cyberpunk') {
           document.documentElement.classList.add('theme-cyberpunk');
+          document.documentElement.classList.remove('theme-steampunk');
         } else {
+          document.documentElement.classList.add('theme-steampunk');
           document.documentElement.classList.remove('theme-cyberpunk');
         }
       } catch (e) { /* ignore */ }
@@ -161,6 +166,25 @@ const { title = 'NostersLab', description = 'Creative engineering experiments by
 
 <!-- styles moved to global stylesheet -->
 
+<style>
+  /* All theme-specific CSS is now in external files. Remove invalid placeholder. */
+  html:not(.theme-cyberpunk) .main-window-header {
+    border: 2.5px solid #d88c3a;
+    box-shadow: 0 0 0 1px #e2b798 inset, 0 0 12px #d88c3a44 inset;
+  }
+
+  html.theme-cyberpunk,
+  html.theme-cyberpunk body {
+    min-height: 100vh;
+    height: 100%;
+    width: 100%;
+    background:
+      url(/backgrounds/cyberpunk/cyberpunk.png) center center no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+  }
+</style>
+
 <script>
   // Background image sets for themes
   const imagesSteam = [
@@ -289,9 +313,10 @@ const { title = 'NostersLab', description = 'Creative engineering experiments by
     };
 
     btn.addEventListener('click', () => {
-      const isCyber = html.classList.toggle('theme-cyberpunk');
-      localStorage.setItem('theme-style', isCyber ? 'cyberpunk' : 'steampunk');
-      updateBtn();
+  const isCyber = html.classList.toggle('theme-cyberpunk');
+  localStorage.setItem('theme-style', isCyber ? 'cyberpunk' : 'steampunk');
+  updateBtn();
+  window.location.reload();
     });
 
     updateBtn();

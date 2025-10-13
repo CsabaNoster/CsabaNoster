@@ -1,7 +1,27 @@
+/*
+--------------------------------------------------
+	styles.css
+	----------
+	This file contains all global styles for the site, including theme-specific
+	rules for steampunk and cyberpunk modes, layout, navigation, buttons, backgrounds,
+	and content windows. Each major block is commented for clarity.
+--------------------------------------------------
+*/
+
+/*
+	Hero Blade
+	----------
+	Decorative border for hero sections.
+*/
 .hero-blade {
 	border: 2.5px solid #3a8ad8;
 	box-shadow: 0 0 0 1px #7fcfff inset, 0 0 12px #3a8ad822 inset;
 }
+/*
+	Main Window Header
+	------------------
+	Header styling for main content windows.
+*/
 .main-window-header {
 	border-radius: 14px;
 	background: linear-gradient(180deg, rgba(0,0,0,0.55), rgba(0,0,0,0.28));
@@ -11,13 +31,9 @@
 	overflow: hidden;
 	margin-bottom: 20px; /* ~5mm */
 }
-html:not(.theme-cyberpunk) .main-window-header {
-	border: 2.5px solid #d88c3a;
-	box-shadow: 0 0 0 1px #e2b798 inset, 0 0 12px #d88c3a44 inset;
-}
-.theme-cyberpunk .main-window-header {
-	border: 2.5px solid #3a8ad8 !important;
-	box-shadow: 0 0 0 1px #7fcfff inset, 0 0 12px #3a8ad822 inset !important;
+html.theme-steampunk .main-window-header {
+	border: 3.5px solid #7c3f1c; /* polished dark copper */
+	box-shadow: 0 0 0 2.5px #b87333 inset, 0 0 18px #7c3f1c88 inset, 0 2px 14px #3a1f0a44;
 }
 .cards-window {
 	border-radius: 14px;
@@ -27,9 +43,9 @@ html:not(.theme-cyberpunk) .main-window-header {
 	margin-bottom: 20px; /* ~5mm */
 	margin-top: 20px; /* ~5mm, for consistency below headers */
 }
-html:not(.theme-cyberpunk) .cards-window {
-	border: 2.5px solid #d88c3a;
-	box-shadow: 0 0 0 1px #e2b798 inset, 0 0 12px #d88c3a44 inset;
+html.theme-steampunk .cards-window {
+	border: 3.5px solid #7c3f1c; /* polished dark copper */
+	box-shadow: 0 0 0 2.5px #b87333 inset, 0 0 18px #7c3f1c88 inset, 0 2px 14px #3a1f0a44;
 }
 .theme-cyberpunk .cards-window {
 	border: 2.5px solid #3a8ad8 !important;
@@ -37,16 +53,16 @@ html:not(.theme-cyberpunk) .cards-window {
 }
 .link-window {
 	border-radius: 14px;
-	background: rgba(20,24,40,0.12);
-	box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-	padding: 1.25rem 1.5rem 1.5rem 1.5rem;
+	background: rgba(20,24,40,0.18);
+	border: 3.5px solid #7c3f1c; /* polished dark copper */
+	box-shadow: 0 0 0 2.5px #b87333 inset, 0 0 18px #7c3f1c88 inset, 0 2px 14px #3a1f0a44;
 	margin-bottom: 20px; /* ~5mm */
 	margin-top: 20px; /* ~5mm, for consistency below headers */
 }
-html:not(.theme-cyberpunk) .link-window {
+html.theme-steampunk .link-window {
 	background: rgba(20,24,40,0.18);
-	border: 2.5px solid #d88c3a;
-	box-shadow: 0 0 0 1px #e2b798 inset, 0 0 12px #d88c3a44 inset;
+	border: 2.5px solid #3a3f44; /* polished dark steel */
+	box-shadow: 0 0 0 2px #7a7f87 inset, 0 0 16px #3a3f4488 inset, 0 2px 12px #22262a44;
 	margin-bottom: 20px;
 	margin-top: 20px;
 }
@@ -185,7 +201,7 @@ html, body, #__astro { position: relative; }
 /* Prevent initial flash: if cyberpunk is active at first paint, hide the steampunk picture layer */
 html.theme-cyberpunk .bg-art { display: none !important; }
 /* Conversely, in steampunk, keep the dynamic layer hidden until theme script runs */
-html:not(.theme-cyberpunk) #bg-image { display: none !important; }
+html.theme-steampunk #bg-image { display: none !important; }
 
 /* Two-bar header layout: nav left, clock right */
 .steam-header { display:flex; gap:.75rem; align-items:stretch; width:min(100%, 1280px); margin: 0 auto; }
@@ -339,12 +355,12 @@ html:not(.theme-cyberpunk) #bg-image { display: none !important; }
 	display:inline-flex; align-items:center; justify-content:center; gap:0;
 	padding:.22rem .62rem .22rem .62rem; border-radius:10px; position:relative; overflow:hidden;
 }
-html:not(.theme-cyberpunk) .steam-btn__plate {
-	background-image: url('/img/steel_dark_desktop_1920x200.jpeg');
+html.theme-steampunk .steam-btn__plate {
+	background-image: linear-gradient(180deg,#c98353 0%, #9f5229 70%, #6d3417 100%);
 	background-size: cover;
 	background-repeat: no-repeat;
-	border: 1.5px solid #442514;
-	box-shadow: 0 1px 1px #000a, 0 0 0 1px #edc8abcc inset, 0 0 8px #f9e6d699 inset;
+	border: 2px solid #7c3f1c;
+	box-shadow: 0 0 0 2px #b87333 inset, 0 0 12px #7c3f1c88 inset, 0 2px 8px #3a1f0a44;
 	transition: all .25s ease;
 }
 .steam-btn__plate:hover,
@@ -528,15 +544,14 @@ html:not(.theme-cyberpunk) .steam-btn__plate {
 	overflow: hidden;
 	transition: background .3s, box-shadow .3s;
 }
-html:not(.theme-cyberpunk) .content-window {
-		border: 4px solid #b38a4a;
+html.theme-steampunk .content-window {
+		border: 4px solid #3a3f44; /* polished dark steel */
 		box-shadow:
-			0 2px 16px -4px #0004,
-			0 0 0 2px #d8b980 inset,
-			0 0 0 8px #b38a4a44 inset,
-			0 0 0 1px #6a4a1f;
+			0 0 0 2px #7a7f87 inset,
+			0 0 16px #3a3f4488 inset,
+			0 2px 12px #22262a44;
 		background:
-			#f0e3c2 /* light beige */
+			#e3e6ea /* steel blue-gray */
 			url(/backgrounds/main/circuit_overlay_steampunk_2x.png) center/cover no-repeat;
 		opacity: 1 !important;
 		position: relative;
@@ -556,7 +571,7 @@ html:not(.theme-cyberpunk) .content-window {
 		position: relative;
 		overflow: hidden;
 	}
-html:not(.theme-cyberpunk) .content-window::before {
+html.theme-steampunk .content-window::before {
 	content: "";
 	position: absolute;
 	inset: 0;
@@ -566,11 +581,11 @@ html:not(.theme-cyberpunk) .content-window::before {
 	opacity: 1;
 	filter: none;
 }
-html:not(.theme-cyberpunk) .content-window > * {
+html.theme-steampunk .content-window > * {
 	position: relative;
 	z-index: 1;
 }
-html:not(.theme-cyberpunk) .content-window::after {
+html.theme-steampunk .content-window::after {
 	content: "";
 	position: absolute;
 	inset: 0;
@@ -581,7 +596,7 @@ html:not(.theme-cyberpunk) .content-window::after {
 	opacity: 0;
 	z-index: 1;
 }
-html:not(.theme-cyberpunk) .content-window[data-reveal]::before {
+html.theme-steampunk .content-window[data-reveal]::before {
 	content: "";
 	position: absolute;
 	left: 18px; top: 18px;
@@ -627,7 +642,7 @@ html:not(.theme-cyberpunk) .content-window[data-reveal]::before {
 	position: relative;
 	overflow: hidden;
 	}
-	html:not(.theme-cyberpunk) .hero-blade {
+	html.theme-steampunk .hero-blade {
 		border: 2.5px solid #d88c3a;
 		box-shadow: 0 0 0 1px #e2b798 inset, 0 0 12px #d88c3a44 inset;
 }
@@ -724,10 +739,10 @@ html:not(.theme-cyberpunk) .content-window[data-reveal]::before {
 
 /* ===== Steampunk-specific: brighter description text; window width unified globally below ===== */
 /* Brighten description text in steampunk for better contrast on the dark panel */
-html:not(.theme-cyberpunk) .hero-sub { color: #f4e7d2; text-shadow: 0 1px 0 rgba(0,0,0,.45); }
-html:not(.theme-cyberpunk) .home-hero-desc { color: #f6ead6; text-shadow: 0 1px 0 rgba(0,0,0,.45); }
-html:not(.theme-cyberpunk) .home-hero-title { color: #f6ead6; text-shadow: 0 1px 0 rgba(0,0,0,.45); }
-html:not(.theme-cyberpunk) .home-latest-heading { color: #f6ead6; text-shadow: 0 1px 0 rgba(0,0,0,.45); }
+html.theme-steampunk .hero-sub { color: #f4e7d2; text-shadow: 0 1px 0 rgba(0,0,0,.45); }
+html.theme-steampunk .home-hero-desc { color: #f6ead6; text-shadow: 0 1px 0 rgba(0,0,0,.45); }
+html.theme-steampunk .home-hero-title { color: #f6ead6; text-shadow: 0 1px 0 rgba(0,0,0,.45); }
+html.theme-steampunk .home-latest-heading { color: #f6ead6; text-shadow: 0 1px 0 rgba(0,0,0,.45); }
 
 /* ===== Unified main window size for both themes (use steampunk sizing) ===== */
 main.mx-auto { max-width: min(100%, 80rem) !important; }
@@ -761,7 +776,7 @@ main.mx-auto { max-width: min(100%, 80rem) !important; }
 	position: relative;
 	overflow: hidden;
 	}
-	html:not(.theme-cyberpunk) .home-latest-heading {
+	html.theme-steampunk .home-latest-heading {
 		border: 2.5px solid #d88c3a;
 		box-shadow: 0 0 0 1px #e2b798 inset, 0 0 12px #d88c3a44 inset;
 }
@@ -845,12 +860,12 @@ main.mx-auto { max-width: min(100%, 80rem) !important; }
 	position: relative;
 	overflow: hidden;
 }
-html:not(.theme-cyberpunk) .steam-brand-link {
-	background-image: url('/img/steel_dark_desktop_1920x200.jpeg');
+html.theme-steampunk .steam-brand-link {
+	background-image: linear-gradient(180deg,#c98353 0%, #9f5229 70%, #6d3417 100%);
 	background-size: cover;
 	background-repeat: no-repeat;
-	border: 1.5px solid #442514;
-	box-shadow: 0 1px 1px #000a, 0 0 0 1px #edc8abcc inset, 0 0 8px #f9e6d699 inset;
+	border: 2px solid #7c3f1c;
+	box-shadow: 0 0 0 2px #b87333 inset, 0 0 12px #7c3f1c88 inset, 0 2px 8px #3a1f0a44;
 }
 .theme-cyberpunk .steam-btn__plate:hover,
 .theme-cyberpunk .steam-brand-link:hover,
@@ -933,6 +948,6 @@ html:not(.theme-cyberpunk) .steam-brand-link {
 /* In steampunk, hide the rotating cyberpunk background layer */
 
 /* Background pulse removed per request: ensure no overlay or animation on cyberpunk background */
-html:not(.theme-cyberpunk) .bg-photo-layer { display: none !important; }
+html.theme-steampunk .bg-photo-layer { display: none !important; }
 /* End of file */
 /* End of file */

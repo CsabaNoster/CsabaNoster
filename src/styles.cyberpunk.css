@@ -1,0 +1,54 @@
+html.theme-cyberpunk footer {
+  background: transparent !important;
+  border: none !important;
+}
+html.theme-cyberpunk, html.theme-cyberpunk body {
+  min-height: 100vh;
+  height: 100%;
+  background:
+    url(/backgrounds/cyberpunk/cyberpunk.png) center center no-repeat;
+  background-size: cover;
+}
+/* Cyberpunk Theme Styles (theme-cyberpunk) */
+/* Structure matches main styles.css, but only cyberpunk rules included. */
+
+html.theme-cyberpunk .main-window-header {
+  border: 2.5px solid #3a8ad8 !important;
+  background: rgba(6,8,18,0.7);
+  box-shadow:
+    0 0 0 1px #7fcfff inset,
+    0 0 12px #3a8ad822 inset,
+    0 0 16px 2px #3a8ad8cc,
+    0 0 32px 8px #3a8ad888;
+  border-radius: 14px;
+  padding: 1rem 1.25rem;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+html.theme-cyberpunk .cards-window {
+  /* ...cyberpunk cards styles... */
+}
+html.theme-cyberpunk .link-window {
+  /* ...cyberpunk link styles... */
+}
+html.theme-cyberpunk .content-window {
+  background:
+    url(/backgrounds/cyberpunk/circuit_overlay_cyberpunk_2x.png) center/cover no-repeat;
+}
+html.theme-cyberpunk .steam-btn__plate {
+  /* ...cyberpunk button styles... */
+}
+html.theme-cyberpunk .steam-brand-link {
+  /* ...cyberpunk brand styles... */
+}
+html.theme-cyberpunk .hero-blade {
+  /* ...cyberpunk hero blade styles... */
+}
+html.theme-cyberpunk #bg-image {
+  /* ...cyberpunk background image styles... */
+}
+html.theme-cyberpunk .bg-photo-layer {
+  /* ...cyberpunk background layer styles... */
+}
+/* Add all other cyberpunk-specific rules here, matching the structure of styles.css. */
