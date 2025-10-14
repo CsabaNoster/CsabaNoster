@@ -24,29 +24,10 @@ html.theme-cyberpunk .main-window-header {
   overflow: hidden;
   margin-bottom: 20px;
 }
-html.theme-cyberpunk .cards-window {
-  /* ...cyberpunk cards styles... */
-}
-html.theme-cyberpunk .link-window {
-  /* ...cyberpunk link styles... */
-}
+
 html.theme-cyberpunk .content-window {
   background:
+    linear-gradient(180deg, rgba(0,0,0,0.65), rgba(0,0,0,0.45)),
     url(/backgrounds/cyberpunk/circuit_overlay_cyberpunk_2x.png) center/cover no-repeat;
-}
-html.theme-cyberpunk .steam-btn__plate {
-  /* ...cyberpunk button styles... */
-}
-html.theme-cyberpunk .steam-brand-link {
-  /* ...cyberpunk brand styles... */
-}
-html.theme-cyberpunk .hero-blade {
-  /* ...cyberpunk hero blade styles... */
-}
-html.theme-cyberpunk #bg-image {
-  /* ...cyberpunk background image styles... */
-}
-html.theme-cyberpunk .bg-photo-layer {
-  /* ...cyberpunk background layer styles... */
 }
 /* Add all other cyberpunk-specific rules here, matching the structure of styles.css. */

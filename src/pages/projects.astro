@@ -17,22 +17,20 @@ function fmt(d: Date) {
 }
 ---
 <BaseLayout title="Projects" description="Technical projects" wrap={false} wide={true}>
-  <div class="content-window">
   <header class="main-window-header">
-      <h1 class="hero-title">Projects</h1>
-      <p class="hero-sub">Robotics, electronics, and build logs</p>
-    </header>
-    <div class="cards-window">
-      <section class="main-window-section">
-        <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
-          {entries.map((e: CollectionEntry<'projects'>) => (
-            <li>
-              <Card href={`/projects/${e.slug}/`} title={e.data.title} image={(e.data as any).image} summary={e.data.summary} badge="projects" metaRight={fmt(e.data.date as Date)} />
-            </li>
-          ))}
-        </ul>
-      </section>
-    </div>
+    <h1 class="hero-title">Projects</h1>
+    <p class="hero-sub">Robotics, electronics, and build logs</p>
+  </header>
+  <div class="cards-window">
+    <section class="main-window-section">
+      <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
+        {entries.map((e: CollectionEntry<'projects'>) => (
+          <li>
+            <Card href={`/projects/${e.slug}/`} title={e.data.title} image={(e.data as any).image} summary={e.data.summary} badge="projects" metaRight={fmt(e.data.date as Date)} />
+          </li>
+        ))}
+      </ul>
+    </section>
   </div>
 </BaseLayout>
 

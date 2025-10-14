@@ -79,11 +79,11 @@ const cultsImages = {
     : '/uploads/design/thresh-lantern-display/1000007630 (1).jpg',
 };
 ---
-<BaseLayout title="3D Design" description="3D design, CAD, modeling, and printable parts">
-  <div class="hero-blade">
-    <h1 class="hero-title !mt-0">3D Design</h1>
+<BaseLayout title="3D Design" description="3D design, CAD, modeling, and printable parts" wrap={false} wide={true}>
+  <header class="main-window-header">
+    <h1 class="hero-title">3D Design</h1>
     <p class="hero-sub">CAD, modeling, printable parts, and visualization</p>
-  </div>
+  </header>
   {items.length === 0 ? (
     <p>No 3D design uploads yet.</p>
   ) : (
@@ -99,10 +99,10 @@ const cultsImages = {
   )}
 
   {/* Cults3D profile spotlight */}
-  <div class="hero-blade mt-3">
-    <h2 class="hero-title !mt-0">More on Cults3D</h2>
+  <header class="main-window-header mt-3">
+    <h2 class="hero-title">More on Cults3D</h2>
     <p class="hero-sub">Browse and download my printable designs on Cults3D</p>
-  </div>
+  </header>
   <div class="link-window mt-3">
     <ul class="grid gap-6 md:grid-cols-4 mt-3">
       <li>

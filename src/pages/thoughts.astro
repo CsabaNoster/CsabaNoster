@@ -5,10 +5,10 @@ import Card from '../components/Card.astro';
 const entries = await getCollection('thoughts', (e: CollectionEntry<'thoughts'>) => e.data.published !== false);
 ---
 <BaseLayout title="Thoughts" description="Scientific & philosophical thoughts">
-  <div class="hero-blade">
-    <h1 class="hero-title !mt-0">Thoughts</h1>
+  <header class="main-window-header">
+    <h1 class="hero-title">Thoughts</h1>
     <p class="hero-sub">Short notes on science, tools, and meaning</p>
-  </div>
+  </header>
   <div class="cards-window mt-3">
     <ul class="grid gap-6 md:grid-cols-2">
       {entries.map((e: CollectionEntry<'thoughts'>) => (

@@ -129,19 +129,6 @@ html.theme-steampunk .link-window {
 	align-items: flex-start;
 }
 /* Make the home page button larger */
-.steam-nav .steam-brand-link {
-	padding: 1.1rem 3.2rem 1.1rem 3.2rem;
-	font-size: 2.1rem;
-	font-weight: 900;
-	border-radius: 24px;
-}
-.steam-nav .steam-brand-link.home-btn {
-	font-size: 2.1rem;
-	font-weight: 900;
-	line-height: 1.1;
-	letter-spacing: 1.5px;
-	padding: .44rem 1.35rem .44rem 1.35rem;
-}
 html.theme-steampunk .steam-brand-link.home-btn {
 	background-image: url('/img/steel_dark_desktop_1920x200.jpeg');
 	background-size: cover;
@@ -150,44 +137,28 @@ html.theme-steampunk .steam-brand-link.home-btn {
 	box-shadow: 0 1px 1px #000a, 0 0 0 1px #edc8abcc inset, 0 0 8px #f9e6d699 inset;
 }
 /* Make all menu bar page buttons much larger */
-.steam-nav .steam-btn__plate {
-	padding: 1rem 1.2rem 1rem 1.2rem;
-	font-size: 1.5rem;
-	font-weight: 900;
-	border-radius: 24px;
-}
-/* If Tailwind is not set up, remove these lines. Otherwise, ensure PostCSS and Tailwind are configured in your build. */
+/* Removed global menu bar button styles to allow theme overrides to take effect. */
 
-:root { 
-	color-scheme: light dark; 
-	/* Palette for SVG background */
-	--sand:#f0d8b2;      /* light tan */
-	--sand-2:#e9cfa6;    /* slightly darker tan */
-	--brick:#7a2621;     /* deep red */
-	--brick-2:#5e1d19;   /* darker red */
+/* Force the chosen <img> inside <picture> to cover entire viewport */
+.bg-art > img {
+	position: fixed;
+	inset: 0;
+	z-index: -1;
+	width: 100vw;
+	height: 100vh;
+	object-fit: cover;
+	object-position: center center;
+	display: block;
+	image-rendering: -webkit-optimize-contrast;
+	pointer-events: none;
 }
-
-/* Background art container (SVG inserted in layout) */
 .bg-art {
 	position: fixed;
 	inset: 0;
 	z-index: -1;
+	width: 100vw;
+	height: 100vh;
 	pointer-events: none;
-	width: 100vw; /* ensure full viewport width */
-	height: 100vh; /* ensure full viewport height */
-	display: block;
-	overflow: hidden; /* clip overflowing child image */
-}
-
-/* Force the chosen <img> inside <picture> to cover entire viewport */
-.bg-art > img {
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-	object-position: center center;
-	display: block;
-	/* Slight smoothing for large images */
-	image-rendering: -webkit-optimize-contrast;
 }
 
 /* Ensure root elements allow full-height fixed layer calculation */
@@ -199,6 +170,12 @@ body {
 	font-family: Inter,system-ui,sans-serif;
 	-webkit-font-smoothing: antialiased;
 	background: var(--sand);
+	}
+	html.theme-steampunk body {
+		background: url('/backgrounds/steampunk.png') center center no-repeat;
+		background-size: cover;
+		background-attachment: fixed;
+		background-color: #1a120a;
 	color: #2b1d14;
 }
 
@@ -237,7 +214,7 @@ html, body, #__astro { position: relative; }
 /* Prevent initial flash: if cyberpunk is active at first paint, hide the steampunk picture layer */
 html.theme-cyberpunk .bg-art { display: none !important; }
 /* Conversely, in steampunk, keep the dynamic layer hidden until theme script runs */
-html.theme-steampunk #bg-image { display: none !important; }
+/* Removed rule that hides the rotating background layer in steampunk mode. */
 
 /* Two-bar header layout: nav left, clock right */
 .steam-header { display:flex; gap:.75rem; align-items:stretch; width:min(100%, 1280px); margin: 0 auto; justify-content: flex-start; }
@@ -403,11 +380,7 @@ html.theme-steampunk .steam-nav {
 }
 /* Steampunk button style: darker plate, brighter text, no screws */
 /* Default button plate style for non-menu buttons */
-.steam-btn__plate {
-	text-align: center;
-	display:inline-flex; align-items:center; justify-content:center; gap:0;
-	padding:.22rem .62rem .22rem .62rem; border-radius:10px; position:relative; overflow:hidden;
-}
+/* .steam-btn__plate base styles removed to allow theme overrides */
 html.theme-steampunk .steam-btn__plate {
 	background-image: url('/img/steel_dark_desktop_1920x200.jpeg');
 	background-size: cover;
@@ -458,7 +431,7 @@ html.theme-steampunk .steam-btn__plate {
 .steam-btn__label::after, .brand-text::after {
 	content: attr(data-text);
 	position:absolute; inset:0;
-	color:#fff1e0; opacity:.32;
+	color: #fff1e0; opacity:.32;
 	mix-blend-mode:screen;
 	transform:translate(-1px,-1px);
 	pointer-events:none;
@@ -473,7 +446,7 @@ html.theme-steampunk .steam-btn__plate {
 @media (max-width: 720px) {
 	.steam-nav { flex-wrap:wrap; padding: .6rem .85rem 1rem; }
 	.steam-links { width:100%; justify-content:space-between; }
-	.steam-brand-link { font-size:1rem; padding:.4rem .8rem; }
+	/* .steam-brand-link base styles removed to allow theme overrides */
 	.steam-btn__plate { padding:.5rem .75rem .55rem; }
 }
 
@@ -587,7 +560,7 @@ html.theme-steampunk .steam-btn__plate {
 .content-window {
 			background: none;
 			/* background handled by theme-specific ::before */
-					margin-top: 6.5rem;
+						margin-top: 9.5rem;
 					border-radius: 18px;
 					box-shadow: 0 2px 16px -4px #0004, 0 0 0 1px #e2b798 inset;
 					padding: 1.25rem 1.25rem 1.5rem 1.25rem;
@@ -604,79 +577,13 @@ html.theme-steampunk .content-window {
 			0 0 16px #3a3f4488 inset,
 			0 2px 12px #22262a44;
 		background:
-			#e3e6ea /* steel blue-gray */
+			linear-gradient(180deg, rgba(0,0,0,0.65), rgba(0,0,0,0.45)),
 			url(/backgrounds/main/circuit_overlay_steampunk_2x.png) center/cover no-repeat;
 		opacity: 1 !important;
 		position: relative;
 		overflow: hidden;
 	}
 	/* Cyberpunk pink border for main window */
-	.theme-cyberpunk .content-window {
-		border: 3px solid #ff4fe5 !important;
-		box-shadow:
-			0 0 16px 2px #ff4fe5cc,
-			0 0 32px 8px #ff4fe588,
-			0 0 0 1px #ff4fe5 inset !important;
-		background:
-			linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
-			url(/backgrounds/main/circuit_overlay_cyberpunk_2x.png) center/cover no-repeat;
-		opacity: 1 !important;
-		position: relative;
-		overflow: hidden;
-	}
-html.theme-steampunk .content-window::before {
-	content: "";
-	position: absolute;
-	inset: 0;
-	z-index: 0;
-	pointer-events: none;
-	background: url(/backgrounds/main/circuit_overlay_steampunk_2x.png) center/cover no-repeat;
-	opacity: 1;
-	filter: none;
-}
-html.theme-steampunk .content-window > * {
-	position: relative;
-	z-index: 1;
-}
-html.theme-steampunk .content-window::after {
-	content: "";
-	position: absolute;
-	inset: 0;
-	pointer-events: none;
-	border-radius: 16px;
-	border: 0;
-	background: none;
-	opacity: 0;
-	z-index: 1;
-}
-html.theme-steampunk .content-window[data-reveal]::before {
-	content: "";
-	position: absolute;
-	left: 18px; top: 18px;
-	width: 32px; height: 32px;
-	background:
-		radial-gradient(circle at 50% 50%, #b38a4a 0 60%, #d8b980 61% 100%);
-	border-radius: 50%;
-	box-shadow: 0 0 0 2px #6a4a1f, 0 2px 8px #b38a4a44;
-	opacity: 0.22;
-	z-index: 2;
-	}
-@media (min-width: 640px) { .content-window { padding: 1.5rem 1.5rem 2rem; } }
-@media (min-width: 1024px) { .content-window { padding: 2rem 2rem 2.5rem; } }
-
-/* Gentle lift on hover (disabled for reduced motion below) */
-.content-window:hover { transform: translateY(-2px); box-shadow: 0 16px 36px rgba(0,0,0,.45), 0 2px 8px rgba(0,0,0,.25) inset; }
-
-/* Grid cards micro-interaction */
-.content-window ul.grid > li { transition: transform .2s ease, box-shadow .2s ease, filter .2s ease; }
-.content-window ul.grid > li:hover { transform: translateY(-3px); box-shadow: 0 12px 26px rgba(0,0,0,.35); filter: saturate(1.05); }
-
-/* ===== Details panel specific tweaks (actuator page) ===== */
-.details-panel { line-height: 1.5; }
-.details-panel .details-title { margin: 0 0 .75rem; font-size: 1.1rem; font-weight: 600; opacity: .95; }
-.details-panel .details-toc { margin: 0 0 .75rem; padding: .5rem .75rem; border: 1px solid rgba(255,255,255,.06); border-radius: 10px; background: rgba(255,255,255,.03); }
-.details-panel .details-toc ul { list-style: none; padding-left: 0; margin: 0; display: grid; gap: .25rem; }
-.details-panel .details-toc li.toc-h2 > a { font-weight: 600; text-decoration: none; color: #f4e7d2; }
 .details-panel .details-toc li.toc-h3 { padding-left: .75rem; }
 .details-panel .details-toc li a:hover { text-decoration: underline; }
 .details-panel #details-content h2 { margin-top: 1.0rem; margin-bottom: .35rem; font-size: 1.05rem; }
@@ -899,7 +806,8 @@ main.mx-auto { max-width: min(100%, 80rem) !important; }
 		border-radius: 10px;
 		position: relative;
 		overflow: hidden;
-		padding:.22rem .62rem .22rem .62rem; 
+			padding: 0.7rem 1.4rem 0.7rem 1.4rem;
+				font-size: 1.5rem;
 		border-radius:10px; 
 		position:relative; 
 		overflow:hidden;

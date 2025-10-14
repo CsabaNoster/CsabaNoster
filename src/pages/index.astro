@@ -20,53 +20,51 @@ function fmt(d: Date) {
 }
 ---
 <BaseLayout title="Home" description="NostersLab is my sandbox for making and meaning—hands‑on technical projects, 3D design, robotics, art experiments, and science‑leaning reviews." wrap={false} wide={true}>
-  <div class="content-window" data-reveal>
-    <header class="main-window-header header-bubble-dark">
-      <div class="header-bubble-content center">
-        <h1 class="hero-title home-hero-title">Welcome</h1>
-        <div class="home-intro">
-          <p class="hero-sub home-hero-desc">
-            NostersLab is my sandbox for making and meaning.<br>
-            Here you'll find:
-          </p>
-          <ul class="intro-list">
-            <li>Hands-on technical projects</li>
-            <li>3D design and robotics</li>
-            <li>Art experiments</li>
-            <li>Book & film reviews with a scientific and philosophical lean</li>
-          </ul>
-          <p class="hero-sub home-hero-desc">
-            I share what I build, what I learn, and why it matters—including mistakes. If you appreciate curious tools, clear explanations, and quiet, thoughtful creativity, you’ll feel at home here.
-          </p>
-        </div>
-      </div>
-    </header>
-      <h2 id="latest-heading" class="section-title home-latest-heading">Latest uploads</h2>
-    <div class="cards-window">
-      <section aria-labelledby="latest-heading" class="main-window-section">
-        {latest.length === 0 ? (
-          <p class="section-desc">No uploads yet.</p>
-        ) : (
-          <Grid>
-            {latest.map((e) => {
-              const img = (e.data as any).image as string | undefined;
-              const summary = (e.data as any).summary as string | undefined;
-              const collection = e.collection as string;
-              const title = e.data.title as string;
-              const date = e.data.date as Date;
-              const href = `/${collection}/${e.slug}/`;
-              const badge = collection;
-              const metaRight = fmt(date);
-              return (
-                <li>
-                  <Card href={href} title={title} image={img} summary={summary} badge={badge} metaRight={metaRight} />
-                </li>
-              );
-            })}
-          </Grid>
-        )}
-      </section>
+  <header class="main-window-header">
+    <h1 class="hero-title home-hero-title">Welcome</h1>
+    <div class="home-intro">
+      <p class="hero-sub home-hero-desc">
+        NostersLab is my sandbox for making and meaning.<br>
+        Here you'll find:
+      </p>
+      <ul class="intro-list">
+        <li>Hands-on technical projects</li>
+        <li>3D design and robotics</li>
+        <li>Art experiments</li>
+        <li>Book & film reviews with a scientific and philosophical lean</li>
+      </ul>
+      <p class="hero-sub home-hero-desc">
+        I share what I build, what I learn, and why it matters—including mistakes. If you appreciate curious tools, clear explanations, and quiet, thoughtful creativity, you’ll feel at home here.
+      </p>
     </div>
+  </header>
+  <header class="main-window-header">
+    <h2 id="latest-heading" class="hero-title">Latest uploads</h2>
+  </header>
+  <div class="cards-window">
+    <section aria-labelledby="latest-heading" class="main-window-section">
+      {latest.length === 0 ? (
+        <p class="section-desc">No uploads yet.</p>
+      ) : (
+        <Grid>
+          {latest.map((e) => {
+            const img = (e.data as any).image as string | undefined;
+            const summary = (e.data as any).summary as string | undefined;
+            const collection = e.collection as string;
+            const title = e.data.title as string;
+            const date = e.data.date as Date;
+            const href = `/${collection}/${e.slug}/`;
+            const badge = collection;
+            const metaRight = fmt(date);
+            return (
+              <li>
+                <Card href={href} title={title} image={img} summary={summary} badge={badge} metaRight={metaRight} />
+              </li>
+            );
+          })}
+        </Grid>
+      )}
+    </section>
   </div>
 </BaseLayout>
 

@@ -16,10 +16,10 @@ const tagged = all.filter(e => (e.data.tags || []).some((t: string) => ['robot',
 tagged.sort((a, b) => (b.data.date as Date).getTime() - (a.data.date as Date).getTime());
 ---
 <BaseLayout title="Robotics" description="Robotics, mechatronics, and control systems">
-  <div class="hero-blade">
-    <h1 class="hero-title !mt-0">Robotics</h1>
+  <header class="main-window-header">
+    <h1 class="hero-title">Robotics</h1>
     <p class="hero-sub">Mechatronics builds, control systems, and arm projects</p>
-  </div>
+  </header>
   {tagged.length === 0 ? (
     <p>No robotics uploads yet.</p>
   ) : (

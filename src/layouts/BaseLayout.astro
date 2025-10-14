@@ -10,9 +10,9 @@ const { title = 'NostersLab', description = 'Creative engineering experiments by
     <meta name="description" content={description} />
     <link rel="preload" as="image" href="/backgrounds/steampunk.png" />
     <link rel="preload" as="image" href="/backgrounds/cyberpunk.png" />
-      <!-- Theme-specific styles are now handled in external files -->
-      <link rel="stylesheet" href="/src/styles.steampunk.css" />
-      <link rel="stylesheet" href="/src/styles.cyberpunk.css" />
+  <!-- Theme-specific styles: only load the active theme -->
+  {Astro.glob('/src/styles.steampunk.css') && `<link rel="stylesheet" href="/src/styles.steampunk.css" />`}
+  {Astro.glob('/src/styles.cyberpunk.css') && `<link rel="stylesheet" href="/src/styles.cyberpunk.css" />`}
     <style is:inline>
       /* Early paint safeguards to avoid background flash on navigation */
       html.theme-cyberpunk #bg-image { background-image: url('/backgrounds/cyberpunk.png'); opacity: 1; }
@@ -40,27 +40,20 @@ const { title = 'NostersLab', description = 'Creative engineering experiments by
   <body>
     <!-- Responsive raster background (three resolutions). Replace placeholder filenames with actual uploaded images. -->
     <picture class="bg-art" aria-hidden="true">
-      <!-- Steampunk background (static picture layer) -->
       <img src="/backgrounds/steampunk.png" alt="" decoding="async" fetchpriority="high" />
     </picture>
     <div id="bg-image" class="bg-photo-layer"></div>
     <header class="steam-nav-wrapper">
       <div class="steam-nav" role="navigation" aria-label="Primary">
-        <div class="steam-brand">
-          <a href="/" class="steam-brand-link home-btn" aria-label="Home / Nosters Lab">
+        <div style="display: flex; align-items: center; width: 100%; justify-content: space-between;">
+          <a href="/" class="steam-brand-link home-btn" aria-label="Home / Nosters Lab" style="margin-left: 2rem; margin-right: 2rem;">
             <span class="screw tl" aria-hidden="true"></span>
             <span class="screw tr" aria-hidden="true"></span>
             <span class="screw bl" aria-hidden="true"></span>
             <span class="screw br" aria-hidden="true"></span>
             <span class="brand-text" data-text="Nosters Lab">Nosters Lab</span>
           </a>
-          <button id="theme-toggle" class="theme-toggle" aria-label="Switch theme" aria-pressed="false" style="margin-left: 1rem;">
-            <span class="theme-toggle__label">
-              <span class="theme-toggle__text" data-text="CYBERPUNK">CYBERPUNK</span>
-            </span>
-          </button>
-        </div>
-        <ul class="steam-links">
+          <ul class="steam-links" style="display: flex; align-items: center; gap: 1.5rem; margin-right: 5rem;">
           <li>
             <a class="steam-btn" href="/projects">
               <span class="steam-btn__plate">
@@ -128,32 +121,38 @@ const { title = 'NostersLab', description = 'Creative engineering experiments by
             </a>
           </li>
         </ul>
-        <div class="nixie-clock" aria-label="Current local time" role="timer" aria-live="polite">
-          <span class="nixie-group" data-part="hours">
-            <span class="nixie-tube" data-digit="0">0</span>
-            <span class="nixie-tube" data-digit="0">0</span>
-          </span>
-          <span class="nixie-sep" aria-hidden="true"></span>
-          <span class="nixie-group" data-part="minutes">
-            <span class="nixie-tube" data-digit="0">0</span>
-            <span class="nixie-tube" data-digit="0">0</span>
-          </span>
-          <span class="nixie-sep" aria-hidden="true"></span>
-          <span class="nixie-group" data-part="seconds">
-            <span class="nixie-tube" data-digit="0">0</span>
-            <span class="nixie-tube" data-digit="0">0</span>
-          </span>
-        </div>
+          <div style="display: flex; align-items: center; gap: 2rem;">
+            <div class="nixie-clock" aria-label="Current local time" role="timer" aria-live="polite">
+              <span class="nixie-group" data-part="hours">
+                <span class="nixie-tube" data-digit="0">0</span>
+                <span class="nixie-tube" data-digit="0">0</span>
+              </span>
+              <span class="nixie-sep" aria-hidden="true"></span>
+              <span class="nixie-group" data-part="minutes">
+                <span class="nixie-tube" data-digit="0">0</span>
+                <span class="nixie-tube" data-digit="0">0</span>
+              </span>
+              <span class="nixie-sep" aria-hidden="true"></span>
+              <span class="nixie-group" data-part="seconds">
+                <span class="nixie-tube" data-digit="0">0</span>
+                <span class="nixie-tube" data-digit="0">0</span>
+              </span>
+            </div>
+            <!-- Removed theme toggle button from here -->
+          </div>
       </div>
     </header>
+  <button id="theme-toggle" class="theme-toggle" aria-label="Switch theme" aria-pressed="false" style="position: fixed; top: 6.5rem; left: 2rem; z-index: 2000; margin-top: 0.5rem;">
+    <span class="theme-toggle__label">
+      <span class="theme-toggle__text" data-text="CYBERPUNK">CYBERPUNK</span>
+    </span>
+  </button>
   <main class={`mx-auto px-6 pb-24 prose prose-neutral dark:prose-invert ${wide ? 'max-w-7xl' : 'max-w-5xl'}`}>
-      {wrap ? (
+  <div style="padding-top: 0.25cm;"> <!-- 0.25cm gap between menu bar and main window -->
         <div class="content-window">
           <slot />
         </div>
-      ) : (
-        <slot />
-      )}
+      </div>
     </main>
   <footer class="border-t border-neutral-200 dark:border-neutral-800 py-10 text-center text-xs text-neutral-500">© {new Date().getFullYear()} NostersLab • Csaba / Noster</footer>
   </body>

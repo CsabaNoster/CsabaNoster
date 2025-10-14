@@ -113,12 +113,12 @@ const themeCards: ThemeCard[] = desiredThemes.map((name) => {
 });
 ---
 <BaseLayout title="Art" description="Artwork gallery">
-  <div class="hero-blade">
-    <h1 class="hero-title !mt-0">Art</h1>
+  <header class="main-window-header">
+    <h1 class="hero-title">Art</h1>
     <p class="hero-sub">Gallery of images grouped by theme</p>
-  </div>
-    {/* DeviantArt profile window */}
-  <section class="content-window link-window" aria-labelledby="deviantart-heading" data-reveal>
+  </header>
+  {/* DeviantArt profile window */}
+  <section class="content-window link-window" aria-labelledby="deviantart-heading" data-reveal style="margin-top: 0;">
       <div class="flex flex-col md:flex-row gap-6 items-center">
         <a href="https://www.deviantart.com/noster87" target="_blank" rel="noopener" class="block shrink-0 rounded-lg overflow-hidden border border-neutral-300 dark:border-neutral-800 bg-white/90 dark:bg-neutral-900/90 shadow-lg hover:scale-[1.02] transition">
           <img src="https://a.deviantart.net/avatars-big/n/o/noster87.png?1" alt="Noster87 DeviantArt avatar" class="w-32 h-32 object-cover object-center" loading="lazy" />
