@@ -1,3 +1,80 @@
+/* Single border for all steampunk headers */
+/* Steampunk header borders */
+
+/* Unified steampunk header style for all pages */
+html.theme-steampunk .main-window-header {
+  border: 2.5px solid #b38a4a !important;
+  box-shadow: 0 0 0 1px #d8b980 inset, 0 0 12px #b38a4a22 inset !important;
+  border-radius: 14px !important;
+  padding: 0.4em 1em !important;
+  background: none !important;
+}
+/* Steampunk main header and modal font colors */
+html.theme-steampunk h1,
+html.theme-steampunk h2,
+html.theme-steampunk .main-window-header,
+html.theme-steampunk .login-modal__title,
+html.theme-steampunk .hero-title.login-modal__title {
+  color: #f6ead6 !important;
+  text-shadow: 0 1px 0 rgba(0,0,0,.45) !important;
+}
+html.theme-steampunk p,
+html.theme-steampunk li,
+html.theme-steampunk .main-window-desc,
+html.theme-steampunk .login-modal__desc {
+  color: #e2b798 !important;
+}
+/* Steampunk login dropdown override */
+html.theme-steampunk #login-dropdown {
+  background: linear-gradient(180deg, rgba(34,24,12,0.85), rgba(34,24,12,0.65)), url(/backgrounds/steampunk/circuit_overlay_steampunk_2x.png) center/cover no-repeat !important;
+  border: 2.5px solid #b87333 !important;
+  border-color: #b87333 !important;
+  border-style: solid !important;
+  box-shadow: 0 0 0 1.5px #b87333 inset, 0 0 16px #b8733388, 0 2px 14px #b8733344 !important;
+  border-radius: 14px;
+  color: #f6ead6 !important;
+}
+html.theme-steampunk #login-dropdown input {
+  background: rgba(34,24,12,0.18) !important;
+  color: #e2b798 !important;
+  border: 1.5px solid #b87333 !important;
+  box-shadow: 0 0 0 1px #b87333 inset !important;
+}
+html.theme-steampunk #login-dropdown label {
+  color: #e2b798 !important;
+}
+/* Steampunk register form labels */
+html.theme-steampunk .auth-form label {
+  color: #f6ead6 !important;
+}
+html.theme-steampunk #login-dropdown button {
+  background: linear-gradient(90deg, #b87333 0%, #e2b798 100%) !important;
+  color: #27140f !important;
+}
+/* Steampunk register button style */
+html.theme-steampunk .auth-form button[type="submit"] {
+  background: linear-gradient(90deg, #b87333 0%, #e2b798 100%) !important;
+  color: #27140f !important;
+  border-radius: 14px !important;
+  font-weight: 700 !important;
+  font-size: 1.2rem !important;
+  box-shadow: 0 0 0 1.5px #b87333 inset, 0 0 16px #b8733388, 0 2px 14px #b8733344 !important;
+}
+/* Steampunk login modal window override */
+html.theme-steampunk .login-modal__window {
+  border: 3px solid #b87333 !important;
+  box-shadow: 0 0 16px 2px #b87333cc, 0 0 32px 8px #b8733388, 0 0 0 1px #b87333 inset !important;
+  background: linear-gradient(180deg, rgba(34,24,12,0.85), rgba(34,24,12,0.65)), url(/backgrounds/steampunk/circuit_overlay_steampunk_2x.png) center/cover no-repeat !important;
+  color: #f6ead6 !important;
+}
+html.theme-steampunk .login-modal__title {
+  color: #f6ead6 !important;
+  text-shadow: 0 1px 0 rgba(0,0,0,.45) !important;
+}
+html.theme-steampunk .hero-title.login-modal__title {
+  color: #f6ead6 !important;
+  text-shadow: 0 1px 0 rgba(0,0,0,.45) !important;
+}
 html.theme-steampunk .cults3d-title,
 html.theme-steampunk .cults3d-desc {
   color: #f6ead6 !important;
@@ -5,14 +82,6 @@ html.theme-steampunk .cults3d-desc {
   background: rgba(34,24,12,0.7) !important;
   border-radius: 14px !important;
   padding: 1rem 1.25rem !important;
-}
-html.theme-steampunk .main-window-header .hero-title,
-html.theme-steampunk .main-window-header .hero-sub,
-html.theme-steampunk .main-window-header h1,
-html.theme-steampunk .main-window-header h2,
-html.theme-steampunk .main-window-header p {
-  color: #f6ead6 !important;
-  text-shadow: 0 1px 0 rgba(0,0,0,.45) !important;
 }
 html.theme-steampunk .home-hero-desc,
 html.theme-steampunk .intro-list li {
@@ -63,33 +132,6 @@ html.theme-steampunk .steam-brand-link {
   transition: all .25s ease !important;
 }
 
-html.theme-steampunk .main-window-header {
-  border: 2.5px solid #b87333 !important;
-  background: rgba(34,24,12,0.7);
-  box-shadow:
-    0 0 0 1px #e2b798 inset,
-    0 0 12px #b8733344 inset,
-    0 0 16px 2px #b87333cc,
-    0 0 32px 8px #b8733388;
-  border-radius: 14px;
-  padding: 1rem 1.25rem;
-  position: relative;
-  overflow: hidden;
-  margin-bottom: 20px;
-  html.theme-steampunk .main-window-header .hero-title,
-  html.theme-steampunk .main-window-header .hero-sub,
-  html.theme-steampunk .main-window-header h1,
-  html.theme-steampunk .main-window-header h2,
-  html.theme-steampunk .main-window-header p,
-  html.theme-steampunk .hero-title,
-  html.theme-steampunk .hero-sub,
-  html.theme-steampunk h1,
-  html.theme-steampunk h2,
-  html.theme-steampunk p {
-    color: #f6ead6 !important;
-    text-shadow: 0 1px 0 rgba(0,0,0,.45) !important;
-  }
-}
 html.theme-steampunk .cards-window {
   border-radius: 14px;
   border: 2.5px solid #e2b798; /* polished brass */

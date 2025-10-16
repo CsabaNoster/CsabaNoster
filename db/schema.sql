@@ -1,0 +1,10 @@
+-- PostgreSQL user table
+CREATE TABLE IF NOT EXISTS users (
+  id SERIAL PRIMARY KEY,
+  username VARCHAR(64) UNIQUE NOT NULL,
+  email VARCHAR(128) UNIQUE NOT NULL,
+  password_hash VARCHAR(255) NOT NULL,
+  admin_code VARCHAR(64),
+  is_admin BOOLEAN DEFAULT FALSE,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

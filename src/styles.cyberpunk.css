@@ -1,3 +1,128 @@
+/* Cyberpunk details panel styles */
+html.theme-cyberpunk .details-panel {
+  /* Previous styles */
+}
+html.theme-cyberpunk .details-panel {
+  background: #18181b !important;
+  border: 2px solid #00ffe7 !important;
+  border-radius: 1rem !important;
+  box-shadow: 0 0 24px 0 #00ffe7cc, 0 2px 16px 0 #00ffe744 !important;
+  padding: 2rem 1.5rem !important;
+  margin-bottom: 2rem !important;
+  color: #e0e0e0 !important;
+}
+/* Cyberpunk main header and modal font colors */
+html.theme-cyberpunk h1,
+html.theme-cyberpunk h2,
+html.theme-cyberpunk .main-window-header,
+html.theme-cyberpunk .login-modal__title,
+html.theme-cyberpunk #cyberpunk-login-modal h1 {
+  color: #7fcfff !important;
+  text-shadow: 0 0 12px #3a8ad8cc, 0 2px 10px #10182088 !important;
+}
+/* Unified cyberpunk header style for all pages */
+html.theme-cyberpunk .main-window-header {
+  border: 3px solid #3a8ad8 !important;
+  box-shadow: 0 0 16px 2px #3a8ad8cc, 0 0 32px 8px #3a8ad888, 0 0 0 1px #3a8ad8 inset !important;
+  border-radius: 14px !important;
+  padding: 0.4em 1em !important;
+  background: none !important;
+}
+html.theme-cyberpunk p,
+html.theme-cyberpunk li,
+html.theme-cyberpunk .main-window-desc,
+html.theme-cyberpunk .login-modal__desc {
+  color: #d6eeff !important;
+}
+/* Cyberpunk login dropdown override */
+html.theme-cyberpunk #login-dropdown {
+  background: linear-gradient(180deg, rgba(0,0,0,0.65), rgba(0,0,0,0.45)), url(/backgrounds/cyberpunk/circuit_overlay_cyberpunk_2x.png) center/cover no-repeat !important;
+  border: 2.5px solid #ff4fe5 !important;
+  border-color: #ff4fe5 !important;
+  border-style: solid !important;
+  box-shadow: 0 0 0 1.5px #ff4fe5 inset, 0 0 16px #ff4fe588, 0 2px 14px #ff4fe544 !important;
+  border-radius: 14px;
+  color: #d6eeff !important;
+}
+html.theme-cyberpunk #login-dropdown input {
+  background: rgba(30,40,80,0.18) !important;
+  color: #7fcfff !important;
+  border: 1.5px solid #ff4fe5 !important;
+  box-shadow: 0 0 0 1px #ff4fe5 inset !important;
+}
+html.theme-cyberpunk #login-dropdown label {
+  color: #7fcfff !important;
+}
+html.theme-cyberpunk #login-dropdown button {
+  background: linear-gradient(90deg, #3a8ad8 0%, #7fcfff 100%) !important;
+  color: #101820 !important;
+}
+#cyberpunk-login-modal h1 {
+  color: #7fcfff !important;
+  text-shadow: 0 0 12px #3a8ad8cc !important;
+}
+/* Force cyberpunk styles for login modal window by ID */
+#cyberpunk-login-modal {
+  border: 3px solid #3a8ad8 !important;
+  box-shadow: 0 0 16px 2px #3a8ad8cc, 0 0 32px 8px #3a8ad888, 0 0 0 1px #3a8ad8 inset !important;
+  background: linear-gradient(180deg, rgba(0,0,0,0.65), rgba(0,0,0,0.45)), url(/backgrounds/cyberpunk/circuit_overlay_cyberpunk_2x.png) center/cover no-repeat !important;
+  color: #d6eeff !important;
+}
+/* Cyberpunk login modal window and title overrides (unique classes) */
+html.theme-cyberpunk .login-modal__window--cyberpunk {
+  border: 3px solid #3a8ad8 !important;
+  box-shadow: 0 0 16px 2px #3a8ad8cc, 0 0 32px 8px #3a8ad888, 0 0 0 1px #3a8ad8 inset !important;
+  background: linear-gradient(180deg, rgba(0,0,0,0.65), rgba(0,0,0,0.45)), url(/backgrounds/cyberpunk/circuit_overlay_cyberpunk_2x.png) center/cover no-repeat !important;
+  color: #7fcfff !important;
+  text-shadow: 0 0 12px #3a8ad8cc, 0 2px 10px #10182088 !important;
+}
+html.theme-cyberpunk .login-modal__title--cyberpunk {
+  color: #7fcfff !important;
+  text-shadow: 0 0 12px #3a8ad8cc !important;
+}
+/* Cyberpunk modal heading overrides */
+html.theme-cyberpunk .main-window-header.login-modal__window h1,
+html.theme-cyberpunk .main-window-header.login-modal__window h2 {
+  color: #7fcfff !important;
+  text-shadow: 0 0 12px #3a8ad8cc, 0 2px 10px #10182088 !important;
+}
+html.theme-cyberpunk .main-window-header.login-modal__window {
+  border: 3px solid #3a8ad8 !important;
+  box-shadow: 0 0 16px 2px #3a8ad8cc, 0 0 32px 8px #3a8ad888, 0 0 0 1px #3a8ad8 inset !important;
+  background: linear-gradient(180deg, rgba(0,0,0,0.65), rgba(0,0,0,0.45)), url(/backgrounds/cyberpunk/circuit_overlay_cyberpunk_2x.png) center/cover no-repeat !important;
+  color: #7fcfff !important;
+  text-shadow: 0 0 12px #3a8ad8cc, 0 2px 10px #10182088 !important;
+}
+html.theme-cyberpunk .main-window-header {
+  border: 3px solid #3a8ad8 !important;
+  box-shadow: 0 0 16px 2px #3a8ad8cc, 0 0 32px 8px #3a8ad888, 0 0 0 1px #3a8ad8 inset !important;
+  background: linear-gradient(180deg, rgba(0,0,0,0.65), rgba(0,0,0,0.45)), url(/backgrounds/cyberpunk/circuit_overlay_cyberpunk_2x.png) center/cover no-repeat !important;
+  color: #7fcfff !important;
+  text-shadow: 0 0 12px #3a8ad8cc, 0 2px 10px #10182088 !important;
+}
+html.theme-cyberpunk .hero-title.login-modal__title {
+  color: #7fcfff !important;
+  text-shadow: 0 0 12px #3a8ad8cc, 0 2px 10px #10182088 !important;
+  text-shadow: 0 0 8px rgba(0,255,255,.35), 0 2px 10px rgba(0,0,0,.45) !important;
+}
+/* Cyberpunk menu bar and modal overrides */
+html.theme-cyberpunk .steam-nav {
+  background: rgba(10, 20, 40, 0.85) !important;
+  border: 2.5px solid #3a8ad8 !important;
+  box-shadow: 0 0 24px #3a8ad8cc !important;
+}
+html.theme-cyberpunk .login-modal__title {
+  color: #7fcfff !important;
+  text-shadow: 0 0 12px #3a8ad8cc !important;
+}
+html.theme-cyberpunk .login-modal__btn {
+  background: linear-gradient(90deg, #3a8ad8 0%, #7fcfff 100%) !important;
+  color: #101820 !important;
+  box-shadow: 0 2px 8px #3a8ad822 !important;
+}
+html.theme-cyberpunk .login-modal__btn:hover {
+  background: linear-gradient(90deg, #7fcfff 0%, #3a8ad8 100%) !important;
+}
 html.theme-cyberpunk footer {
   background: transparent !important;
   border: none !important;
@@ -10,20 +135,6 @@ html.theme-cyberpunk, html.theme-cyberpunk body {
   background-size: cover;
 }
 
-html.theme-cyberpunk .main-window-header {
-  border: 2.5px solid #3a8ad8 !important;
-  background: rgba(6,8,18,0.7);
-  box-shadow:
-    0 0 0 1px #7fcfff inset,
-    0 0 12px #3a8ad822 inset,
-    0 0 16px 2px #3a8ad8cc,
-    0 0 32px 8px #3a8ad888;
-  border-radius: 14px;
-  padding: 1rem 1.25rem;
-  position: relative;
-  overflow: hidden;
-  margin-bottom: 20px;
-}
 
 html.theme-cyberpunk .content-window {
   background:

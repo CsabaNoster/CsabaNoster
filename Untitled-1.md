@@ -1,0 +1,1 @@
+psql -U <user> -d myownsite -f [schema.sql](http://_vscodecontentref_/19)

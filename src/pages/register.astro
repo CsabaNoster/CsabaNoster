@@ -1,0 +1,91 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+title: "Register"
+---
+
+<BaseLayout title="Register" description="Create an account to access downloads and contact features.">
+  <header class="main-window-header">
+    <h1 class="hero-title" style="color: inherit;">Register</h1>
+    <p class="hero-sub" style="color: inherit;">Create your account to unlock downloads and messaging features.</p>
+  </header>
+  <div class="cards-window" style="max-width: 420px; margin: 0 auto;">
+  <form class="auth-form" id="register-form" autocomplete="off" style="display: flex; flex-direction: column; gap: 1.2rem; background: rgba(20,24,40,0.12); border-radius: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.10); padding: 2rem 2.5rem; color: inherit;">
+      <label for="email" style="font-weight: 600; color: inherit;">Email</label>
+      <input type="email" id="email" name="email" required style="padding: 0.7rem 1rem; border-radius: 8px; border: 1px solid #b38a4a; font-size: 1.1rem; color: inherit;" />
+      <label for="username" style="font-weight: 600; color: inherit;">Username</label>
+      <input type="text" id="username" name="username" required style="padding: 0.7rem 1rem; border-radius: 8px; border: 1px solid #b38a4a; font-size: 1.1rem; color: inherit;" />
+      <label for="password" style="font-weight: 600; color: inherit;">Password</label>
+      <input type="password" id="password" name="password" required style="padding: 0.7rem 1rem; border-radius: 8px; border: 1px solid #b38a4a; font-size: 1.1rem; color: inherit;" />
+      <label for="confirmPassword" style="font-weight: 600; color: inherit;">Confirm Password</label>
+      <input type="password" id="confirmPassword" name="confirmPassword" required style="padding: 0.7rem 1rem; border-radius: 8px; border: 1px solid #b38a4a; font-size: 1.1rem; color: inherit;" />
+      <div id="password-error" style="color: #ff4f4f; font-size: 1rem; display: none;">Passwords do not match.</div>
+      <label for="adminCode" style="font-weight: 600; color: inherit; display: none;" id="admin-label">Admin Code <span style="font-weight:400; color:#888;">(optional)</span></label>
+      <input type="text" id="adminCode" name="adminCode" style="padding: 0.7rem 1rem; border-radius: 8px; border: 1px solid #b38a4a; font-size: 1.1rem; color: inherit; display: none;" />
+      <button type="submit" class="steam-btn steam-btn__plate" style="margin-top: 1.2rem; font-size: 1.2rem; font-weight: 700; color: inherit;">Register</button>
+    </form>
+    <script is:inline>
+      document.getElementById('register-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const form = e.target;
+        const email = form.email.value.trim();
+        const username = form.username.value.trim();
+        const password = form.password.value;
+        const confirmPassword = form.confirmPassword.value;
+        const adminCode = form.adminCode.value.trim();
+        const errorDiv = document.getElementById('password-error');
+        errorDiv.style.display = 'none';
+        if (password !== confirmPassword) {
+          errorDiv.textContent = 'Passwords do not match.';
+          errorDiv.style.display = 'block';
+          return;
+        }
+        // Show loading or disable button
+        form.querySelector('button[type="submit"]').disabled = true;
+        try {
+          const res = await fetch('/api/auth/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'same-origin',
+            body: JSON.stringify({ email, username, password, adminCode })
+          });
+          const data = await res.json();
+          if (res.ok && data.success) {
+            errorDiv.style.display = 'none';
+            alert('Registration successful! You can now log in.');
+            window.location.href = '/login';
+          } else {
+            errorDiv.textContent = data.error || 'Registration failed.';
+            errorDiv.style.display = 'block';
+          }
+        } catch (err) {
+          errorDiv.textContent = 'Network or server error.';
+          errorDiv.style.display = 'block';
+        }
+        form.querySelector('button[type="submit"]').disabled = false;
+      });
+      // Show admin code if username or email matches specific value
+      document.getElementById('username').addEventListener('input', function() {
+        var val = this.value.trim().toLowerCase();
+        var adminLabel = document.getElementById('admin-label');
+        var adminInput = document.getElementById('adminCode');
+        if (val === 'admin') {
+          adminLabel.style.display = '';
+          adminInput.style.display = '';
+        } else {
+          adminLabel.style.display = 'none';
+          adminInput.style.display = 'none';
+        }
+      });
+      document.getElementById('email').addEventListener('input', function() {
+        var val = this.value.trim().toLowerCase();
+        var adminLabel = document.getElementById('admin-label');
+        var adminInput = document.getElementById('adminCode');
+        if (val === 'admin@nosterslab.com') {
+          adminLabel.style.display = '';
+          adminInput.style.display = '';
+        }
+      });
+    </script>
+    <p style="text-align:center; margin-top:1.5rem; font-size:1rem; color: #888;">Already have an account? <a href="/login" style="color:#b38a4a; text-decoration:underline;">Login here</a></p>
+  </div>
+</BaseLayout>

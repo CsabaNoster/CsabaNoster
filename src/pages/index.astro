@@ -4,16 +4,77 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 import Card from '../components/Card.astro';
 import Grid from '../components/Grid.astro';
 
-const [projects, art, reviews, thoughts] = await Promise.all([
+
+
+import fs from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import path from 'node:path';
+
+const [projects, design, art, reviews, thoughts] = await Promise.all([
   getCollection('projects', (e: CollectionEntry<'projects'>) => e.data.published !== false),
+  getCollection('design', (e: CollectionEntry<'design'>) => e.data.published !== false),
   getCollection('art', (e: CollectionEntry<'art'>) => e.data.published !== false),
   getCollection('reviews', (e: CollectionEntry<'reviews'>) => e.data.published !== false),
   getCollection('thoughts', (e: CollectionEntry<'thoughts'>) => e.data.published !== false)
 ]);
 
-const all = [...projects, ...art, ...reviews, ...thoughts];
-all.sort((a, b) => (b.data.date as Date).getTime() - (a.data.date as Date).getTime());
-const latest = all.slice(0, 8);
+function getLatest(arr) {
+  return arr.length === 0 ? null : arr.slice().sort((a, b) => (b.data.date as Date).getTime() - (a.data.date as Date).getTime())[0];
+}
+
+function fileOk(p) {
+  if (!p) return false;
+  try {
+    const base = fileURLToPath(new URL(`../../public/`, import.meta.url));
+    const rel = (p.startsWith('/') ? p.slice(1) : p).replace(/\\/g, '/');
+    const fp = path.join(base, rel);
+    const st = fs.statSync(fp);
+    return st.isFile() && st.size > 0;
+  } catch { return false; }
+}
+
+// For design: use forced image for Thresh Lantern, else frontmatter image if valid, else first gallery image
+let designLatest = getLatest(design);
+let designImage = undefined;
+if (designLatest) {
+  if (designLatest.slug === 'thresh-lantern-display') {
+    const forced = '/uploads/design/thresh-lantern-display/1000007630 (1).jpg';
+    if (fileOk(forced)) designImage = forced;
+  }
+  if (!designImage && fileOk(designLatest.data.image)) designImage = designLatest.data.image;
+  if (!designImage) {
+    // Try to find first image in gallery
+    try {
+      const uploadsDir = fileURLToPath(new URL(`../../public/uploads/design/${designLatest.slug}/`, import.meta.url));
+      const list = fs.readdirSync(uploadsDir, { withFileTypes: true });
+      const gallery = list.filter(f => f.isFile() && /\.(png|jpe?g|webp|avif|gif)$/i.test(f.name)).map(f => `/uploads/design/${designLatest.slug}/${f.name}`);
+      if (gallery.length > 0) designImage = gallery[0];
+    } catch {}
+  }
+}
+
+// For art: use latest uploaded image from /uploads/art/
+let artLatest = getLatest(art);
+let artImage = undefined;
+try {
+  const baseUrl = new URL(`../../public/uploads/art/`, import.meta.url);
+  const basePath = fileURLToPath(baseUrl);
+  const dirents = fs.readdirSync(basePath, { withFileTypes: true });
+  const isImg = (n) => /\.(png|jpe?g|webp|avif|gif)$/i.test(n);
+  const imgs = dirents.filter((d) => d.isFile() && isImg(d.name)).map((d) => d.name);
+  if (imgs.length > 0) {
+    imgs.sort();
+    artImage = `/uploads/art/${imgs[imgs.length-1]}`;
+  }
+} catch {}
+
+const latestEntries = [
+  designLatest && { entry: designLatest, collection: 'design', image: designImage },
+  artLatest && { entry: artLatest, collection: 'art', image: artImage },
+  getLatest(projects) && { entry: getLatest(projects), collection: 'projects', image: getLatest(projects).data.image },
+  getLatest(reviews) && { entry: getLatest(reviews), collection: 'reviews', image: getLatest(reviews).data.image },
+  getLatest(thoughts) && { entry: getLatest(thoughts), collection: 'thoughts', image: getLatest(thoughts).data.image }
+].filter(Boolean);
 
 function fmt(d: Date) {
   try { return d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }); } catch { return '' }
@@ -43,22 +104,20 @@ function fmt(d: Date) {
   </header>
   <div class="cards-window">
     <section aria-labelledby="latest-heading" class="main-window-section">
-      {latest.length === 0 ? (
+      {latestEntries.length === 0 ? (
         <p class="section-desc">No uploads yet.</p>
       ) : (
         <Grid>
-          {latest.map((e) => {
-            const img = (e.data as any).image as string | undefined;
-            const summary = (e.data as any).summary as string | undefined;
-            const collection = e.collection as string;
-            const title = e.data.title as string;
-            const date = e.data.date as Date;
-            const href = `/${collection}/${e.slug}/`;
+          {latestEntries.map(({ entry, collection, image }) => {
+            const summary = (entry.data as any).summary as string | undefined;
+            const title = entry.data.title as string;
+            const date = entry.data.date as Date;
+            const href = `/${collection}/${entry.slug}/`;
             const badge = collection;
             const metaRight = fmt(date);
             return (
               <li>
-                <Card href={href} title={title} image={img} summary={summary} badge={badge} metaRight={metaRight} />
+                <Card href={href} title={title} image={image} summary={summary} badge={badge} metaRight={metaRight} />
               </li>
             );
           })}

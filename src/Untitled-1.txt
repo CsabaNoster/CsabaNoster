@@ -1,0 +1,3 @@
+console.log('HTML classes:', document.documentElement.className);
+console.log('Cyberpunk modal exists:', !!document.querySelector('.login-modal__window--cyberpunk'));
+console.log('Loaded stylesheets:', [...document.styleSheets].map(s => s.href).filter(Boolean));

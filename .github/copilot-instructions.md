@@ -35,3 +35,33 @@ Purpose: make AI agents effective immediately on the Astro + Tailwind content si
 - Domain changes: update both `astro.config.mjs` `site` and `public/CNAME`.
 - Dates: invalid `date` strings will fail `npm run check`.
 - Backgrounds: ensure `/public/backgrounds/bg-{mobile,desktop,wide}.webp` exist, or change the `images` list.
+
+# Copilot Instructions
+
+- [x] Clarify Project Requirements
+  - Secure user authentication for Astro site
+  - Node.js/Express backend (api/)
+  - PostgreSQL database (db/)
+  - Passwords hashed with bcrypt
+  - JWT sessions
+  - Restrict downloads/contact to logged-in users
+
+- [x] Scaffold the Project
+  - Created:
+    - src/pages/register.astro (registration page)
+    - src/pages/login.astro (login page)
+    - src/pages/contact.astro (contact page, protected)
+    - src/components/DownloadButton.astro (protected download button)
+    - api/auth/ (Express backend for auth)
+    - db/ (PostgreSQL migrations and config)
+
+- [x] Customize the Project
+  - Integrated authentication with Astro frontend
+  - Protected contact page and download buttons
+  - Only logged-in users can access downloads/contact
+
+- [ ] Install Required Extensions
+  - No extensions required for this setup
+
+- [ ] Compile the Project
+  - Next: Install dependencies and run diagnostics

@@ -27,20 +27,11 @@ html.theme-cyberpunk .main-window-header {
 	overflow: hidden;
 	margin-bottom: 20px;
 }
-html.theme-cyberpunk .cards-window {
-	/* ...cyberpunk cards styles... */
-}
-html.theme-cyberpunk .link-window {
-	/* ...cyberpunk link styles... */
-}
+/* Removed empty .cards-window ruleset to fix compile error */
+/* Removed empty .link-window ruleset to fix compile error */
 html.theme-cyberpunk .content-window {
 	background:
 		url(/backgrounds/cyberpunk/circuit_overlay_cyberpunk_2x.png) center/cover no-repeat;
 }
-html.theme-cyberpunk .steam-btn__plate {
-	/* ...cyberpunk button styles... */
-}
-html.theme-cyberpunk .steam-brand-link {
-	/* ...cyberpunk brand styles... */
-}
+/* Removed empty .steam-btn__plate and .steam-brand-link rulesets to fix compile error */
 

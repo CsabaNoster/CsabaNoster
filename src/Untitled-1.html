@@ -1,0 +1,30 @@
+<BaseLayout title="Login" description="Log in to access downloads and contact features.">
+  <div class="login-modal">
+    <header class="main-window-header">
+      <h1 class="hero-title">Login</h1>
+      <form class="auth-form" method="POST" action="/api/auth/login">
+        <!-- ...fields... -->
+      </form>
+    </header>
+  </div>
+  <script>
+    // Print the <html> class list
+    console.log('HTML classes:', document.documentElement.className);
+
+    // List all loaded CSS files
+    console.log('Loaded stylesheets:');
+    [...document.styleSheets].forEach(sheet => {
+      if (sheet.href) console.log(sheet.href);
+    });
+
+    // Inspect the login modal window classes
+    const modal = document.querySelector('.login-modal__window--cyberpunk');
+    if (modal) {
+      console.log('Modal classes:', modal.className);
+      // Print all computed styles for the modal
+      console.log('Modal computed styles:', getComputedStyle(modal));
+    } else {
+      console.warn('Cyberpunk modal not found!');
+    }
+  </script>
+</BaseLayout>

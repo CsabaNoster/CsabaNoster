@@ -11,8 +11,8 @@ const { title = 'NostersLab', description = 'Creative engineering experiments by
     <link rel="preload" as="image" href="/backgrounds/steampunk.png" />
     <link rel="preload" as="image" href="/backgrounds/cyberpunk.png" />
   <!-- Theme-specific styles: only load the active theme -->
-  {Astro.glob('/src/styles.steampunk.css') && `<link rel="stylesheet" href="/src/styles.steampunk.css" />`}
-  {Astro.glob('/src/styles.cyberpunk.css') && `<link rel="stylesheet" href="/src/styles.cyberpunk.css" />`}
+  <link rel="stylesheet" href="/src/styles.steampunk.css" />
+  <link rel="stylesheet" href="/src/styles.cyberpunk.css" />
     <style is:inline>
       /* Early paint safeguards to avoid background flash on navigation */
       html.theme-cyberpunk #bg-image { background-image: url('/backgrounds/cyberpunk.png'); opacity: 1; }
@@ -120,8 +120,88 @@ const { title = 'NostersLab', description = 'Creative engineering experiments by
               </span>
             </a>
           </li>
-        </ul>
-          <div style="display: flex; align-items: center; gap: 2rem;">
+          <li>
+            <a class="steam-btn" href="/register">
+              <span class="steam-btn__plate">
+                <span class="screw tl" aria-hidden="true"></span>
+                <span class="screw tr" aria-hidden="true"></span>
+                <span class="screw bl" aria-hidden="true"></span>
+                <span class="screw br" aria-hidden="true"></span>
+                <span class="steam-btn__label" data-text="Register">Register</span>
+              </span>
+            </a>
+          </li>
+          <li style="position:relative;">
+  <button id="login-toggle" class="steam-btn" type="button" style="background:none;border:none;padding:0;">
+    <span class="steam-btn__plate">
+      <span class="screw tl" aria-hidden="true"></span>
+      <span class="screw tr" aria-hidden="true"></span>
+      <span class="screw bl" aria-hidden="true"></span>
+      <span class="screw br" aria-hidden="true"></span>
+      <span class="steam-btn__label" data-text="Login">Login</span>
+    </span>
+  </button>
+  <div id="login-dropdown" style="display:none; position:absolute; top:100%; right:0; min-width:260px; background:url('/img/steel_dark_desktop_1920x200.jpeg') center/cover no-repeat, rgba(20,24,40,0.98); border:3.5px solid #7c3f1c; box-shadow:0 0 0 2.5px #b87333 inset, 0 0 18px #7c3f1c88 inset, 0 2px 14px #3a1f0a44; border-radius:14px; padding:1.5rem 1.5rem; z-index:2000; transition:all .3s; color:inherit;">
+    <form class="auth-form" method="POST" action="/api/auth/login" style="display:flex; flex-direction:column; gap:1rem; color:inherit;">
+      <label for="login-username" style="font-weight:600; color:inherit;">Username</label>
+      <input type="text" id="login-username" name="username" required style="padding:0.7rem 1rem; border-radius:8px; border:1px solid #b38a4a; font-size:1.1rem; color:inherit; background:rgba(255,255,255,0.08);" />
+      <label for="login-password" style="font-weight:600; color:inherit;">Password</label>
+      <input type="password" id="login-password" name="password" required style="padding:0.7rem 1rem; border-radius:8px; border:1px solid #b38a4a; font-size:1.1rem; color:inherit; background:rgba(255,255,255,0.08);" />
+      <button type="submit" class="steam-btn steam-btn__plate" style="margin-top:0.8rem; font-size:1.1rem; font-weight:700; color:inherit;">Login</button>
+    </form>
+  </div>
+  <script is:inline>
+    const btn = document.getElementById('login-toggle');
+    const dropdown = document.getElementById('login-dropdown');
+    btn && btn.addEventListener('click', () => {
+      dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
+    });
+    document.addEventListener('click', (e) => {
+      if (!btn.contains(e.target) && !dropdown.contains(e.target)) {
+        dropdown.style.display = 'none';
+      }
+    });
+    // Intercept the header login form to use fetch and handle JSON responses
+    (function(){
+      const form = document.querySelector('#login-dropdown form');
+      if (!form) return;
+      const errorDiv = document.createElement('div');
+      errorDiv.style.color = '#ff4f4f';
+      errorDiv.style.marginTop = '0.5rem';
+      errorDiv.style.display = 'none';
+      form.appendChild(errorDiv);
+      form.addEventListener('submit', async function(e){
+        e.preventDefault();
+        errorDiv.style.display = 'none';
+        const username = form.username.value.trim();
+        const password = form.password.value;
+        const btn = form.querySelector('button[type="submit"]');
+        if (btn) btn.disabled = true;
+        try {
+          const res = await fetch('/api/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'same-origin',
+            body: JSON.stringify({ username, password })
+          });
+          const data = await res.json();
+          if (res.ok && data.success) {
+            dropdown.style.display = 'none';
+            // reload to update UI and pick up auth cookie
+            window.location.reload();
+          } else {
+            errorDiv.textContent = data.error || 'Login failed.';
+            errorDiv.style.display = 'block';
+          }
+        } catch (err) {
+          errorDiv.textContent = 'Network or server error.';
+          errorDiv.style.display = 'block';
+        }
+        if (btn) btn.disabled = false;
+      });
+    })();
+  </script>
+</li>
             <div class="nixie-clock" aria-label="Current local time" role="timer" aria-live="polite">
               <span class="nixie-group" data-part="hours">
                 <span class="nixie-tube" data-digit="0">0</span>
@@ -147,6 +227,44 @@ const { title = 'NostersLab', description = 'Creative engineering experiments by
       <span class="theme-toggle__text" data-text="CYBERPUNK">CYBERPUNK</span>
     </span>
   </button>
+  <script is:inline>
+    (async function(){
+      try {
+  const res = await fetch('/api/auth/me', { credentials: 'same-origin' });
+        const json = await res.json();
+        const loginBtn = document.getElementById('login-toggle');
+        if (json.authenticated) {
+            // replace login/register dropdown in-place with a logout anchor to avoid shifting header layout
+            const loginLi = loginBtn ? loginBtn.closest('li') : null;
+            if (loginLi) {
+              loginLi.innerHTML = `<a id="logout-btn" class="steam-btn" href="#">\n  <span class="steam-btn__plate">\n    <span class="steam-btn__label" data-text="Logout">Logout</span>\n  </span>\n</a>`;
+              const logoutBtn = loginLi.querySelector('#logout-btn');
+              logoutBtn?.addEventListener('click', async function(e){
+                e.preventDefault();
+                try {
+                  await fetch('/api/auth/logout', { method: 'POST', credentials: 'same-origin' });
+                } catch (err) { /* ignore */ }
+                try { document.dispatchEvent(new CustomEvent('nosters:auth-changed')); } catch (e) { /* ignore */ }
+                window.location.reload();
+              });
+            } else {
+              // fallback: hide original login button and append logout at end
+              loginBtn && (loginBtn.style.display = 'none');
+              const li = document.createElement('li');
+              li.innerHTML = `<a id="logout-btn" class="steam-btn" href="#">\n  <span class="steam-btn__plate">\n    <span class="steam-btn__label" data-text="Logout">Logout</span>\n  </span>\n</a>`;
+              const parent = loginBtn ? (loginBtn.closest('ul') || document.querySelector('.steam-links')) : document.querySelector('.steam-links');
+              parent && parent.appendChild(li);
+              document.getElementById('logout-btn')?.addEventListener('click', async function(e){
+                e.preventDefault();
+                try { await fetch('/api/auth/logout', { method: 'POST', credentials: 'same-origin' }); } catch (err) { /* ignore */ }
+                try { document.dispatchEvent(new CustomEvent('nosters:auth-changed')); } catch (e) { /* ignore */ }
+                window.location.reload();
+              });
+            }
+          }
+      } catch (e) { /* ignore */ }
+    })();
+  </script>
   <main class={`mx-auto px-6 pb-24 prose prose-neutral dark:prose-invert ${wide ? 'max-w-7xl' : 'max-w-5xl'}`}>
   <div style="padding-top: 0.25cm;"> <!-- 0.25cm gap between menu bar and main window -->
         <div class="content-window">
@@ -176,6 +294,24 @@ const { title = 'NostersLab', description = 'Creative engineering experiments by
       url(/backgrounds/cyberpunk/cyberpunk.png) center center no-repeat;
     background-size: cover;
     background-attachment: fixed;
+  }
+  html.theme-steampunk #login-dropdown {
+    background: url('/img/steel_dark_desktop_1920x200.jpeg') center/cover no-repeat, rgba(20,24,40,0.98);
+    border: 3.5px solid #7c3f1c;
+    box-shadow: 0 0 0 2.5px #b87333 inset, 0 0 18px #7c3f1c88 inset, 0 2px 14px #3a1f0a44;
+    border-radius: 14px;
+    color: #d6eeff;
+  }
+  html.theme-steampunk #login-dropdown input {
+    background: rgba(255,255,255,0.08);
+    color: #d6eeff;
+    border: 1px solid #b38a4a;
+  }
+  html.theme-steampunk #login-dropdown label {
+    color: #d6eeff;
+  }
+  html.theme-steampunk #login-dropdown button {
+    color: #d6eeff;
   }
 </style>
 
@@ -307,10 +443,18 @@ const { title = 'NostersLab', description = 'Creative engineering experiments by
     };
 
     btn.addEventListener('click', () => {
-  const isCyber = html.classList.toggle('theme-cyberpunk');
-  localStorage.setItem('theme-style', isCyber ? 'cyberpunk' : 'steampunk');
-  updateBtn();
-  window.location.reload();
+        // Remove both theme classes first, then add the selected one
+        const isCurrentlyCyber = html.classList.contains('theme-cyberpunk');
+        html.classList.remove('theme-cyberpunk', 'theme-steampunk');
+        if (!isCurrentlyCyber) {
+          html.classList.add('theme-cyberpunk');
+          localStorage.setItem('theme-style', 'cyberpunk');
+        } else {
+          html.classList.add('theme-steampunk');
+          localStorage.setItem('theme-style', 'steampunk');
+        }
+        updateBtn();
+        window.location.reload();
     });
 
     updateBtn();

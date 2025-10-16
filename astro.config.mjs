@@ -11,5 +11,7 @@ export default defineConfig({
   integrations: [tailwind(), mdx(), sitemap()],
   markdown: {
     syntaxHighlight: 'prism'
-  }
+  },
+  output: 'server',
+  // No server proxy needed; Astro API routes handle auth
 });

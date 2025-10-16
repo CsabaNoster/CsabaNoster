@@ -1,0 +1,77 @@
+// Props: href (string)
+const { href } = Astro.props;
+---
+<div class="download-button-wrapper" data-href={href}>
+  <a class="steam-btn steam-btn__plate download-link" href="#" aria-disabled="true">Checking...</a>
+</div>
+<script is:inline>
+  (function(){
+    // Locate the anchor related to this script instance by using the previous sibling (the wrapper)
+    const scriptEl = document.currentScript as HTMLScriptElement | null;
+    const container = scriptEl ? scriptEl.previousElementSibling as HTMLElement | null : null;
+    const link = container ? container.querySelector('a.download-link') as HTMLAnchorElement | null : null;
+
+    async function updateDownloadLink(){
+      try {
+        const res = await fetch('/api/auth/me', { credentials: 'same-origin' });
+        const json = await res.json();
+        const el = link || (container ? container.querySelector('a') : document.querySelector('a.download-link'));
+        if (!el) return;
+            if (json.authenticated) {
+              el.removeAttribute('aria-disabled');
+              el.style.opacity = '';
+              el.style.cursor = '';
+              const hrefVal = el.dataset.href || el.getAttribute('data-href') || container?.dataset.href || '';
+              el.href = hrefVal || '#';
+              el.textContent = 'Download';
+              if (container) container.style.display = '';
+            } else {
+              // hide the entire button container when unauthenticated
+              if (container) container.style.display = 'none';
+            }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    // Expose a way for other scripts to refresh auth-dependent UI
+    window.__nosters_refresh_auth = updateDownloadLink;
+
+    // Initialize and listen for logout events
+    document.addEventListener('nosters:auth-changed', updateDownloadLink);
+    updateDownloadLink();
+
+    // Intercept clicks so we can redirect to login on 401 responses
+    (link || container)?.addEventListener('click', async function (e) {
+      const el = (link || (container ? container.querySelector('a') : null)) as HTMLAnchorElement | null;
+      if (!el) return;
+      const targetHref = el.dataset.href || el.href;
+      if (!targetHref) return;
+      if (targetHref.includes('/login')) return; // allow navigation to login
+      e.preventDefault();
+      try {
+        const res = await fetch(targetHref, { credentials: 'same-origin' });
+        if (res.status === 401) {
+          const returnTo = encodeURIComponent(window.location.pathname + window.location.search);
+          window.location.href = `/login?redirect=${returnTo}`;
+          return;
+        }
+        if (!res.ok) { alert('Download failed.'); return; }
+        const blob = await res.blob();
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        const cd = res.headers.get('Content-Disposition') || '';
+        const m = /filename="?([^";]+)"?/.exec(cd);
+        a.download = m ? m[1] : targetHref.split('/').pop() || 'download';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+      } catch (err) {
+        console.error(err);
+        alert('Network error during download.');
+      }
+    });
+  })();
+</script>

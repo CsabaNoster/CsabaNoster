@@ -1,0 +1,39 @@
+---
+title: Contact
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+<BaseLayout title="Contact" description="Get in touch with me for questions, feedback, or collaboration.">
+  <header class="main-window-header">
+    <h1 class="hero-title">Contact</h1>
+    <p class="hero-sub">I'd love to hear from you! Use the form below or reach out via email/social.</p>
+  </header>
+  <div class="cards-window">
+    <script is:inline>
+      (async function(){
+        try {
+          const res = await fetch('/api/auth/me', { credentials: 'same-origin' });
+          const json = await res.json();
+          if (!json.authenticated) {
+            window.location.href = '/login?redirect=contact';
+          }
+        } catch (e) {
+          window.location.href = '/login?redirect=contact';
+        }
+      })();
+    </script>
+    <form class="contact-form" name="contact" method="POST" data-netlify="true">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" required />
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required />
+      <label for="message">Message</label>
+      <textarea id="message" name="message" rows="6" required></textarea>
+      <button type="submit" class="steam-btn steam-btn__plate">Send</button>
+    </form>
+    <div class="contact-alt">
+      <!-- Add social/contact links below as needed -->
+      <p>Or reach out via social media (links coming soon).</p>
+    </div>
+  </div>
+</BaseLayout>

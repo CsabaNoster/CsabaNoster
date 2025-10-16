@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"name": "myownsite",
+			"path": ".."
+		},
+		{
+			"name": "streamdeck",
+			"path": "../../streamdeck"
+		}
+	],
+	"settings": {
+		"powershell.cwd": "myownsite"
+	}
+}

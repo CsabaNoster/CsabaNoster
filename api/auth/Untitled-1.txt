@@ -1,0 +1,1 @@
+psql -U youruser -d myownsite -f db/schema.sql

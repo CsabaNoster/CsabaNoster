@@ -1,0 +1,51 @@
+title: "Login"
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+
+<BaseLayout title="Login" description="Log in to access downloads and contact features.">
+  <div class="login-modal login-modal--cyberpunk">
+  <div id="cyberpunk-login-modal" class="login-modal__window--cyberpunk">
+      <h1 class="login-modal__title--cyberpunk">Login</h1>
+      <form class="auth-form" id="login-form" autocomplete="off">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" required />
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required />
+        <div id="login-error" style="color: #ff4f4f; font-size: 1rem; display: none; margin-top: 0.5rem;"></div>
+        <button type="submit" class="login-modal__btn">Login</button>
+      </form>
+      <script is:inline>
+        document.getElementById('login-form').addEventListener('submit', async function(e) {
+          e.preventDefault();
+          const form = e.target;
+          const username = form.username.value.trim();
+          const password = form.password.value;
+          const errorDiv = document.getElementById('login-error');
+          errorDiv.style.display = 'none';
+          form.querySelector('button[type="submit"]').disabled = true;
+          try {
+            const res = await fetch('/api/auth/login', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              credentials: 'same-origin',
+              body: JSON.stringify({ username, password })
+            });
+            const data = await res.json();
+            if (res.ok && data.success) {
+              errorDiv.style.display = 'none';
+              // Redirect to home on successful login
+              window.location.href = '/';
+            } else {
+              errorDiv.textContent = data.error || 'Login failed.';
+              errorDiv.style.display = 'block';
+            }
+          } catch (err) {
+            errorDiv.textContent = 'Network or server error.';
+            errorDiv.style.display = 'block';
+          }
+          form.querySelector('button[type="submit"]').disabled = false;
+        });
+      </script>
+    </div>
+  </div>
+</BaseLayout>
