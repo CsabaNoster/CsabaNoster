@@ -1,3 +1,494 @@
+/* Theme-aware lightbox navigation arrows for art gallery */
+.lightbox-arrow {
+	background: rgba(20, 24, 30, 0.85);
+	border: none;
+	box-shadow: 0 2px 12px #000a, 0 0 0 2px #fff2 inset;
+	transition: box-shadow .2s, border-color .2s;
+	cursor: pointer;
+}
+.lightbox-arrow .steam-btn__plate {
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+	background: transparent;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 2.2rem;
+	box-shadow: none;
+	border: none;
+}
+.lightbox-arrow .nav-arrow-icon {
+	color: #ffd700;
+	text-shadow: 0 2px 8px #000, 0 0 6px #fff, 0 0 2px #fff;
+}
+html.theme-cyberpunk .lightbox-arrow {
+	background: rgba(10, 20, 40, 0.92);
+	box-shadow: 0 0 24px #00eaff88, 0 2px 12px #000a;
+}
+html.theme-cyberpunk .lightbox-arrow .steam-btn__plate {
+	border: 2.5px solid #00eaff !important;
+	box-shadow: 0 0 16px 2px #00eaff88, 0 0 32px 8px #00eaff44;
+}
+html.theme-cyberpunk .lightbox-arrow .nav-arrow-icon {
+	color: #00eaff !important;
+	text-shadow: 0 0 8px #00eaff, 0 0 16px #00eaff88;
+}
+html.theme-steampunk .lightbox-arrow {
+	background: rgba(44, 32, 16, 0.92);
+	box-shadow: 0 2px 12px #000a, 0 0 0 2px #ffd70044 inset;
+}
+html.theme-steampunk .lightbox-arrow .steam-btn__plate {
+	border: 2.5px solid #ffd700 !important;
+	box-shadow: 0 0 8px #ffd70088, 0 0 16px #ffd70044;
+}
+html.theme-steampunk .lightbox-arrow .nav-arrow-icon {
+	color: #ffd700 !important;
+	text-shadow: 0 2px 8px #000, 0 0 6px #fff, 0 0 2px #fff;
+}
+html.theme-cyberpunk .window-nav-arrow-fixed-center .steam-btn__plate {
+	background: rgba(20, 24, 30, 0.72) !important;
+}
+/* Cyberpunk: apply neon blue glow hover effect to all menu bar buttons */
+.theme-cyberpunk .steam-btn__plate:hover {
+	border-color: #3a8ad8 !important;
+	box-shadow: 0 0 0 1px rgba(120,200,255,.15) inset, 0 0 4px rgba(0,255,255,.10) inset, 0 1px 4px rgba(0,0,0,.25);
+}
+/* Cyberpunk nav arrow icon: neon blue color to match menu bar button */
+html.theme-cyberpunk .window-nav-arrow-fixed-center .steam-btn__plate > span {
+	color: #00eaff !important;
+	text-shadow: 0 0 8px #00eaff, 0 0 16px #00eaff88;
+}
+/* Cyberpunk nav arrow button: match menu bar button neon border and hover effect */
+html.theme-cyberpunk .window-nav-arrow-fixed-center .steam-btn__plate {
+	border: 2.5px solid #3a8ad8 !important;
+	box-shadow: 0 0 0 1px rgba(120,200,255,.35) inset, 0 0 22px rgba(0,255,255,.35) inset, 0 6px 22px rgba(0,0,0,.7);
+	transition: box-shadow .2s ease, border-color .2s ease;
+}
+/* Use the same hover effect for nav arrow and menu bar buttons in cyberpunk mode */
+html.theme-cyberpunk .window-nav-arrow-fixed-center .steam-btn__plate:hover {
+	border-color: #3a8ad8 !important;
+	box-shadow: none !important;
+}
+/* Cyberpunk nav arrow button: neon blue border and hover effect to match menu bar button */
+html.theme-cyberpunk .window-nav-arrow-fixed-center .steam-btn__plate {
+	border: 2.5px solid #00eaff !important;
+	box-shadow: 0 0 16px 2px #00eaff88, 0 0 32px 8px #00eaff44;
+	transition: box-shadow .2s ease, border-color .2s ease;
+}
+html.theme-cyberpunk .window-nav-arrow-fixed-center .steam-btn__plate:hover {
+	border-color: #3aefff !important;
+	box-shadow:
+		0 0 0 2px #3aefff inset,
+		0 0 36px 16px #00eaff,
+		0 0 72px 32px #00eaffcc,
+		0 0 120px 64px #00eaff88,
+		0 0 14px #00eaff55,
+		0 0 28px #00eaff33;
+}
+/* Force nav arrow button size and shape to match cyberpunk, but only for steampunk */
+html.theme-steampunk .window-nav-arrow-fixed-center .steam-btn,
+html.theme-steampunk .window-nav-arrow-fixed-center .steam-btn__plate {
+	width: 56px !important;
+	height: 56px !important;
+	min-width: 0 !important;
+	min-height: 0 !important;
+	max-width: none !important;
+	max-height: none !important;
+	border-radius: 14px !important;
+}
+/* Allow independent nav arrow button size/shape per theme */
+html.theme-steampunk .window-nav-arrow-fixed-center .steam-btn,
+html.theme-steampunk .window-nav-arrow-fixed-center .steam-btn__plate {
+	width: 96px !important;
+	height: 64px !important;
+	min-width: 0 !important;
+	min-height: 0 !important;
+	max-width: none !important;
+	max-height: none !important;
+	border-radius: 20px !important;
+}
+html.theme-cyberpunk .window-nav-arrow-fixed-center .steam-btn,
+html.theme-cyberpunk .window-nav-arrow-fixed-center .steam-btn__plate {
+	width: 92px !important;
+	height: 72px !important;
+	min-width: 0 !important;
+	min-height: 0 !important;
+	max-width: none !important;
+	max-height: none !important;
+	border-radius: 24px !important;
+}
+/* Utility: force perfectly round nav arrow button via wrapper */
+/* Remove min-width/min-height for nav arrow button in cyberpunk to match steampunk shape */
+html.theme-cyberpunk .window-nav-arrow-abs .steam-btn__plate,
+/* Force nav arrow button in cyberpunk to use steampunk plate style exactly */
+html.theme-cyberpunk .window-nav-arrow-abs .steam-btn__plate,
+/* Removed yellow border and background for cyberpunk nav arrow button */
+/* Only the icon inside the nav arrow button is large; button itself matches steampunk .steam-btn__plate */
+.window-nav-arrow-fixed-center .steam-btn__plate,
+.window-nav-arrow-abs .steam-btn__plate {
+	font-size: 1rem !important;
+	line-height: 1.2 !important;
+	padding: .5rem .75rem .55rem !important;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.window-nav-arrow-fixed-center .steam-btn__plate > span,
+.window-nav-arrow-abs .steam-btn__plate > span {
+	font-size: 2.7rem !important;
+	line-height: 1.1 !important;
+	color: #ffd700 !important;
+	text-shadow: 0 2px 8px #000, 0 0 6px #fff, 0 0 2px #fff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
+}
+/* Always show arrow in steampunk mode */
+/* Fixed, centered navigation arrows just outside the main window */
+.window-nav-arrow-fixed-center {
+	display: none;
+}
+@media (min-width: 1024px) {
+	:root {
+		--main-window-width: 900px;
+		--arrow-gap: 16rem;
+	}
+	.window-nav-arrow-fixed-center {
+		display: flex;
+		align-items: center;
+		position: fixed;
+		top: 50%;
+		transform: translateY(-50%);
+		z-index: 1000;
+		pointer-events: auto;
+	}
+	.window-nav-arrow-fixed-center--left {
+		left: calc(50vw - var(--main-window-width) / 2 - var(--arrow-gap));
+	}
+	.window-nav-arrow-fixed-center--right {
+		right: calc(50vw - var(--main-window-width) / 2 - var(--arrow-gap));
+	}
+	.window-nav-arrow-fixed-center .steam-btn {
+		min-width: 3.2rem;
+		min-height: 3.2rem;
+		padding: 0.5rem 0.7rem;
+		font-size: 2.2rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	/* border-radius removed to allow round nav arrow button */
+		background: transparent;
+		box-shadow: none;
+		border: none;
+		color: inherit;
+		transition: color 0.18s;
+	}
+	.window-nav-arrow-fixed-center .steam-btn:hover {
+		background: transparent;
+		color: #b87333;
+		box-shadow: none;
+html.theme-cyberpunk .window-nav-arrow-abs .steam-btn,
+html.theme-cyberpunk .window-nav-arrow-fixed-center .steam-btn {
+	background-image: url('/img/steel_dark_desktop_1920x200.jpeg') !important;
+	background-size: cover !important;
+	background-repeat: no-repeat !important;
+	border: none !important;
+	box-shadow: 0 1px 1px #000a, 0 0 0 1px #edc8abcc inset, 0 0 8px #f9e6d699 inset !important;
+	color: #ffd700 !important;
+}
+	}
+	html.theme-cyberpunk .window-nav-arrow-fixed-center .steam-btn {
+		background: transparent !important;
+		border: none !important;
+		color: #7dd3fc !important;
+		box-shadow: none !important;
+	}
+	html.theme-cyberpunk .window-nav-arrow-fixed-center .steam-btn:hover {
+		background: transparent !important;
+		color: #3a8ad8 !important;
+		box-shadow: none !important;
+	}
+}
+@media (max-width: 1023px) {
+	.window-nav-arrow-fixed-center { display: none !important; }
+}
+/* Relatively positioned wrapper for main window and arrows */
+.main-window-arrow-relwrap {
+	position: relative;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: stretch;
+}
+@media (min-width: 1024px) {
+	.window-nav-arrow-abs {
+		display: flex;
+		align-items: center;
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		z-index: 1000;
+		pointer-events: auto;
+	}
+	.window-nav-arrow-abs--left {
+		left: -2.6rem;
+	}
+	.window-nav-arrow-abs--right {
+		right: -2.6rem;
+	}
+	/* Base nav arrow button shape/layout */
+	.window-nav-arrow-abs .steam-btn,
+	.window-nav-arrow-abs .steam-btn__plate {
+		width: 2.7rem;
+		height: 2.7rem;
+		min-width: 0;
+		min-height: 0;
+		padding: 0;
+		font-size: 1rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 50%;
+		border: none;
+		transition: color 0.18s;
+	}
+	/* Steampunk theme nav arrow button */
+	html.theme-steampunk .window-nav-arrow-abs .steam-btn,
+	html.theme-steampunk .window-nav-arrow-abs .steam-btn__plate {
+		background-image: url('/img/steel_dark_desktop_1920x200.jpeg');
+		background-size: cover;
+		background-repeat: no-repeat;
+		box-shadow: 0 1px 1px #000a, 0 0 0 1px #edc8abcc inset, 0 0 8px #f9e6d699 inset;
+		color: #ffd700;
+	}
+	/* Cyberpunk theme nav arrow button */
+	html.theme-cyberpunk .window-nav-arrow-abs .steam-btn,
+	html.theme-cyberpunk .window-nav-arrow-abs .steam-btn__plate {
+		background-image: url('/img/steel_dark_desktop_1920x200.jpeg');
+		background-size: cover;
+		background-repeat: no-repeat;
+		box-shadow: 0 1px 1px #000a, 0 0 0 1px #edc8abcc inset, 0 0 8px #f9e6d699 inset;
+		color: #ffd700;
+		border-radius: 50% !important;
+	}
+	.window-nav-arrow-abs .steam-btn:hover {
+		background: transparent;
+		color: #b87333;
+		box-shadow: none;
+	}
+}
+@media (max-width: 1023px) {
+	.window-nav-arrow-abs { display: none !important; }
+}
+/* Remove copper/yellow border and background in cyberpunk mode, and ensure arrow is always visible */
+html.theme-cyberpunk .window-nav-arrow-fixed .steam-btn {
+	background: transparent !important;
+	border: none !important;
+	color: #7dd3fc !important;
+	box-shadow: none !important;
+}
+html.theme-cyberpunk .window-nav-arrow-fixed .steam-btn:hover {
+	background: transparent !important;
+	color: #3a8ad8 !important;
+	box-shadow: none !important;
+}
+/* Fixed-position navigation arrows outside the main window DOM structure */
+.window-nav-arrow-fixed {
+	display: none;
+}
+@media (min-width: 1024px) {
+	.window-nav-arrow-fixed {
+		display: flex;
+		align-items: center;
+		position: fixed;
+		top: 50%;
+		transform: translateY(-50%);
+		z-index: 1000;
+		pointer-events: auto;
+	}
+	/* Move arrows closer to the main window and add a circular background */
+	   .window-nav-arrow-fixed--left {
+		   left: 0.1rem;
+	   }
+	   .window-nav-arrow-fixed--right {
+		   right: 0.1rem;
+	   }
+	.window-nav-arrow-fixed .steam-btn {
+		min-width: 3.2rem;
+		min-height: 3.2rem;
+		padding: 0.5rem 0.7rem;
+		font-size: 2.2rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	/* border-radius removed to allow round nav arrow button */
+		background: transparent;
+		box-shadow: none;
+		border: none;
+		min-width: 2.1rem;
+		min-height: 2.1rem;
+		padding: 0.1rem 0.2rem;
+		font-size: 1rem;
+		background: transparent;
+		color: #b87333;
+		box-shadow: none;
+	}
+}
+@media (max-width: 1023px) {
+	.window-nav-arrow-fixed { display: none !important; }
+}
+/* Absolutely positioned navigation arrows outside the main window */
+.window-nav-arrow-absolute {
+	display: none;
+}
+@media (min-width: 1024px) {
+	.main-window-outer-wrap {
+		position: relative;
+		width: 100%;
+	}
+	.window-nav-arrow-absolute {
+		display: flex;
+		align-items: center;
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		z-index: 60;
+		pointer-events: auto;
+	}
+	.window-nav-arrow-absolute--left {
+		left: -3.2rem;
+	}
+	.window-nav-arrow-absolute--right {
+		right: -3.2rem;
+	}
+	.window-nav-arrow-absolute .steam-btn {
+		min-width: 2.8rem;
+		min-height: 2.8rem;
+		padding: 0.5rem 0.7rem;
+		font-size: 1.7rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+	}
+}
+@media (max-width: 1023px) {
+	.window-nav-arrow-absolute { display: none !important; }
+}
+/* Window-attached navigation arrows for design detail */
+.main-window-arrow-wrap {
+	display: flex;
+	flex-direction: row;
+	align-items: stretch;
+	justify-content: center;
+	position: relative;
+	width: 100%;
+	margin-bottom: 0;
+}
+.window-nav-arrow {
+	display: none;
+}
+@media (min-width: 1024px) {
+	.main-window-arrow-wrap {
+		justify-content: center;
+		align-items: stretch;
+	}
+	.window-nav-arrow {
+		display: flex;
+		align-items: center;
+		position: relative;
+		z-index: 50;
+		width: 0;
+	}
+	.window-nav-arrow--left {
+		justify-content: flex-end;
+		align-items: center;
+		margin-right: -2.2rem;
+	}
+	.window-nav-arrow--right {
+		justify-content: flex-start;
+		align-items: center;
+		margin-left: -2.2rem;
+	}
+	.window-nav-arrow .steam-btn {
+		min-width: 2.8rem;
+		min-height: 2.8rem;
+		padding: 0.5rem 0.7rem;
+		font-size: 1.7rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+	}
+}
+@media (max-width: 1023px) {
+	.window-nav-arrow { display: none !important; }
+}
+/* Floating navigation arrows for design detail (outside main window) */
+.floating-nav-arrow {
+	position: fixed;
+	top: 50%;
+	transform: translateY(-50%);
+	z-index: 100;
+	display: flex;
+	align-items: center;
+	pointer-events: none;
+}
+.floating-nav-arrow a {
+	pointer-events: auto;
+}
+.floating-nav-arrow--left {
+	left: 1.2rem;
+}
+.floating-nav-arrow--right {
+	right: 1.2rem;
+}
+@media (max-width: 1024px) {
+	.floating-nav-arrow { display: none !important; }
+}
+/* Ensure arrows are visually distinct and accessible */
+.floating-nav-arrow .steam-btn {
+	min-width: 2.8rem;
+	min-height: 2.8rem;
+	padding: 0.5rem 0.7rem;
+	font-size: 1.7rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+/* Side navigation arrows for design detail */
+.side-nav-arrow {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	z-index: 10;
+}
+.side-nav-arrow--left {
+	left: -3.5rem;
+}
+.side-nav-arrow--right {
+	right: -3.5rem;
+}
+@media (max-width: 1280px) {
+	.side-nav-arrow--left { left: -2.2rem; }
+	.side-nav-arrow--right { right: -2.2rem; }
+}
+@media (max-width: 1024px) {
+	.side-nav-arrow { display: none !important; }
+}
+/* Ensure arrows are visually distinct and accessible */
+.side-nav-arrow .steam-btn {
+	min-width: 2.8rem;
+	min-height: 2.8rem;
+	padding: 0.5rem 0.7rem;
+	font-size: 1.7rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
 /* Visually separate details panel from main window bubble */
 .main-window-layout {
 	display: flex;
@@ -823,25 +1314,25 @@ main.mx-auto { max-width: min(100%, 80rem) !important; }
 		border-radius: 12px;
 	}
 	/* Brand/button plates switch to neon glass */
-	.theme-cyberpunk .steam-brand-link,
-	.theme-cyberpunk .steam-btn__plate {
-		background-image: linear-gradient(180deg, rgba(30,40,80,.85), rgba(15,20,35,.85));
-		border: 1.5px solid rgba(0,255,255,.22);
-		box-shadow: 0 0 0 1px rgba(0,255,255,.25) inset, 0 0 18px rgba(0,255,255,.25) inset, 0 6px 18px rgba(0,0,0,.6);
-		border-radius: 10px;
-		position: relative;
-		overflow: hidden;
-			padding: 0.7rem 1.4rem 0.7rem 1.4rem;
-				font-size: 1.5rem;
-		border-radius:10px; 
-		position:relative; 
-		overflow:hidden;
-		border: 1.5px solid rgba(0,255,255,.22);
-		box-shadow: 0 0 0 1px rgba(0,255,255,.25) inset, 0 0 18px rgba(0,255,255,.25) inset, 0 6px 18px rgba(0,0,0,.6);
-		border-radius: 10px;
-		position: relative;
-		overflow: hidden;
-	}
+	   .theme-cyberpunk .steam-brand-link,
+	   .theme-cyberpunk .steam-btn__plate:not(.window-nav-arrow-abs .steam-btn__plate):not(.window-nav-arrow-fixed-center .steam-btn__plate) {
+		   background-image: linear-gradient(180deg, rgba(30,40,80,.85), rgba(15,20,35,.85));
+		   border: 1.5px solid rgba(0,255,255,.22);
+		   box-shadow: 0 0 0 1px rgba(0,255,255,.25) inset, 0 0 18px rgba(0,255,255,.25) inset, 0 6px 18px rgba(0,0,0,.6);
+		   border-radius: 10px;
+		   position: relative;
+		   overflow: hidden;
+			   padding: 0.7rem 1.4rem 0.7rem 1.4rem;
+				   font-size: 1.5rem;
+		   border-radius:10px; 
+		   position:relative; 
+		   overflow:hidden;
+		   border: 1.5px solid rgba(0,255,255,.22);
+		   box-shadow: 0 0 0 1px rgba(0,255,255,.25) inset, 0 0 18px rgba(0,255,255,.25) inset, 0 6px 18px rgba(0,0,0,.6);
+		   border-radius: 10px;
+		   position: relative;
+		   overflow: hidden;
+	   }
 html.theme-steampunk .steam-brand-link {
 	background-image: linear-gradient(180deg,#c98353 0%, #9f5229 70%, #6d3417 100%);
 	background-size: cover;

@@ -7,7 +7,7 @@ export async function getStaticPaths() {
   return projects.map((entry) => ({ params: { slug: entry.slug } }));
 }
 
-const slug = Astro.params.slug as string;
+const { slug } = Astro.params as { slug: string };
 const entry = await getEntryBySlug('projects', slug) as CollectionEntry<'projects'> | undefined;
 if (!entry) {
   throw new Error(`Project not found: ${slug}`);
@@ -50,7 +50,29 @@ if (entry.slug === 'arduino-control-box') {
     '/uploads/robotics/arduino-control-box/1000007857.jpg',
   ];
 }
+
+// Find previous and next project slugs
+const allProjects = await getCollection('projects', (e: CollectionEntry<'projects'>) => e.data.published !== false);
+allProjects.sort((a: CollectionEntry<'projects'>, b: CollectionEntry<'projects'>) => (b.data.date as Date).getTime() - (a.data.date as Date).getTime());
+const currentIndex = allProjects.findIndex(e => e.slug === slug);
+const prevSlug = currentIndex > 0 ? allProjects[currentIndex - 1].slug : null;
+const nextSlug = currentIndex < allProjects.length - 1 ? allProjects[currentIndex + 1].slug : null;
 ---
+{/* Fixed-position navigation arrows for project detail page (real previous/next links) */}
+{prevSlug && (
+  <div class="window-nav-arrow-fixed-center window-nav-arrow-fixed-center--left">
+    <a class="steam-btn" href={`/projects/${prevSlug}/`} title="Previous project" aria-label="Previous project">
+      <span class="steam-btn__plate"><span class="nav-arrow-icon">&#8592;</span></span>
+    </a>
+  </div>
+)}
+{nextSlug && (
+  <div class="window-nav-arrow-fixed-center window-nav-arrow-fixed-center--right">
+    <a class="steam-btn" href={`/projects/${nextSlug}/`} title="Next project" aria-label="Next project">
+      <span class="steam-btn__plate"><span class="nav-arrow-icon">&#8594;</span></span>
+    </a>
+  </div>
+)}
 <BaseLayout title={entry.data.title} description={entry.data.summary ?? 'Project detail'} wrap={false}>
   <div class="main-window-layout">
     <div class="flex-1">
