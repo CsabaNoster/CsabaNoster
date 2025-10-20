@@ -2,7 +2,7 @@
 title: EB‑15 Collaborative Robot Arm
 summary: A 5‑DOF collaborative robotic arm designed, fabricated, and programmed end‑to‑end, including custom actuators and control box.
 date: 2025-10-09
-published: true
+published: false
 tags: [robotics, robot, mechatronics]
 stack: [Arduino Mega, PWM, CAD]
 image: /uploads/robotics/eb15-robotic-arm/1000007859.jpg
