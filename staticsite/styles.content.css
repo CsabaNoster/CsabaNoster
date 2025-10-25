@@ -1,0 +1,60 @@
+/* Main content window, panels, and theme overrides extracted from styles.css */
+.content-window {
+	background:
+		linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
+		url(backgrounds/main/circuit_overlay_cyberpunk_2x.png) center/cover no-repeat;
+	border: 3px solid #ff4fe5 !important;
+	box-shadow:
+		0 0 16px 2px #ff4fe5cc,
+		0 0 32px 8px #ff4fe588,
+		0 0 0 1px #ff4fe5 inset !important;
+	max-width: min(100%, 1280px);
+	width: min(100%, 1280px);
+	padding: 1.5rem 1.5rem 2rem 1.5rem;
+	margin: 0 auto 2rem auto;
+	position: relative;
+	overflow: hidden;
+	border-radius: 18px;
+	z-index: 20;
+	transition: background .3s, box-shadow .3s;
+	margin-top: 2cm !important;
+}
+.content-window:hover {
+	box-shadow: 0 16px 36px rgba(0,0,0,.65), 0 0 0 1px rgba(120,200,255,.18) inset, 0 0 28px rgba(0,255,255,.18) inset;
+}
+.main-window-layout {
+	display: flex;
+	flex-direction: column;
+	gap: 2rem;
+}
+@media (min-width: 1024px) {
+	.main-window-layout {
+		flex-direction: row;
+		align-items: flex-start;
+		gap: 2.5rem;
+	}
+	.main-window-layout > .flex-1 {
+		min-width: 0;
+		flex: 1 1 0%;
+	}
+	.main-window-layout > aside {
+		position: relative;
+		align-self: flex-start;
+		margin-left: 0;
+		margin-top: 0;
+		z-index: 40;
+	}
+	.details-panel {
+		background: rgba(34,24,12,0.85);
+		border-radius: 14px;
+		border: 2.5px solid #b87333;
+		box-shadow: 0 0 0 1.5px #b87333 inset, 0 0 12px #b8733388 inset;
+		padding: 1.5rem 1.5rem 2rem 1.5rem;
+		max-width: 380px;
+		width: 100%;
+		margin-left: 0;
+		margin-top: 0;
+	}
+}
+/* Main content window, panels, and theme overrides */
+/* ...to be filled with .content-window, .main-window, .details-panel, .hero-blade, theme-cyberpunk, theme-steampunk, etc. from styles.css... */

@@ -1,0 +1,65 @@
+/* Hide default page scrollbar for html/body */
+html, body {
+	overflow: hidden !important;
+}
+
+html::-webkit-scrollbar, body::-webkit-scrollbar {
+	display: none !important;
+}
+/* Base layout and resets extracted from styles.css */
+html, body { height: 100%; }
+body {
+	margin: 0;
+	min-height: 100vh;
+	font-family: Inter,system-ui,sans-serif;
+	-webkit-font-smoothing: antialiased;
+	background: var(--sand);
+}
+.bg-art > img {
+	position: fixed;
+	inset: 0;
+	z-index: -1;
+	width: 100vw;
+	height: 100vh;
+	object-fit: cover;
+	object-position: center center;
+	display: block;
+	image-rendering: -webkit-optimize-contrast;
+	pointer-events: none;
+}
+.bg-art {
+	position: fixed;
+	inset: 0;
+	z-index: -1;
+	width: 100vw;
+	height: 100vh;
+	pointer-events: none;
+}
+.bg-photo-layer {
+	position: fixed;
+	inset: 0;
+	z-index: -1;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-color: transparent;
+	transition: opacity 1s ease, filter 1s ease;
+	opacity: 1;
+	pointer-events: none;
+	transform: translateY(0) !important;
+}
+html, body, #__astro { position: relative; }
+html, body { height: 100%; }
+body {
+	margin: 0;
+	min-height: 100vh;
+	font-family: Inter,system-ui,sans-serif;
+	-webkit-font-smoothing: antialiased;
+	background: var(--sand);
+}
+.main-window-outer-wrap {
+	position: relative;
+	width: 100%;
+}
+/* Base layout and resets */
+/* ...to be filled with base, layout, and reset styles from styles.css... */

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" class="theme-cyberpunk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register – Nosters Lab</title>
+  <link rel="stylesheet" href="styles.base.css">
+  <link rel="stylesheet" href="styles.nav.css">
+  <link rel="stylesheet" href="styles.content.css">
+  <link rel="stylesheet" href="styles.utils.css">
+</head>
+<body>
+  <div id="bg-image" class="bg-photo-layer" style="background-image: url('backgrounds/cyberpunk.png'); background-size: cover; background-position: center;"></div>
+  <header class="menu-bar-wrapper">
+    <nav class="menu-bar" role="navigation" aria-label="Primary">
+      <div style="display: flex; align-items: center; flex: 1; min-width: 0;">
+        <a href="index.html" class="menu-bar-brand-link home-btn" aria-label="Home / Nosters Lab">
+          <span class="menu-bar-brand-text" data-text="Nosters Lab">Nosters Lab</span>
+        </a>
+        <ul class="menu-bar-links">
+          <li><a class="menu-bar-btn" href="projects.html"><span class="menu-bar-btn__plate"><span class="menu-bar-btn__label" data-text="Projects">Projects</span></span></a></li>
+          <li><a class="menu-bar-btn" href="robotics.html"><span class="menu-bar-btn__plate"><span class="menu-bar-btn__label" data-text="Robotics">Robotics</span></span></a></li>
+          <li><a class="menu-bar-btn" href="design.html"><span class="menu-bar-btn__plate"><span class="menu-bar-btn__label" data-text="3D Design">3D Design</span></span></a></li>
+          <li><a class="menu-bar-btn" href="art.html"><span class="menu-bar-btn__plate"><span class="menu-bar-btn__label" data-text="Art">Art</span></span></a></li>
+          <li><a class="menu-bar-btn" href="reviews.html"><span class="menu-bar-btn__plate"><span class="menu-bar-btn__label" data-text="Reviews">Reviews</span></span></a></li>
+          <li><a class="menu-bar-btn" href="thoughts.html"><span class="menu-bar-btn__plate"><span class="menu-bar-btn__label" data-text="Thoughts">Thoughts</span></span></a></li>
+          <li><a class="menu-bar-btn" href="register.html"><span class="menu-bar-btn__plate"><span class="menu-bar-btn__label" data-text="Register">Register</span></span></a></li>
+          <li><a class="menu-bar-btn" href="#"><span class="menu-bar-btn__plate"><span class="menu-bar-btn__label" data-text="Login/Logout">Login/Logout</span></span></a></li>
+        </ul>
+      </div>
+      <div class="nixie-clock" id="nixie-clock"></div>
+    </nav>
+  </header>
+  <div class="main-scroll-area">
+    <main class="content-window" data-reveal>
+      <header class="main-window-header hero-bubble">
+        <h1 class="hero-title">Register</h1>
+        <h2 class="hero-sub">Create your account</h2>
+      </header>
+      <section class="main-window-section">
+        <form id="register-form" method="POST" action="/register">
+        <div style="display:grid;grid-template-columns: max-content 1fr;align-items:center;gap:1.2em;margin-bottom:1em;">
+          <label for="username" style="color:#00fff7;font-weight:600;font-size:1.35em;text-align:right;">Username:</label>
+          <input type="text" id="username" name="username" required minlength="3" maxlength="32" autocomplete="username" style="font-size:1.25em;padding:0.7em 1em;border-radius:0.5em;width:14em;">
+          <label for="email" style="color:#00fff7;font-weight:600;font-size:1.35em;text-align:right;">Email:</label>
+          <input type="email" id="email" name="email" required autocomplete="email" style="font-size:1.25em;padding:0.7em 1em;border-radius:0.5em;width:14em;">
+          <label for="password" style="color:#00fff7;font-weight:600;font-size:1.35em;text-align:right;">Password:</label>
+          <input type="password" id="password" name="password" required minlength="8" autocomplete="new-password" style="font-size:1.25em;padding:0.7em 1em;border-radius:0.5em;width:14em;">
+          <label for="confirm" style="color:#00fff7;font-weight:600;font-size:1.35em;text-align:right;">Confirm Password:</label>
+          <input type="password" id="confirm" name="confirm" required minlength="8" autocomplete="new-password" style="font-size:1.25em;padding:0.7em 1em;border-radius:0.5em;width:14em;">
+        </div>
+        <div style="text-align:center;margin-top:1em;">
+          <button type="submit" class="steam-btn steam-btn__plate" style="background:rgba(10,20,40,0.92);border:2.5px solid #00fff7;border-radius:0.9em;box-shadow:0 0 12px 2px #00fff7cc,0 0 0 2px #3a8ad8 inset;color:#00fff7;font-weight:700;text-shadow:0 0 6px #00fff7cc,0 0 12px #00fff799;transition:box-shadow 0.18s,border-color 0.18s;font-size:1.35em;padding:0.8em 2.2em;">Register</button>
+        </div>
+      </form>
+        <div id="register-message"></div>
+      </section>
+    </main>
+  </div>
+  <footer>
+    <p>&copy; 2025 Noster's Lab</p>
+  </footer>
+  <script src="js/register.js"></script>
+  <script src="js/login.js"></script>
+  <script>
+    // Nixie clock rendering
+    function updateNixieClock() {
+      const now = new Date();
+      const pad = n => n.toString().padStart(2, '0');
+      const time = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+      document.getElementById('nixie-clock').innerHTML = time.split('').map(c =>
+        c === ':' ? `<span class="nixie-sep">:</span>` : `<span class="nixie-tube">${c}</span>`
+      ).join('');
+    }
+    setInterval(updateNixieClock, 1000);
+    updateNixieClock();
+  </script>
+</body>
+</html>

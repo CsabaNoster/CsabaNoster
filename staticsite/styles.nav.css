@@ -1,0 +1,426 @@
+
+/* --- Cyberpunk Scrollbar for .main-scroll-area --- */
+.main-scroll-area {
+  height: calc(100vh - 2.5cm); /* menu bar height */
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  z-index: 10;
+  background: none;
+  scrollbar-width: thin;
+  scrollbar-color: #00fff7 #181a2a;
+  will-change: scroll-position;
+  -webkit-overflow-scrolling: touch;
+}
+.main-scroll-area::-webkit-scrollbar {
+  width: 14px;
+  background: #181a2a;
+}
+.main-scroll-area::-webkit-scrollbar-thumb {
+  background: linear-gradient(120deg, #00fff7 10%, #ff4fe5 90%);
+  border-radius: 10px;
+  border: 3px solid #181a2a;
+  box-shadow: 0 0 12px #00fff7cc, 0 0 24px #ff4fe5cc, 0 0 2px #fff;
+  min-height: 40px;
+}
+.main-scroll-area::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(120deg, #ff4fe5 10%, #00fff7 90%);
+  box-shadow: 0 0 24px #ff4fe5cc, 0 0 32px #00fff7cc, 0 0 4px #fff;
+}
+.main-scroll-area::-webkit-scrollbar-track {
+  background: #181a2a;
+  border-radius: 10px;
+  box-shadow: 0 0 8px #00fff799 inset;
+}
+.main-scroll-area::-webkit-scrollbar-corner {
+  background: #181a2a;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+/* Ensure menu bar buttons are inline and remove list dots */
+.menu-bar-links {
+	display: flex;
+	align-items: center;
+			gap: 2.1rem;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	min-width: 0;
+	white-space: nowrap;
+}
+/* Neon bubble button style for menu bar */
+.menu-bar-btn__plate {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-transform: uppercase;
+	display: inline-block;
+	background: rgba(10, 20, 40, 0.92);
+	border: 2.5px solid #00fff7;
+		border-radius: 0.9em;
+	box-shadow:
+		0 0 6px 1px #00fff7aa,
+		0 0 0 2px #3a8ad8 inset;
+		padding: 0 1.1em;
+		font-size: 1.1em;
+		height: 1.5cm;
+		line-height: 1.5cm;
+		vertical-align: middle;
+		color: #00fff7;
+		font-weight: 700;
+		text-shadow: 0 0 6px #00fff7cc, 0 0 12px #00fff799;
+	transition: box-shadow 0.18s, border-color 0.18s;
+}
+.menu-bar-btn__plate:hover,
+.menu-bar-btn__plate:focus {
+	border-color: #00e0ff;
+	box-shadow:
+		0 0 12px 2px #00fff7cc,
+		0 0 0 2px #3a8ad8 inset;
+}
+/* Navigation and header styles extracted from styles.css */
+
+/* Menu bar layout and neon border */
+.menu-bar-wrapper {
+	width: 100%;
+	position: sticky;
+	top: 0;
+	z-index: 100;
+	margin: 0;
+	padding: 0;
+}
+.menu-bar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1.5rem;
+	width: 100%;
+	min-width: 0;
+	box-sizing: border-box;
+	position: relative;
+	height: 2.5cm;
+	min-height: 2.5cm;
+	padding: 0 2rem;
+	background: rgba(10, 20, 40, 0.85);
+	border: 3px solid #00fff7;
+		border-radius: 1em;
+  box-shadow:
+    0 0 12px 2px #00fff7aa,
+    0 0 24px 6px #00fff799,
+    0 0 36px 10px #3a8ad888,
+    0 0 0 2px #3a8ad8 inset;
+	white-space: nowrap;
+}
+.menu-bar-brand-link {
+	margin-right: 2.8rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-transform: uppercase;
+	background: rgba(10, 20, 40, 0.92);
+	border: 2.5px solid #ff3ecf;
+	border-radius: 0.9em;
+  box-shadow:
+    0 0 5px 1px #ff3ecf88,
+    0 0 0 2px #ffb3f7 inset;
+		padding: 0 1.1em;
+		font-size: 1.1em;
+		height: 1.5cm;
+		line-height: 1.5cm;
+		vertical-align: middle;
+		color: #ff3ecf;
+		font-weight: 700;
+		text-shadow: 0 0 6px #00fff7cc, 0 0 12px #00fff799;
+		transition: box-shadow 0.18s, border-color 0.18s;
+}
+.menu-bar-brand-link:hover,
+.menu-bar-brand-link:focus {
+	border-color: #ff3ecf;
+	box-shadow:
+		0 0 18px 4px #ff3ecfdd,
+		0 0 0 2px #ffb3f7 inset;
+}
+.steam-brand-link:active {
+	transform: translateY(2px) scale(0.99);
+	box-shadow:
+		0 0 0 1px #d2a37d inset,
+		0 4px 10px #000b inset,
+		0 0 4px #0006;
+}
+
+.nixie-clock {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: .4rem;
+		margin: 0;
+		font-variant-numeric: tabular-nums;
+		position: relative;
+			padding: 0.4em 0.7em;
+		border: 3px solid #ff3ecf;
+			border-radius: 0.4em;
+		background: #1a0a18;
+		box-shadow:
+			0 0 18px 4px #ff3ecf99,
+			0 0 36px 12px #ff3ecf55,
+			0 0 0 2px #ffb3f7 inset,
+			0 2px 8px #000a inset;
+		color: #ff3ecf;
+			font-family: 'Orbitron', 'Share Tech Mono', 'Consolas', 'Courier New', monospace;
+			font-size: 2.1em;
+			font-weight: 900;
+			letter-spacing: 0.08em;
+			text-shadow:
+				0 0 8px #ff3ecf,
+				0 0 24px #ffb3f7,
+				0 0 2px #fff;
+		}
+
+		/* Nixie clock digit segmentation */
+			.nixie-tube, .nixie-sep {
+				display: inline-block;
+					margin: 0 0.08em;
+					padding: 0.08em 0.09em;
+				border-radius: 0.18em;
+				background: rgba(40, 10, 30, 0.55);
+						box-shadow:
+							0 0 8px #ff3ecf44 inset,
+							0 0 2px #fff2 inset;
+					}
+@media (min-width: 1024px){
+	.nixie-clock{
+		background: #141618 url("/img/steel_dark_desktop_1920x200.jpeg") center/cover no-repeat;
+	}
+}
+@media (max-width: 640px){
+	.nixie-clock{
+		background: #141618 url("/img/steel_dark_mobile_1080x240.jpeg") center/cover no-repeat;
+	}
+}
+.content-window {
+  margin-top: 2cm;
+  /* existing styles */
+}
+/* Add more nav/clock styles as needed */
+
+.home-hero-bubble {
+  background: rgba(10, 20, 40, 0.92);
+  border: 3px solid #00fff7;
+  border-radius: 1.2em;
+  box-shadow: none;
+  padding: 1.2rem 1.5rem 1.2rem 1.5rem;
+  margin-bottom: 1.2rem;
+  color: #00fff7;
+  font-family: 'Orbitron', 'Share Tech Mono', 'Consolas', 'Segoe UI', 'Arial', sans-serif;
+  font-weight: 700;
+  text-shadow: 0 0 2px #00fff7cc, 0 0 8px #00fff799;
+  text-align: left;
+  /* Ensure border is always visible */
+  border-width: 3px !important;
+  border-style: solid !important;
+  border-color: #00fff7 !important;
+}
+.hero-title,
+.hero-title.home-hero-title,
+.hero-sub,
+.main-window-header h2,
+.home-hero-bubble h1,
+.home-hero-bubble h2 {
+  color: #00fff7;
+  border-bottom: 2.5px solid #00fff7;
+  font-family: 'Orbitron', 'Share Tech Mono', 'Consolas', 'Segoe UI', 'Arial', sans-serif;
+  font-weight: 700;
+  text-shadow: 0 0 2px #00fff7cc, 0 0 8px #00fff799;
+  padding-bottom: 0.15em;
+  margin-bottom: 0.5em;
+  background: none;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
+  margin-top: 0;
+  display: block;
+  text-align: left;
+}
+
+.hero-title {
+  text-align: center;
+  font-size: 3.2em;
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+  margin-top: 0.2em;
+}
+
+.hero-bubble {
+  background: rgba(10, 20, 40, 0.92);
+  border: 3px solid #00fff7;
+  border-radius: 1.2em;
+  box-shadow: none;
+  padding: 1.2rem 1.5rem 1.2rem 1.5rem;
+  margin-bottom: 1.2rem;
+  color: #00fff7;
+  font-family: 'Orbitron', 'Share Tech Mono', 'Consolas', 'Segoe UI', 'Arial', sans-serif;
+  font-weight: 700;
+  text-shadow: 0 0 2px #00fff7cc, 0 0 8px #00fff799;
+  text-align: left;
+  /* Ensure border is always visible */
+  border-width: 3px !important;
+  border-style: solid !important;
+  border-color: #00fff7 !important;
+}
+
+.hero-bubble h1 {
+  text-align: center;
+  font-size: 2.1em;
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+  margin-top: 0.2em;
+}
+
+.hero-bubble h2, .hero-bubble ul, .hero-bubble li {
+  color: #00fff7;
+  font-family: inherit;
+  font-weight: 700;
+  text-shadow: 0 0 2px #00fff7cc, 0 0 8px #00fff799;
+  text-align: left;
+}
+
+.hero-bubble ul {
+  margin: 1em 0 1em 1.2em;
+}
+
+.hero-bubble li {
+  list-style: disc inside;
+  margin-bottom: 0.3em;
+}
+
+.cards-window {
+  background: rgba(10, 20, 40, 0.82);
+  border: 2.5px solid rgba(0,255,247,0.45);
+  border-radius: 1.1em;
+  box-shadow: 0 2px 16px 0 #00fff733;
+  padding: 2.2rem 2.5rem 2.2rem 2.5rem;
+  margin-bottom: 2.5rem;
+  color: #e0faff;
+  font-family: 'Orbitron', 'Share Tech Mono', 'Consolas', 'Segoe UI', 'Arial', sans-serif;
+  font-weight: 600;
+}
+.card, .cards-window .block {
+  background: rgba(40, 80, 120, 0.82) !important;
+  border: 2.5px solid #00fff7 !important;
+  border-radius: 1em;
+  color: #e0faff !important;
+  box-shadow: 0 2px 16px 0 #00fff755;
+  font-family: 'Orbitron', 'Share Tech Mono', 'Consolas', 'Segoe UI', 'Arial', sans-serif;
+  font-weight: 600;
+  transition: box-shadow 0.18s, border-color 0.18s;
+  width: 8cm;
+  min-width: 8cm;
+  max-width: 8cm;
+  height: 8cm;
+  min-height: 8cm;
+  max-height: 8cm;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  overflow: hidden;
+  position: relative;
+}
+
+.card img, .cards-window .block img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  margin-bottom: 0.3em;
+}
+.card-tag {
+  display: inline-block;
+  padding: 0.25em 0.7em;
+  border-radius: 1em;
+  font-size: 0.85em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #fff;
+  background: #00bfff;
+  box-shadow: 0 0 8px #00bfff88;
+}
+.card-tag.projects {
+  background: #ff3e3e;
+  box-shadow: 0 0 8px #ff3e3e88;
+}
+.card-tag.robotics {
+  background: #ff9900;
+  box-shadow: 0 0 8px #ff990088;
+}
+.card-tag.design {
+  background: #00bfff;
+  box-shadow: 0 0 8px #00bfff88;
+}
+.card-tag.art {
+  background: #a259ff;
+  box-shadow: 0 0 8px #a259ff88;
+}
+.card-tag.review {
+  background: #00ff99;
+  box-shadow: 0 0 8px #00ff9988;
+}
+.card-tag.thoughts {
+  background: #ffe066;
+  color: #222;
+  box-shadow: 0 0 8px #ffe06688;
+}
+.card-date {
+  font-size: 0.85em;
+  color: #e0faff;
+  opacity: 0.85;
+  margin-left: auto;
+  font-weight: 600;
+}
+.card-title {
+  font-size: 1.1em;
+  font-weight: 700;
+  color: #00fff7;
+  margin: 0.2em 0 0.3em 0;
+  text-align: center;
+  line-height: 1.2;
+}
+.card-img {
+  width: 100%;
+  height: 3.5cm;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 0.7em;
+  margin-bottom: 0.3em;
+}
+.card-desc {
+  font-size: 0.95em;
+  color: #e0faff;
+  margin-top: auto;
+  text-align: left;
+  line-height: 1.3;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+}
+
+.cards-window ul.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  justify-items: center;
+}

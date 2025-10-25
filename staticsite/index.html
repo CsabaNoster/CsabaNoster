@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" class="theme-cyberpunk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Noster's Lab – Creative Engineering</title>
+  <link rel="stylesheet" href="styles.base.css">
+  <link rel="stylesheet" href="styles.nav.css">
+  <link rel="stylesheet" href="styles.content.css">
+  <link rel="stylesheet" href="styles.utils.css">
+</head>
+<body>
+  <div id="bg-image" class="bg-photo-layer" style="background-image: url('backgrounds/cyberpunk.png'); background-size: cover; background-position: center;"></div>
+  <header class="menu-bar-wrapper">
+    <nav class="menu-bar" role="navigation" aria-label="Primary">
+      <div style="display: flex; align-items: center; flex: 1; min-width: 0;">
+        <a href="index.html" class="menu-bar-brand-link home-btn" aria-label="Home / Nosters Lab">
+          <span class="menu-bar-brand-text" data-text="Nosters Lab">Nosters Lab</span>
+        </a>
+        <ul class="menu-bar-links">
+          <li><a class="menu-bar-btn" href="projects.html"><span class="menu-bar-btn__plate"><span class="menu-bar-btn__label" data-text="Projects">Projects</span></span></a></li>
+          <li><a class="menu-bar-btn" href="robotics.html"><span class="menu-bar-btn__plate"><span class="menu-bar-btn__label" data-text="Robotics">Robotics</span></span></a></li>
+          <li><a class="menu-bar-btn" href="design.html"><span class="menu-bar-btn__plate"><span class="menu-bar-btn__label" data-text="3D Design">3D Design</span></span></a></li>
+          <li><a class="menu-bar-btn" href="art.html"><span class="menu-bar-btn__plate"><span class="menu-bar-btn__label" data-text="Art">Art</span></span></a></li>
+          <li><a class="menu-bar-btn" href="reviews.html"><span class="menu-bar-btn__plate"><span class="menu-bar-btn__label" data-text="Reviews">Reviews</span></span></a></li>
+          <li><a class="menu-bar-btn" href="thoughts.html"><span class="menu-bar-btn__plate"><span class="menu-bar-btn__label" data-text="Thoughts">Thoughts</span></span></a></li>
+          <li><a class="menu-bar-btn" href="register.html"><span class="menu-bar-btn__plate"><span class="menu-bar-btn__label" data-text="Register">Register</span></span></a></li>
+          <li><a class="menu-bar-btn" href="#"><span class="menu-bar-btn__plate"><span class="menu-bar-btn__label" data-text="Login/Logout">Login/Logout</span></span></a></li>
+        </ul>
+      </div>
+      <div class="nixie-clock" id="nixie-clock"></div>
+    </nav>
+  </header>
+  <div class="main-scroll-area">
+    <main class="content-window" data-reveal>
+    <header class="main-window-header home-hero-bubble">
+      <h1 class="hero-title ">Welcome</h1>
+      <h2 class="hero-sub home-hero-desc">NostersLab is my sandbox for making and meaning.<br>Here you'll find:</h2>
+      <ul class="intro-list">
+        <li>Hands-on technical projects</li>
+        <li>3D design and robotics</li>
+        <li>Art experiments</li>
+        <li>Book & film reviews with a scientific and philosophical lean</li>
+      </ul>
+      <h2 class="hero-sub home-hero-desc">I share what I build, what I learn, and why it matters—including mistakes. If you appreciate curious tools, clear explanations, and quiet, thoughtful creativity, you’ll feel at home here.</h2>
+    </header>
+    <header class="main-window-header hero-bubble">
+      <h1 class="hero-title">Latest uploads</h1>
+    </header>
+    <div class="cards-window">
+      <section class="main-window-section">
+        <ul id="latest-home-cards" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4" style="list-style:none;padding:0;"></ul>
+      </section>
+    </div>
+    </main>
+  </div>
+  <footer>
+    <p>&copy; 2025 Noster's Lab</p>
+  </footer>
+  <script>
+    // Nixie clock rendering
+    function updateNixieClock() {
+      const now = new Date();
+      const pad = n => n.toString().padStart(2, '0');
+      const time = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+      document.getElementById('nixie-clock').innerHTML = time.split('').map(c =>
+        c === ':' ? `<span class="nixie-sep">:</span>` : `<span class="nixie-tube">${c}</span>`
+      ).join('');
+    }
+    setInterval(updateNixieClock, 1000);
+    updateNixieClock();
+  </script>
+  <script src="js/login.js"></script>
+  <script src="js/latest-home-cards.v2.js"></script>
+</body>
+</html>

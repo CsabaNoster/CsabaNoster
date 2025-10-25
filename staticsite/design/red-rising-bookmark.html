@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" class="theme-cyberpunk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Red Rising Bookmark – Noster's Lab</title>
+  <link rel="stylesheet" href="../styles.base.css">
+  <link rel="stylesheet" href="../styles.nav.css">
+  <link rel="stylesheet" href="../styles.content.css">
+  <link rel="stylesheet" href="../styles.utils.css">
+</head>
+<body>
+  <div id="bg-image" class="bg-photo-layer" style="background-image: url('../backgrounds/cyberpunk.png'); background-size: cover; background-position: center;"></div>
+  <header class="menu-bar-wrapper">
+    <nav class="menu-bar" role="navigation" aria-label="Primary">
+      <div style="display: flex; align-items: center; flex: 1; min-width: 0;">
+        <a href="../index.html" class="menu-bar-brand-link home-btn" aria-label="Home / Nosters Lab">
+          <span class="menu-bar-brand-text" data-text="Nosters Lab">Nosters Lab</span>
+        </a>
+        <ul class="menu-bar-links">
+          <li><a class="menu-bar-btn" href="../projects.html"><span class="menu-bar-btn__plate"><span class="menu-bar-btn__label" data-text="Projects">Projects</span></span></a></li>
+          <li><a class="menu-bar-btn" href="../robotics.html"><span class="menu-bar-btn__plate"><span class="menu-bar-btn__label" data-text="Robotics">Robotics</span></span></a></li>
+          <li><a class="menu-bar-btn" href="../design.html"><span class="menu-bar-btn__plate"><span class="menu-bar-btn__label" data-text="3D Design">3D Design</span></span></a></li>
+          <li><a class="menu-bar-btn" href="../art.html"><span class="menu-bar-btn__plate"><span class="menu-bar-btn__label" data-text="Art">Art</span></span></a></li>
+          <li><a class="menu-bar-btn" href="../reviews.html"><span class="menu-bar-btn__plate"><span class="menu-bar-btn__label" data-text="Reviews">Reviews</span></span></a></li>
+          <li><a class="menu-bar-btn" href="../thoughts.html"><span class="menu-bar-btn__plate"><span class="menu-bar-btn__label" data-text="Thoughts">Thoughts</span></span></a></li>
+          <li><a class="menu-bar-btn" href="../register.html"><span class="menu-bar-btn__plate"><span class="menu-bar-btn__label" data-text="Register">Register</span></span></a></li>
+          <li><a class="menu-bar-btn" href="../login.html"><span class="menu-bar-btn__plate"><span class="menu-bar-btn__label" data-text="Login/Logout">Login/Logout</span></span></a></li>
+        </ul>
+      </div>
+      <div class="nixie-clock" id="nixie-clock"></div>
+    </nav>
+  </header>
+  <div class="main-scroll-area">
+    <main class="content-window" data-reveal>
+    <header class="main-window-header hero-bubble">
+      <h1 class="hero-title">Red Rising Bookmark</h1>
+      <h2 class="hero-sub">3D printable bookmark inspired by Red Rising</h2>
+    </header>
+    <div class="cards-window" style="display: flex; flex-direction: row; gap: 2rem; align-items: flex-start;">
+      <section class="main-window-section" style="flex:1;">
+        <img src="../design/red-rising-bookmark/Red_Rising_bookmark.png" alt="Red Rising Bookmark" style="max-width:100%;border-radius:10px;box-shadow:0 2px 12px #0003;" loading="lazy">
+        <div class="download-section" style="display:none; margin:2em 0 1em 0; text-align:center;">
+          <a class="menu-bar-btn__plate" href="../downloads/design/red-rising-bookmark/Red_Rising_bookmark.step" download>
+            <span class="menu-bar-btn__label" data-text="Red_Rising_bookmark.step">Red_Rising_bookmark.step</span>
+          </a>
+        </div>
+        <div class="watch-gallery-grid" style="display: flex; flex-wrap: wrap; gap: 1rem; margin-top:2rem;">
+          <div class="gallery-card" style="background:#222;border-radius:8px;padding:8px;box-shadow:0 2px 8px #0004;cursor:pointer;max-width:120px;">
+            <img src="../design/red-rising-bookmark/Red_Rising_bookmark.png" alt="Red Rising Bookmark" style="width:100%;border-radius:6px;" loading="lazy" data-popup-src="../design/red-rising-bookmark/Red_Rising_bookmark.png">
+          </div>
+        </div>
+      </section>
+      <aside class="project-details-window" style="flex:1;min-width:320px;max-width:480px;background:linear-gradient(135deg,#181a1f 90%,#23262b 100%);color:#f3f3f3;border-radius:12px;padding:2rem;box-shadow:0 2px 12px #0005;">
+        <h2 style="margin-top:0;">Project Details</h2>
+        <p><strong>Title:</strong> Red Rising Bookmark</p>
+        <p><strong>Summary:</strong> 3D printable bookmark inspired by the Red Rising series. Includes model file.</p>
+        <p><strong>Date:</strong> 2025-10-23</p>
+        <p><strong>Tags:</strong> design, 3d-print, bookmark, red-rising</p>
+        <p><strong>Stack:</strong> CAD, 3D Printing</p>
+        <div class="card-desc">A bookmark design inspired by the Red Rising book series. Designed for 3D printing and daily use.</div>
+      </aside>
+    </div>
+    </main>
+  </div>
+  <footer>
+    <p>&copy; 2025 Noster's Lab</p>
+  </footer>
+  <script>
+    // Nixie clock rendering
+    function updateNixieClock() {
+      const now = new Date();
+      const pad = n => n.toString().padStart(2, '0');
+      const time = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+      document.getElementById('nixie-clock').innerHTML = time.split('').map(c =>
+        c === ':' ? `<span class="nixie-sep">:</span>` : `<span class="nixie-tube">${c}</span>`
+      ).join('');
+    }
+    setInterval(updateNixieClock, 1000);
+    updateNixieClock();
+  </script>
+  <script src="../js/popup.js"></script>
+  <script src="../js/login.js"></script>
+  <script>
+    // Hide download buttons by default, only show if authenticated
+    function setDownloadVisibility(authenticated) {
+      document.querySelectorAll('.download-section').forEach(s => {
+        s.style.display = authenticated ? '' : 'none';
+      });
+    }
+    setDownloadVisibility(false); // Always hide on load
+    (async function(){
+      try {
+        const res = await fetch('http://127.0.0.1:5000/api/auth/me', { credentials: 'include' });
+        const j = await res.json();
+        setDownloadVisibility(!!j.authenticated);
+      } catch (e) { setDownloadVisibility(false); }
+    })();
+    // Listen for logout/login in other tabs
+    window.addEventListener('storage', function() {
+      if (window.localStorage.getItem('loggedIn') !== 'true') setDownloadVisibility(false);
+    });
+  </script>
+</body>
+</html>

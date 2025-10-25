@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" class="theme-cyberpunk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects – Nosters Lab</title>
+  <link rel="stylesheet" href="styles.base.css">
+  <link rel="stylesheet" href="styles.nav.css">
+  <link rel="stylesheet" href="styles.content.css">
+  <link rel="stylesheet" href="styles.utils.css">
+</head>
+<body>
+  <div id="bg-image" class="bg-photo-layer" style="background-image: url('backgrounds/cyberpunk/cyberpunk.png'); background-size: cover; background-position: center;"></div>
+  <header class="menu-bar-wrapper">
+    <nav class="menu-bar" role="navigation" aria-label="Primary">
+      <div style="display: flex; align-items: center; flex: 1; min-width: 0;">
+        <a href="index.html" class="menu-bar-brand-link home-btn" aria-label="Home / Nosters Lab">
+          <span class="menu-bar-brand-text" data-text="Nosters Lab">Nosters Lab</span>
+        </a>
+        <ul class="menu-bar-links">
+          <li><a class="menu-bar-btn" href="projects.html"><span class="menu-bar-btn__plate"><span class="menu-bar-btn__label" data-text="Projects">Projects</span></span></a></li>
+          <li><a class="menu-bar-btn" href="robotics.html"><span class="menu-bar-btn__plate"><span class="menu-bar-btn__label" data-text="Robotics">Robotics</span></span></a></li>
+          <li><a class="menu-bar-btn" href="design.html"><span class="menu-bar-btn__plate"><span class="menu-bar-btn__label" data-text="3D Design">3D Design</span></span></a></li>
+          <li><a class="menu-bar-btn" href="art.html"><span class="menu-bar-btn__plate"><span class="menu-bar-btn__label" data-text="Art">Art</span></span></a></li>
+          <li><a class="menu-bar-btn" href="reviews.html"><span class="menu-bar-btn__plate"><span class="menu-bar-btn__label" data-text="Reviews">Reviews</span></span></a></li>
+          <li><a class="menu-bar-btn" href="thoughts.html"><span class="menu-bar-btn__plate"><span class="menu-bar-btn__label" data-text="Thoughts">Thoughts</span></span></a></li>
+          <li><a class="menu-bar-btn" href="register.html"><span class="menu-bar-btn__plate"><span class="menu-bar-btn__label" data-text="Register">Register</span></span></a></li>
+          <li><a class="menu-bar-btn" href="#"><span class="menu-bar-btn__plate"><span class="menu-bar-btn__label" data-text="Login/Logout">Login/Logout</span></span></a></li>
+        </ul>
+  </div>
+  <div class="nixie-clock" id="nixie-clock"></div>
+    </nav>
+  </header>
+  <div class="main-scroll-area">
+    <div class="main-window-outer-wrap">
+      <main class="content-window" data-reveal>
+        <header class="main-window-header hero-bubble">
+          <h1 class="hero-title">Projects</h1>
+          <h2 class="hero-sub">Robotics, electronics, and build logs</h2>
+        </header>
+        <div class="cards-window">
+          <section class="main-window-section">
+            <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4" style="list-style:none;padding:0;">
+              <!-- Project cards: update/add as needed -->
+            <li>
+              <a href="projects/watch-2-0.html" class="card block">
+                <div class="card-header">
+                  <span class="card-tag projects">projects</span>
+                  <span class="card-date">2025-10-20</span>
+                </div>
+                <div class="card-title">ESP32 Watch 2.0</div>
+                <img src="projects/watch-2-0/1000008110.jpg" alt="ESP32 Watch 2.0" class="card-img" loading="lazy" />
+                <div class="card-desc">A custom ESP32-based wearable watch with display, sensors, and wireless connectivity. Includes hardware, firmware, and enclosure design.</div>
+              </a>
+            </li>
+            <li>
+              <a href="projects/hello-world.html" class="block overflow-hidden rounded border border-neutral-300/60 dark:border-neutral-700/70 bg-white/90 dark:bg-neutral-900/85 backdrop-blur-sm shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-amber-500/60">
+                <div class="w-full h-40 bg-neutral-200 dark:bg-neutral-800 flex items-center justify-center text-sm text-neutral-700 dark:text-neutral-300">No image</div>
+                <div class="p-3">
+                  <div class="flex items-center justify-between text-xs text-neutral-700 dark:text-neutral-300">
+                    <span class="inline-flex items-center gap-1">
+                      <span class="inline-block px-2 py-0.5 rounded-full uppercase tracking-wide text-[10px] bg-blue-600 text-white dark:bg-blue-300 dark:text-black">projects</span>
+                    </span>
+                    <span>2025-10-09</span>
+                  </div>
+                  <h2 class="font-bold text-lg mt-1 mb-1">Hello World Tool</h2>
+                  <p class="text-sm">A starter project entry demonstrating the projects section layout.</p>
+                </div>
+              </a>
+            </li>
+          </ul>
+          </section>
+        </div>
+      </main>
+    </div>
+  </div>
+  <footer class="border-t border-neutral-200 dark:border-neutral-800 py-10 text-center text-xs text-neutral-500">© 2025 NostersLab • Csaba / Noster</footer>
+  <script>
+    // Nixie clock rendering
+    function updateNixieClock() {
+      const now = new Date();
+      const pad = n => n.toString().padStart(2, '0');
+      const time = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+      var clock = document.getElementById('nixie-clock');
+      if (clock) {
+        clock.innerHTML = time.split('').map(c =>
+          c === ':' ? `<span class="nixie-sep">:</span>` : `<span class="nixie-tube">${c}</span>`
+        ).join('');
+      }
+    }
+    setInterval(updateNixieClock, 1000);
+    updateNixieClock();
+  </script>
+  <script src="js/login.js"></script>
+</body>
+</html>

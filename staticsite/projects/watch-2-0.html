@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" class="theme-cyberpunk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ESP32 Watch 2.0 – Noster's Lab</title>
+  <link rel="stylesheet" href="../styles.base.css">
+  <link rel="stylesheet" href="../styles.nav.css">
+  <link rel="stylesheet" href="../styles.content.css">
+  <link rel="stylesheet" href="../styles.utils.css">
+</head>
+<body>
+  <div id="bg-image" class="bg-photo-layer" style="background-image: url('../backgrounds/cyberpunk.png'); background-size: cover; background-position: center;"></div>
+  <header class="menu-bar-wrapper">
+    <nav class="menu-bar" role="navigation" aria-label="Primary">
+      <div style="display: flex; align-items: center; flex: 1; min-width: 0;">
+        <a href="../index.html" class="menu-bar-brand-link home-btn" aria-label="Home / Nosters Lab">
+          <span class="menu-bar-brand-text" data-text="Nosters Lab">Nosters Lab</span>
+        </a>
+        <ul class="menu-bar-links">
+          <li><a class="menu-bar-btn" href="../projects.html"><span class="menu-bar-btn__plate"><span class="menu-bar-btn__label" data-text="Projects">Projects</span></span></a></li>
+          <li><a class="menu-bar-btn" href="../robotics.html"><span class="menu-bar-btn__plate"><span class="menu-bar-btn__label" data-text="Robotics">Robotics</span></span></a></li>
+          <li><a class="menu-bar-btn" href="../design.html"><span class="menu-bar-btn__plate"><span class="menu-bar-btn__label" data-text="3D Design">3D Design</span></span></a></li>
+          <li><a class="menu-bar-btn" href="../art.html"><span class="menu-bar-btn__plate"><span class="menu-bar-btn__label" data-text="Art">Art</span></span></a></li>
+          <li><a class="menu-bar-btn" href="../reviews.html"><span class="menu-bar-btn__plate"><span class="menu-bar-btn__label" data-text="Reviews">Reviews</span></span></a></li>
+          <li><a class="menu-bar-btn" href="../thoughts.html"><span class="menu-bar-btn__plate"><span class="menu-bar-btn__label" data-text="Thoughts">Thoughts</span></span></a></li>
+          <li><a class="menu-bar-btn" href="../register.html"><span class="menu-bar-btn__plate"><span class="menu-bar-btn__label" data-text="Register">Register</span></span></a></li>
+          <li><a class="menu-bar-btn" href="../login.html"><span class="menu-bar-btn__plate"><span class="menu-bar-btn__label" data-text="Login/Logout">Login/Logout</span></span></a></li>
+        </ul>
+      </div>
+      <div class="nixie-clock" id="nixie-clock"></div>
+    </nav>
+  </header>
+  <div class="main-scroll-area">
+    <main class="content-window" data-reveal>
+      <header class="main-window-header hero-bubble">
+        <h1 class="hero-title">ESP32 Watch 2.0</h1>
+        <h2 class="hero-sub">Wearable ESP32 OLED Wristwatch Project</h2>
+      </header>
+      <div class="cards-window" style="display: flex; flex-direction: row; gap: 2rem; align-items: flex-start;">
+        <section class="main-window-section" style="flex:1;">
+        <img src="watch-2-0/1000008110.jpg" alt="ESP32 Watch 2.0" style="max-width:100%;border-radius:10px;box-shadow:0 2px 12px #0003;" loading="lazy">
+        <div class="download-section" style="display:none; margin:2em 0 1em 0; text-align:center;">
+          <a class="menu-bar-btn__plate" href="../downloads/projects/esp32-watch/esp32-watch-files.zip" download>
+            <span class="menu-bar-btn__label" data-text="Download All STEP Files (ZIP)">Download All STEP Files (ZIP)</span>
+          </a>
+        </div>
+        <div class="watch-gallery-grid" style="display: flex; flex-wrap: wrap; gap: 1rem; margin-top:2rem;">
+          <div class="gallery-card" style="background:#222;border-radius:8px;padding:8px;box-shadow:0 2px 8px #0004;cursor:pointer;max-width:120px;" onclick="openPopup('watch-2-0/1000008110.jpg')">
+            <img src="watch-2-0/1000008110.jpg" alt="ESP32 Watch 2.0 - 1" style="width:100%;border-radius:6px;" loading="lazy">
+          </div>
+          <div class="gallery-card" style="background:#222;border-radius:8px;padding:8px;box-shadow:0 2px 8px #0004;cursor:pointer;max-width:120px;" onclick="openPopup('watch-2-0/1000008109.jpg')">
+            <img src="watch-2-0/1000008109.jpg" alt="ESP32 Watch 2.0 - 2" style="width:100%;border-radius:6px;" loading="lazy">
+          </div>
+          <div class="gallery-card" style="background:#222;border-radius:8px;padding:8px;box-shadow:0 2px 8px #0004;cursor:pointer;max-width:120px;" onclick="openPopup('watch-2-0/seeed-studio-xiao-esp32s3-the-pi-hut-105461-40385857781955_700x.webp')">
+            <img src="watch-2-0/seeed-studio-xiao-esp32s3-the-pi-hut-105461-40385857781955_700x.webp" alt="ESP32 Watch 2.0 - Seeed Studio XIAO" style="width:100%;border-radius:6px;" loading="lazy">
+          </div>
+        </div>
+      </section>
+      <aside class="project-details-window" style="flex:1;min-width:320px;max-width:480px;background:linear-gradient(135deg,#181a1f 90%,#23262b 100%);color:#f3f3f3;border-radius:12px;padding:2rem;box-shadow:0 2px 12px #0005;">
+        <h2 style="margin-top:0;">Project Details</h2>
+        <p><strong>Date:</strong> 2025-10-20</p>
+        <p><strong>Tags:</strong> wearable, esp32, electronics, project</p>
+        <div class="card-desc">A custom ESP32-based wearable watch with display, sensors, and wireless connectivity. Includes hardware, firmware, and enclosure design.</div>
+        <h3>⚙️ Watch 2.0 — Dieselpunk ESP32 OLED Wristwatch</h3>
+        <p>Watch 2.0 is a handmade wristwatch built around the Seeed Studio XIAO ESP32-S3. It drives a 1.5-inch 128×128 RGB OLED (SSD1351 driver) and runs custom-coded watch faces, including a minimalist dots face and neon face. The board’s built-in Li-ion charging circuit handles power management directly through USB-C, and the firmware provides a Wi-Fi control panel for time sync, brightness, and OTA updates.</p>
+        <p>All code is written in C++ (Arduino) using the Adafruit GFX and Adafruit SSD1351 libraries for smooth, low-level SPI rendering and crisp visual output.</p>
+        <h3>🧩 Hardware Components</h3>
+        <table style="width:100%;margin-bottom:1rem;">
+          <tr><th>Category</th><th>Component</th><th>Notes</th></tr>
+          <tr><td>Microcontroller</td><td>Seeed Studio XIAO ESP32-S3</td><td>Dual-core Xtensa LX7 @ 240 MHz, Wi-Fi + BLE, USB-C, 8 MB flash, 512 KB RAM, integrated Li-ion charging & protection</td></tr>
+          <tr><td>Display</td><td>1.5″ RGB OLED (SSD1351, 128×128)</td><td>SPI interface (VCC, GND, SCK, MOSI, CS, DC, RST)</td></tr>
+          <tr><td>Power Source</td><td>3.7 V Li-ion or Li-poly battery</td><td>100–300 mAh, direct to onboard charger</td></tr>
+          <tr><td>Wiring</td><td>22 AWG silicone wire</td><td>Short flexible runs for SPI and power</td></tr>
+          <tr><td>Insulation</td><td>Kapton tape + silicone thermal pad</td><td>Prevents shorts under OLED, cushions module</td></tr>
+          <tr><td>Enclosure</td><td>Handmade housing</td><td>Compact, dieselpunk look, no CNC required</td></tr>
+        </table>
+        <p><em>(Capacitive touch buttons planned for future revisions.)</em></p>
+        <h3>💡 Display & UI</h3>
+        <ul>
+          <li><strong>Driver:</strong> SSD1351</li>
+          <li><strong>Resolution:</strong> 128 × 128 pixels</li>
+          <li><strong>Color Depth:</strong> 16-bit (65k colors)</li>
+          <li><strong>Interface:</strong> SPI (hardware SPI from XIAO ESP32-S3)</li>
+          <li><strong>Libraries:</strong> Adafruit_GFX, Adafruit_SSD1351, Adafruit_BusIO</li>
+        </ul>
+        <h4>Current Watch Faces</h4>
+        <ul>
+          <li>Dots face — minimalist digital dot clock</li>
+          <li>Neon face — bright segmented digits</li>
+          <li>Numeric face — clean everyday readable style</li>
+        </ul>
+        <h3>🌐 Wi-Fi Control Panel</h3>
+        <ul>
+          <li>Built with ESPAsyncWebServer</li>
+          <li>Hosted directly by the watch — no external app needed</li>
+        </ul>
+        <strong>Features:</strong>
+        <ul>
+          <li>Time sync from phone</li>
+          <li>Brightness control</li>
+          <li>Watch face selection</li>
+          <li>Battery status</li>
+          <li>OTA (Over-the-Air) firmware updates</li>
+          <li>Single-file HTML interface served from PROGMEM</li>
+        </ul>
+        <h3>🔌 Wiring Pinout (example)</h3>
+        <p>See project documentation for full pinout details.</p>
+      </aside>
+      </div>
+    </main>
+  </div>
+  <footer>
+    <p>&copy; 2025 Noster's Lab</p>
+  </footer>
+  <script>
+    // Nixie clock rendering
+    function updateNixieClock() {
+      const now = new Date();
+      const pad = n => n.toString().padStart(2, '0');
+      const time = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+      document.getElementById('nixie-clock').innerHTML = time.split('').map(c =>
+        c === ':' ? `<span class="nixie-sep">:</span>` : `<span class="nixie-tube">${c}</span>`
+      ).join('');
+    }
+    setInterval(updateNixieClock, 1000);
+    updateNixieClock();
+    // Popup enlarge for gallery
+    function openPopup(src) {
+      let popup = document.createElement('div');
+      popup.style.position = 'fixed';
+      popup.style.top = '0';
+      popup.style.left = '0';
+      popup.style.width = '100vw';
+      popup.style.height = '100vh';
+      popup.style.background = 'rgba(0,0,0,0.85)';
+      popup.style.display = 'flex';
+      popup.style.alignItems = 'center';
+      popup.style.justifyContent = 'center';
+      popup.style.zIndex = '9999';
+      popup.onclick = function() { document.body.removeChild(popup); };
+      let img = document.createElement('img');
+      img.src = src;
+      img.style.maxWidth = '90vw';
+      img.style.maxHeight = '90vh';
+      img.style.borderRadius = '12px';
+      img.style.boxShadow = '0 4px 32px #000a';
+      popup.appendChild(img);
+      document.body.appendChild(popup);
+    }
+  </script>
+  <script src="../js/login.js"></script>
+  <script>
+    // Hide download buttons by default, only show if authenticated
+    function setDownloadVisibility(authenticated) {
+      document.querySelectorAll('.download-section').forEach(s => {
+        s.style.display = authenticated ? '' : 'none';
+      });
+    }
+    setDownloadVisibility(false); // Always hide on load
+    (async function(){
+      try {
+        const res = await fetch('http://127.0.0.1:5000/api/auth/me', { credentials: 'include' });
+        const j = await res.json();
+        setDownloadVisibility(!!j.authenticated);
+      } catch (e) { setDownloadVisibility(false); }
+    })();
+    // Listen for logout/login in other tabs
+    window.addEventListener('storage', function() {
+      // If logged out, hide download buttons
+      if (window.localStorage.getItem('loggedIn') !== 'true') setDownloadVisibility(false);
+    });
+  </script>
+</body>
+</html>

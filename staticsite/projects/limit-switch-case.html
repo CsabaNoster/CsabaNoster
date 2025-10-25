@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" class="theme-cyberpunk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Limit Switch Case – Noster's Lab</title>
+  <link rel="stylesheet" href="../styles.base.css">
+  <link rel="stylesheet" href="../styles.nav.css">
+  <link rel="stylesheet" href="../styles.content.css">
+  <link rel="stylesheet" href="../styles.utils.css">
+</head>
+<body>
+  <div id="bg-image" class="bg-photo-layer" style="background-image: url('../backgrounds/cyberpunk.png'); background-size: cover; background-position: center;"></div>
+  <header class="menu-bar-wrapper">
+    <nav class="menu-bar" role="navigation" aria-label="Primary">
+      <div style="display: flex; align-items: center; flex: 1; min-width: 0;">
+        <a href="../index.html" class="menu-bar-brand-link home-btn" aria-label="Home / Nosters Lab">
+          <span class="menu-bar-brand-text" data-text="Nosters Lab">Nosters Lab</span>
+        </a>
+        <ul class="menu-bar-links">
+          <li><a class="menu-bar-btn" href="../projects.html"><span class="menu-bar-btn__plate"><span class="menu-bar-btn__label" data-text="Projects">Projects</span></span></a></li>
+          <li><a class="menu-bar-btn" href="../robotics.html"><span class="menu-bar-btn__plate"><span class="menu-bar-btn__label" data-text="Robotics">Robotics</span></span></a></li>
+          <li><a class="menu-bar-btn" href="../design.html"><span class="menu-bar-btn__plate"><span class="menu-bar-btn__label" data-text="3D Design">3D Design</span></span></a></li>
+          <li><a class="menu-bar-btn" href="../art.html"><span class="menu-bar-btn__plate"><span class="menu-bar-btn__label" data-text="Art">Art</span></span></a></li>
+          <li><a class="menu-bar-btn" href="../reviews.html"><span class="menu-bar-btn__plate"><span class="menu-bar-btn__label" data-text="Reviews">Reviews</span></span></a></li>
+          <li><a class="menu-bar-btn" href="../thoughts.html"><span class="menu-bar-btn__plate"><span class="menu-bar-btn__label" data-text="Thoughts">Thoughts</span></span></a></li>
+          <li><a class="menu-bar-btn" href="../register.html"><span class="menu-bar-btn__plate"><span class="menu-bar-btn__label" data-text="Register">Register</span></span></a></li>
+          <li><a class="menu-bar-btn" href="../login.html"><span class="menu-bar-btn__plate"><span class="menu-bar-btn__label" data-text="Login/Logout">Login/Logout</span></span></a></li>
+        </ul>
+      </div>
+      <div class="nixie-clock" id="nixie-clock"></div>
+    </nav>
+  </header>
+  <div class="main-scroll-area">
+    <main class="content-window" data-reveal>
+    <header class="main-window-header hero-bubble">
+      <h1 class="hero-title">Limit Switch Case</h1>
+      <h2 class="hero-sub">Protective enclosure and PCB for end‑stop sensing</h2>
+    </header>
+    <div class="cards-window" style="display: flex; flex-direction: row; gap: 2rem; align-items: flex-start;">
+      <section class="main-window-section" style="flex:1;">
+        <img src="../robotics/limit-switch-case/Preview1.jpeg" alt="Limit Switch Case" style="max-width:100%;border-radius:10px;box-shadow:0 2px 12px #0003;" loading="lazy">
+        <div class="watch-gallery-grid" style="display: flex; flex-wrap: wrap; gap: 1rem; margin-top:2rem;">
+          <div class="gallery-card" style="background:#222;border-radius:8px;padding:8px;box-shadow:0 2px 8px #0004;cursor:pointer;max-width:120px;" onclick="openPopup('../robotics/limit-switch-case/LimitSwitchBoard.png')">
+            <img src="../robotics/limit-switch-case/LimitSwitchBoard.png" alt="Limit Switch Case - 1" style="width:100%;border-radius:6px;" loading="lazy">
+          </div>
+          <div class="gallery-card" style="background:#222;border-radius:8px;padding:8px;box-shadow:0 2px 8px #0004;cursor:pointer;max-width:120px;" onclick="openPopup('../robotics/limit-switch-case/Preview1.jpeg')">
+            <img src="../robotics/limit-switch-case/Preview1.jpeg" alt="Limit Switch Case - 2" style="width:100%;border-radius:6px;" loading="lazy">
+          </div>
+        </div>
+      </section>
+      <aside class="project-details-window" style="flex:1;min-width:320px;max-width:480px;background:linear-gradient(135deg,#181a1f 90%,#23262b 100%);color:#f3f3f3;border-radius:12px;padding:2rem;box-shadow:0 2px 12px #0005;">
+        <h2 style="margin-top:0;">Project Details</h2>
+        <p><strong>Date:</strong> 2025-10-21</p>
+        <p><strong>Tags:</strong> robotics, limit switch, enclosure</p>
+        <div class="card-desc">Protective enclosure and PCB for reliable end‑stop sensing on the arm. See gallery for board and preview images.</div>
+        <h3>Features</h3>
+        <ul>
+          <li>PCB for limit switch</li>
+          <li>Protective enclosure</li>
+          <li>Preview images included</li>
+        </ul>
+      </aside>
+    </div>
+    </main>
+  </div>
+  <footer>
+    <p>&copy; 2025 Noster's Lab</p>
+  </footer>
+  <script>
+    // Nixie clock rendering
+    function updateNixieClock() {
+      const now = new Date();
+      const pad = n => n.toString().padStart(2, '0');
+      const time = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+      document.getElementById('nixie-clock').innerHTML = time.split('').map(c =>
+        c === ':' ? `<span class=\"nixie-sep\">:</span>` : `<span class=\"nixie-tube\">${c}</span>`
+      ).join('');
+    }
+    setInterval(updateNixieClock, 1000);
+    updateNixieClock();
+    // Popup enlarge for gallery
+    function openPopup(src) {
+      let popup = document.createElement('div');
+      popup.style.position = 'fixed';
+      popup.style.top = '0';
+      popup.style.left = '0';
+      popup.style.width = '100vw';
+      popup.style.height = '100vh';
+      popup.style.background = 'rgba(0,0,0,0.85)';
+      popup.style.display = 'flex';
+      popup.style.alignItems = 'center';
+      popup.style.justifyContent = 'center';
+      popup.style.zIndex = '9999';
+      popup.onclick = function() { document.body.removeChild(popup); };
+      let img = document.createElement('img');
+      img.src = src;
+      img.style.maxWidth = '90vw';
+      img.style.maxHeight = '90vh';
+      img.style.borderRadius = '12px';
+      img.style.boxShadow = '0 4px 32px #000a';
+      popup.appendChild(img);
+      document.body.appendChild(popup);
+    }
+  </script>
+  <script src="../js/login.js"></script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+/* Utility classes, animations, and media queries extracted from styles.css */
+.side-nav-arrow--left { left: -3.5rem; }
+.side-nav-arrow--right { right: -3.5rem; }
+@media (max-width: 1280px) {
+	.side-nav-arrow--left { left: -2.2rem; }
+	.side-nav-arrow--right { right: -2.2rem; }
+}
+@media (max-width: 1024px) {
+	.side-nav-arrow { display: none !important; }
+}
+.side-nav-arrow .steam-btn {
+	min-width: 2.8rem;
+	min-height: 2.8rem;
+	padding: 0.5rem 0.7rem;
+	font-size: 1.7rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+/* Utility classes, animations, and media queries */
+/* ...to be filled with utility classes, keyframes, and global media queries from styles.css... */

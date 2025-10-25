@@ -1,0 +1,50 @@
+/*
+ * PATCH: Make menu bar buttons and home button larger, nearly filling the menu bar height
+ * To apply: Replace the .menu-bar, .menu-bar-btn__plate, and .menu-bar-brand-link rules in styles.nav.css with these.
+ */
+.menu-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+  min-height: 3.8em;
+  padding: 0.3em 2rem;
+  background: rgba(10, 20, 40, 0.85);
+  border: 3px solid #00fff7;
+  border-radius: 2.5em;
+  box-shadow:
+    0 0 24px 4px #00fff7cc,
+    0 0 48px 12px #00fff7cc,
+    0 0 72px 24px #3a8ad8aa,
+    0 0 0 2px #3a8ad8 inset;
+}
+.menu-bar-btn__plate {
+  display: flex;
+  align-items: center;
+  height: 2.8em;
+  background: rgba(10, 20, 40, 0.92);
+  border: 2.5px solid #00fff7;
+  border-radius: 2em;
+  box-shadow:
+    0 0 6px 1px #00fff7aa,
+    0 0 0 2px #3a8ad8 inset;
+  padding: 0 1.5em;
+  transition: box-shadow 0.18s, border-color 0.18s;
+}
+.menu-bar-brand-link {
+  display: flex;
+  align-items: center;
+  height: 2.8em;
+  background: rgba(10, 20, 40, 0.92);
+  border: 2.5px solid #00fff7;
+  border-radius: 2em;
+  box-shadow:
+    0 0 6px 1px #00fff7aa,
+    0 0 0 2px #3a8ad8 inset;
+  padding: 0 1.5em;
+  margin-right: 1.2rem;
+  transition: box-shadow 0.18s, border-color 0.18s;
+}
