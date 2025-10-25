@@ -1,8 +1,0 @@
-{
-  "name": "@test/astro-dev-http2",
-  "version": "0.0.1",
-  "private": true,
-  "dependencies": {
-    "astro": "workspace:*"
-  }
-}

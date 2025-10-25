@@ -1,4 +1,0 @@
-/* Just mentioning import.meta.env is enough to trigger this */
-body {
-	background-color: red;
-}

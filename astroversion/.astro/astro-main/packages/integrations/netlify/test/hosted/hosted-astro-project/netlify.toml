@@ -1,3 +1,0 @@
-[build]
-command = "pnpm run --filter @test/netlify-hosted-astro-project... build"
-publish = "/packages/netlify/test/hosted/hosted-astro-project/dist"
